@@ -30,17 +30,10 @@ public class HellowServer {
 			salida = new DataOutputStream(socket.getOutputStream());
 			entrada = new DataInputStream(socket.getInputStream());
 			salida.writeUTF("conexion aceptada");
+			
 			System.out.println("cliente conectado");
 			System.out.println("datos recibidos");
-			String menu = "\n1. Sumar.\r\n"
-					+ "2. Restar.\r\n"
-					+ "3. Multiplicar.\r\n"
-					+ "4. Terminar.\r\n";
-			salida.writeUTF(menu);
 			menu();
-//			for(int i = 0; i < 5; i++){
-//				model.addWord(entrada.readUTF());
-//			}
 			System.out.println("frase completa " + model.getPhrase());
 			System.out.println("fin de la transmision");
 			salida.writeUTF("datos recibidos exitosamente");
@@ -50,40 +43,70 @@ public class HellowServer {
 	
 	public void menu() throws IOException {
 		
-		String option = "";
+		int option = 5;
 		do {
-//			
-//			salida.writeUTF("Digite la opcion desea: ");
-			option = entrada.readUTF();
+			String menu = "Seleccione una opcion";
+			salida.writeUTF(menu);
+			option = Integer.parseInt(entrada.readUTF());
 			switch(option) {
-				case "1":
+				case 1:
 					add() ;
 					break;
-				case "2":
+				case 2:
 					Subtraction();
 					break;
-				case "3":
+				case 3:
 					Multiplication() ;
 					break;
+				case 4:
+					divide() ;
+					break;	
 				default:
-					salida.writeUTF("Seleccione una opción correcta");
+					salida.writeUTF("Seleccione nuevamente la opcion");
 					break;
 			}
-		}while(option != "4");
-		salida.writeUTF("4");
+		}while(option != 5);
+		entrada.readUTF();
 	}
 	
 	public void add() throws IOException {
-		salida.writeUTF("Digite los números que desea sumar");
-		salida.writeUTF("Resultado: "+calculator.toAdd(entrada.readUTF(), entrada.readUTF()));
+		salida.writeUTF("Digite el primer número");
+		String num1 = entrada.readUTF();
+		salida.writeUTF("Digite el segundo número");
+		String num2 = entrada.readUTF();
+		salida.writeUTF("Resultado de la suma: "+calculator.toAdd(num1, num2)
+			+" \n Precione enter para continuar");
+		entrada.readUTF();
 	}
 	
-	public void Subtraction() {
-		
+	public void Subtraction() throws IOException {
+		salida.writeUTF("Digite el primer número");
+		String num1 = entrada.readUTF();
+		salida.writeUTF("Digite el segundo número");
+		String num2 = entrada.readUTF();
+		salida.writeUTF("Resultado de la resta: "+calculator.toSubtraction(num1, num2)
+			+" \n Precione enter para continuar");
+		entrada.readUTF();
 	}
 	
-	public void Multiplication() {
-		
+	public void Multiplication() throws IOException {
+		salida.writeUTF("Digite el primer número");
+		String num1 = entrada.readUTF();
+		salida.writeUTF("Digite el segundo número");
+		String num2 = entrada.readUTF();
+		salida.writeUTF("Resultado de la Multiplicación: "+calculator.toMultiplication(num1, num2)
+			+" \n Precione enter para continuar");
+		entrada.readUTF();
+	}
+	
+	public void divide() throws IOException {
+		salida.writeUTF("Digite el primer número");
+		String num1 = entrada.readUTF();
+		salida.writeUTF("Digite el segundo número");
+		String num2 = entrada.readUTF();
+		salida.writeUTF("Resultado de la Divicion: "+calculator.toDivide(num1, num2)
+			+" \n Precione enter para continuar");
+		entrada.readUTF();
 	}
 	
 	public static void main(String[] args) throws IOException {
