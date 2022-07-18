@@ -34,6 +34,7 @@ public class Login extends JPanel{
 		double heightMainPanel = 600;
 		double widthMainPanel = 1000;
 		spaceLogin = new JPanel();
+		spaceLogin.setLayout(new GridBagLayout());
 		spaceLogin.setBackground(new Color(20,85,52));
 		c.gridheight= 1;
 		c.gridwidth =2;
@@ -41,7 +42,7 @@ public class Login extends JPanel{
 		c.gridy =0;
 		//add(test,c);
 		c.ipady = 100;
-		c.ipadx =  744;
+		c.ipadx =  740;
 		add(spaceLogin,c);
 		
 		spaceBanner = new JPanel();
@@ -59,6 +60,22 @@ public class Login extends JPanel{
 				500, Image.SCALE_DEFAULT)));
 		spaceBanner.add(banner, BorderLayout.CENTER);
 		
+		GridBagConstraints b = new GridBagConstraints();
+//		b.gridx =0;
+//		b.gridy =0;
+//		b.gridheight= 1;
+//		b.gridwidth =10;
+//		b.ipadx = 10;
+//		spaceLogin.add(new JLabel(), b);
+		b.gridx =2;
+		b.gridy =1;
+		b.gridheight= 1;
+		b.gridwidth =1;
+		b.anchor = GridBagConstraints.NORTHEAST;
+		icon = new JLabel();
+		icon.setIcon(new ImageIcon(new ImageIcon("source/icon.png").getImage().getScaledInstance(50, 
+				50, Image.SCALE_DEFAULT)));
+		spaceLogin.add(icon, b);
 	}
 
 }
