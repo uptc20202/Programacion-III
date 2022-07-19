@@ -24,23 +24,27 @@ public class HellowClient {
 	}
 	public void start() throws IOException, InterruptedException{
 		view.writeString(entrada.readUTF());
+		
 		String option = entrada.readUTF(); 
-		while(!option.equalsIgnoreCase("4")) {
-			view.writeString(option);
-			String option1 = entrada.readUTF();
-			if(option1.equalsIgnoreCase("")) {
-				view.writeString("Esperando respuesta...");
-				salida.writeUTF(view.readString());
-			}else {
-				view.writeString(option1 + " Salida");
-				
+		String menu = "\n1. Sumar.\r\n"
+				+ "2. Restar.\r\n"
+				+ "3. Multiplicar.\r\n"
+				+ "4. Dividir.\r\n"
+				+ "5. Terminar.\r\n";
+		System.out.println(menu);
+		while(!option.equalsIgnoreCase("5")) {
+			if(option.equals("5")) {
+				socket.close();
 			}
-			option = option1;
+			view.writeString(option);
+			salida.writeUTF(view.readString());
+			option = entrada.readUTF();
+			if(option.equals("Seleccione una opcion")) {
+				System.out.println(menu);
+			}
 		};
-//		for(int i = 0; i < 5; i++){
-//			salida.writeUTF(view.readString());
-//		}
-		view.writeString("respuesta del servidor" + entrada.readUTF());
+		view.writeString("respuesta del servidor" +  entrada.readUTF());
+		view.writeString("respuesta del servidor" );
 		socket.close();
 	}
 	

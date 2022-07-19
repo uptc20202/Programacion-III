@@ -19,6 +19,11 @@ public class Calculator {
 	public int toMultiplication(String num1, String num2) {
 		return Integer.parseInt(num1) * Integer.parseInt(num2);
 	}
+
+	public int toDivide(String num1, String num2) {
+		// TODO Auto-generated method stub
+		return Integer.parseInt(num1) / Integer.parseInt(num2);
+	}
 	
 
 }
