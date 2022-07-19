@@ -26,25 +26,26 @@ public class HellowClient {
 		view.writeString(entrada.readUTF());
 		
 		String option = entrada.readUTF(); 
+		String optionUser = "";
 		String menu = "\n1. Sumar.\r\n"
 				+ "2. Restar.\r\n"
 				+ "3. Multiplicar.\r\n"
 				+ "4. Dividir.\r\n"
 				+ "5. Terminar.\r\n";
 		System.out.println(menu);
-		while(!option.equalsIgnoreCase("5")) {
+		while(!optionUser.equalsIgnoreCase("5")) {
 			if(option.equals("5")) {
 				socket.close();
 			}
 			view.writeString(option);
-			salida.writeUTF(view.readString());
+			optionUser = view.readString();
+			salida.writeUTF(optionUser);
 			option = entrada.readUTF();
 			if(option.equals("Seleccione una opcion")) {
 				System.out.println(menu);
 			}
 		};
 		view.writeString("respuesta del servidor" +  entrada.readUTF());
-		view.writeString("respuesta del servidor" );
 		socket.close();
 	}
 	

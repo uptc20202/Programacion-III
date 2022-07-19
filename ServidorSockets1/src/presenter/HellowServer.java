@@ -66,7 +66,6 @@ public class HellowServer {
 					break;
 			}
 		}while(option != 5);
-		entrada.readUTF();
 	}
 	
 	public void add() throws IOException {
