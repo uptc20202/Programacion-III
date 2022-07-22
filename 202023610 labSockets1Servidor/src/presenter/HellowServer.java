@@ -19,6 +19,7 @@ public class HellowServer {
 	public HellowServer() throws IOException {
 		translator = new Translator();
 		serverSocket = new ServerSocket(PUERTO);
+		
 	}
 	
 	public void start() throws IOException{
@@ -39,7 +40,7 @@ public class HellowServer {
 	
 	public void menu() throws IOException {
 		
-		int option = 5;
+		int option = 6;
 		do {
 			String menu = "Seleccione una opcion";
 			salida.writeUTF(menu);
