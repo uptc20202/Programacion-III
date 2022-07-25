@@ -28,17 +28,29 @@ public class ThreadClient extends Thread {
 		System.out.println("cliente conectado");
 		System.out.println("datos recibidos");
 		
+		try {
+			menu();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		System.out.println("fin de la transmision");
+		try {
+			connection.writeUTF("datos recibidos exitosamente");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
+public void menu() throws IOException {
 		
 		int option = 6;
-		try {
 		do {
 			String menu = "Seleccione una opcion";
-			
 			connection.writeUTF(menu);
-			
-			option = connection.readInt();
+			option = Integer.parseInt(connection.readUTF());
 			switch(option) {
 			case 1:
 				translateToEnglish();
@@ -61,20 +73,8 @@ public class ThreadClient extends Thread {
 				break;
 			}
 		}while(option != 6);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("fin de la transmision");
-		try {
-			connection.writeUTF("datos recibidos exitosamente");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
-	
+
 	public void translateToEnglish() throws IOException {
 		connection.writeUTF("Digite la palabra que desea traducir");
 		String word = translator.searchTranslate(connection.readUTF(), 1);
