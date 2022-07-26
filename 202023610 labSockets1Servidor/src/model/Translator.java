@@ -1,6 +1,6 @@
 package model;
 
-public class Translator {
+public class Translator extends Subject{
 	
 	private Dictionary dictionarySF;
 	private Dictionary dictionarySE;

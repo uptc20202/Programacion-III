@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import resource.BynaryTreeSearch;
 
-public class Dictionary {
+public class Dictionary  {
 	
 	private BynaryTreeSearch<Translate> words;
 	
