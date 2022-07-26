@@ -117,6 +117,45 @@ public class BynaryTreeSearch<T> {
         }
 	}
 	
+	public ArrayList<T> showInorderBy(Comparator comparator, T param) {
+		ArrayList<T> sheet = new ArrayList<T>();
+		if(isEmply()) {
+			return sheet;
+		}
+		
+		if(root.getLeft()!=null){
+			showInorderBy(root.getLeft(), sheet, param);
+        }
+		
+		if(comparator.compare(root, new Node(param))==0) {
+			sheet.add(root.getData());
+		}
+		
+		if(root.getRight()!=null){
+			showInorderBy(root.getRight(), sheet, param);
+        }
+		
+		return sheet;
+	}
+	
+	private void showInorderBy(Node<T> node, ArrayList<T> sheet,T param) {
+		ArrayList<T> sheet1 = sheet;
+		
+		if(node.getLeft()!= null){
+			showInorderBy(node.getLeft(), sheet1, param);
+		}
+		
+		if(comparator.compare(node, new Node(param))==0) {
+			sheet1.add(node.getData());
+		}
+		
+		if(node.getRight()!= null){
+			showInorderBy(node.getRight(), sheet1, param);
+        }
+	}
+	
+	
+	
 	public ArrayList<T> showPostorder() {
 		ArrayList<T> sheet = new ArrayList<T>();
 		

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Comparator;
+
 import resource.BynaryTreeSearch;
 import resource.Queve;
 
@@ -9,6 +11,32 @@ public class User {
 	private String password;
 	private BynaryTreeSearch<Auction> sales;
 	private Queve<Auction> buys;
+	
+	
+	
+	public User(String name, String nickname, String password) {
+		super();
+		this.name = name;
+		this.nickname = nickname;
+		this.password = password;
+		this.sales = new BynaryTreeSearch<Auction>(new Comparator<Auction>() {
+            @Override
+            public int compare(Auction t1, Auction	 t2) {
+                return t1.getTitle().compareToIgnoreCase(t2.getTitle());
+            }
+        });
+		this.buys = new Queve<Auction>();
+	}
+	
+	
+	
+	public User(String nickname) {
+		super();
+		this.nickname = nickname;
+	}
+
+
+
 	public String getName() {
 		return name;
 	}

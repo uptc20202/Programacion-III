@@ -10,23 +10,23 @@ public class Queve<T> implements Iterable<T>{
 			front = new Node<T>(data);
 		}else{
 			Node<T> aux = front;
-			while(aux.getNext() != null) {
-				aux = aux.getNext();
+			while(aux.getRight() != null) {
+				aux = aux.getRight();
 				
 			}
-			aux.setNext(new Node<T>(data));
-			aux.getNext().setBack(aux);
+			aux.setRight(new Node<T>(data));
+			aux.getRight().setLeft(aux);
 		}
 	}
 	
 	public T poll() {
 		Node<T> aux = front;
-		front = aux.getNext();
-		return aux.getValue();
+		front = aux.getRight();
+		return aux.getData();
 	}
 	
 	public T peek() {
-		return front.getValue();
+		return front.getData();
 	}
 	
 	public boolean isEmply() {
@@ -35,11 +35,11 @@ public class Queve<T> implements Iterable<T>{
 	
 	public boolean exist(T data) {
 		Node<T> aux = front;
-		while(aux.getNext()!=null) {
-			if(aux.getValue() == data) {
+		while(aux.getRight()!=null) {
+			if(aux.getData() == data) {
 				return true;
 			}
-			aux = aux.getNext();
+			aux = aux.getRight();
 		}
 		return false;
 	}
@@ -57,8 +57,8 @@ public class Queve<T> implements Iterable<T>{
 			@Override
 			public T next() {
 				// TODO Auto-generated method stub
-				T data = actual.getValue();
-				actual = actual.getNext();
+				T data = actual.getData();
+				actual = actual.getRight();
 				return data;
 			}
 			
