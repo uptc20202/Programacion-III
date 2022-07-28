@@ -1,4 +1,4 @@
-package login;
+package home;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

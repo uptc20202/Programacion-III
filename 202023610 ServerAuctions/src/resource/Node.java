@@ -2,6 +2,7 @@ package resource;
 
 public class Node <T> {
 	private T data;
+	private int fe;
 	private Node<T> left;
 	private Node<T> right;
 	
@@ -9,6 +10,7 @@ public class Node <T> {
 	public Node(T data) {
 		super();
 		this.data = data;
+		this.fe = 0;
 	}
 	
 	public T getData() {
@@ -29,6 +31,16 @@ public class Node <T> {
 	public void setRight(Node<T> rigth) {
 		this.right = rigth;
 	}
+	
+	
+
+	public int getFe() {
+		return fe;
+	}
+
+	public void setFe(int fe) {
+		this.fe = fe;
+	}
 
 	@Override
 	public String toString() {
@@ -37,5 +49,3 @@ public class Node <T> {
 	
 	
 }
-
-

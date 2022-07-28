@@ -5,12 +5,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-import login.Login;
+import home.Landing;
+import home.Login;
 
 public class MainPanel extends JPanel{
 	
 	private CardLayout cl;
 	private Login login;
+	private Landing landing;
 	
 	public MainPanel(ActionListener listener) {
 		initComponents(listener);
@@ -18,11 +20,13 @@ public class MainPanel extends JPanel{
 	
 	private void initComponents(ActionListener listener) {
 		login = new Login(listener);
+		landing = new Landing(listener);
 		this.setLayout(new CardLayout());
 		add(login, "login");
+		add(landing, "home");
 		
 		cl = (CardLayout)(this.getLayout());
-		cl.show(this, "login");
+		cl.show(this, "home");
 		
 	}
 	
@@ -31,8 +35,8 @@ public class MainPanel extends JPanel{
 			case "login":
 				cl.show(this, "login");
 				break;
-			case "homeStudent":
-				cl.show(this, "homeStudent");
+			case "home":
+				cl.show(this, "home");
 				break;
 			case "register":
 				cl.show(this, "register");

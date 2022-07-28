@@ -3,11 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import resource.BynaryTreeSearch;
+import resource.AVLTree;
+import resource.Queve;
 
 public class Store {
-	private BynaryTreeSearch<Auction> sales;
-	private BynaryTreeSearch<User> users;
+	private AVLTree<Auction> sales;
+	private AVLTree<User> users;
 	private int idConsecutive;
 	
 	
@@ -15,7 +16,7 @@ public class Store {
 	public Store() {
 		super();
 		idConsecutive = 1;
-		this.sales = new BynaryTreeSearch<Auction>(new Comparator<Auction>() {
+		this.sales = new AVLTree<Auction>(new Comparator<Auction>() {
 
 			@Override
 			public int compare(Auction o1, Auction o2) {
@@ -24,7 +25,7 @@ public class Store {
 			}
 			
 		});
-		this.users = new BynaryTreeSearch<User>(new Comparator<User>() {
+		this.users = new AVLTree<User>(new Comparator<User>() {
 
 			@Override
 			public int compare(User o1, User o2) {
@@ -35,9 +36,20 @@ public class Store {
 		});
 	}
 	
-	public void sourceBidInAuction(String nickname) {
+	public Queve<Auction> sourceBidInAuction(String nickname) {
+		Queve<Auction> acuctionByBid = new Queve<Auction>();
+		
 		ArrayList<Auction> sales1 = sales.showInorder();
-		if()
+		for(Auction auction : sales1) {
+			ArrayList<Bid> bids1 = auction.getBids().showInorder();
+			for(Bid bid: bids1) {
+				if(bid.getUser().getNickname().equalsIgnoreCase(nickname)) {
+					acuctionByBid.push(auction);
+				}
+			}
+		}
+		
+		return acuctionByBid;
 	}
 
 	public void stopAuction(int id){

@@ -1,13 +1,13 @@
 package model;
 
-import resource.BynaryTreeSearch;
+import resource.AVLTree;
 
 public class Auction {
 	private String title, description, author;
 	private Long minimumBid;
 	private int type, id;
 	private boolean status;
-	private BynaryTreeSearch<Bid> bids;
+	private AVLTree<Bid> bids;
 	
 	public Auction(String title, int id, String description, Long minimumBid, int type) {
 		super();
@@ -99,7 +99,7 @@ public class Auction {
 
 
 
-	public BynaryTreeSearch<Bid> getBids() {
+	public AVLTree<Bid> getBids() {
 		return bids;
 	}
 
@@ -111,7 +111,7 @@ public class Auction {
 
 
 
-	public void setBids(BynaryTreeSearch<Bid> bids) {
+	public void setBids(AVLTree<Bid> bids) {
 		this.bids = bids;
 	}
 	

@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import login.Login;
+import home.Login;
 
 public class CalculateView extends JFrame{
 	
-	private Login panel;
+	private MainPanel panel;
 	
 	public CalculateView(ActionListener listener) {
 		super("Auction");
@@ -24,7 +24,7 @@ public class CalculateView extends JFrame{
 	}
 
 	private void initComponents(ActionListener listener) {
-		panel = new Login(listener);
+		panel = new MainPanel(listener);
 		this.setContentPane(panel);
 		
 	}
