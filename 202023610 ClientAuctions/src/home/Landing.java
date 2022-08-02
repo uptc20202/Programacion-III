@@ -103,6 +103,8 @@ public class Landing extends JPanel implements MouseListener{
 		ImageIcon imgDue1 = new ImageIcon("source/menu/buttonSubastar.png");
 		button2.setIcon(new ImageIcon(imgDue1.getImage().getScaledInstance(90, 
 				22, Image.SCALE_SMOOTH)));
+		button2.setActionCommand("postAuctionWindow");
+		button2.addActionListener(listener);
 		menu.add(button2);
 		
 		
@@ -315,6 +317,12 @@ public class Landing extends JPanel implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	
+	public void setVisibleToAuction(Boolean result) {
+		toAuction.setVisible(result);
 	}
 
 	public void fillTable(String datasTable) {

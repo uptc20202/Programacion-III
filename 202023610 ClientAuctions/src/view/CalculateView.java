@@ -60,4 +60,10 @@ public class CalculateView extends JFrame{
 		// TODO Auto-generated method stub
 		return panel.getTxtPasswordRegister();
 	}
+
+	public void setVisibleToAuction(boolean b) {
+		// TODO Auto-generated method stub
+		panel.setVisibleToAuction();
+		
+	}
 }

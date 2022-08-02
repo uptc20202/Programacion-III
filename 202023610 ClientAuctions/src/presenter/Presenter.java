@@ -69,7 +69,7 @@ public class Presenter implements ActionListener{
 			
 		}
 		if(command.equals("postAuctionWindow")) {
-			
+			view.setVisibleToAuction(true);
 		}
 	}
 	

@@ -58,7 +58,7 @@ public class ToAuction extends JDialog implements ActionListener{
 		txtTitle.setForeground(new Color(14,58,35));
 		panel.add(txtTitle);
 		
-		lbDescription = new JLabel("Digite Titulo de Subasta:");
+		lbDescription = new JLabel("Digite la descripcion:");
 		lbDescription.setAlignmentX(CENTER_ALIGNMENT);
 		lbDescription.setFont(font3.deriveFont(Font.BOLD, 14));
 		lbDescription.setForeground(new Color(14,58,35));
@@ -71,7 +71,7 @@ public class ToAuction extends JDialog implements ActionListener{
 		txtDescription.setForeground(new Color(14,58,35));
 		panel.add(txtDescription);
 		
-		lbValue = new JLabel("Digite Titulo de Subasta:");
+		lbValue = new JLabel("Digite el valor para iniciar la subasta:");
 		lbValue.setAlignmentX(CENTER_ALIGNMENT);
 		lbValue.setFont(font3.deriveFont(Font.BOLD, 14));
 	    lbValue.setForeground(new Color(14,58,35));

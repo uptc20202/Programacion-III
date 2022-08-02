@@ -69,6 +69,11 @@ public class MainPanel extends JPanel{
 		// TODO Auto-generated method stub
 		return register.getTxtPassword();
 	}
+
+	public void setVisibleToAuction() {
+		// TODO Auto-generated method stub
+		landing.setVisibleToAuction(true);
+	}
 	
 	
 }
