@@ -21,7 +21,20 @@ public class HellowClient {
 		socket = new Socket(HOST, PUERTO);
 		salida = new DataOutputStream(socket.getOutputStream());
 		entrada = new DataInputStream(socket.getInputStream());
+		Thread thread = new Thread() {
+			public void run() {
+				while(true) {
+					verify();
+				}
+			}
+		};
+		thread.start();
 	}
+	
+	private void verify() {
+		if()
+	}
+	
 	public void start() throws IOException, InterruptedException{
 		view.writeString(entrada.readUTF());
 		

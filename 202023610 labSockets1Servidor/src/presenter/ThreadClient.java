@@ -3,10 +3,11 @@ package presenter;
 import java.io.IOException;
 import java.net.Socket;
 
+
 import model.Translator;
 import net.Connection;
 
-public class ThreadClient extends Thread {
+public class ThreadClient extends Thread implements Observer {
 	private Translator translator;
 	private Connection connection;
 	
@@ -44,7 +45,7 @@ public class ThreadClient extends Thread {
 		}
 	}
 	
-public void menu() throws IOException {
+	public void menu() throws IOException {
 		
 		int option = 6;
 		do {
@@ -54,6 +55,7 @@ public void menu() throws IOException {
 			switch(option) {
 			case 1:
 				translateToEnglish();
+				translator.notifyObservers();
 				break;
 			case 2:
 				translateToFrench();
@@ -119,6 +121,20 @@ public void menu() throws IOException {
 			+" \n Precione enter para continuar");
 		connection.readUTF();
 	}
+
+	@Override
+	public void update() {
+		//enviar informacion 
+		try {
+			connection.writeInt(99);
+			connection.writeUTF("Valor nuevo en memoria");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
 	
 	
 }
