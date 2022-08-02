@@ -5,21 +5,21 @@ import resource.AVLTree;
 public class Auction {
 	private String title, description, author;
 	private Long minimumBid;
-	private int type, id;
+	private int id;
 	private boolean status;
 	private AVLTree<Bid> bids;
 	
-	public Auction(String title, int id, String description, Long minimumBid, int type) {
+	public Auction(String title, int id, String description, String author, Long minimumBid) {
 		super();
 		this.title = title;
-		this.id = id;
 		this.description = description;
+		this.author = author;
 		this.minimumBid = minimumBid;
-		this.type = type;
+		this.id = id;
 		this.status = true;
 	}
-	
-	
+
+
 
 	public Auction(int id) {
 		super();
@@ -51,10 +51,6 @@ public class Auction {
 		return minimumBid;
 	}
 
-	public int getType() {
-		return type;
-	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -69,10 +65,6 @@ public class Auction {
 
 	public void setMinimumBid(Long minimumBid) {
 		this.minimumBid = minimumBid;
-	}
-
-	public void setType(int type) {
-		this.type = type;
 	}
 
 

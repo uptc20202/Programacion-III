@@ -41,8 +41,23 @@ public class CalculateView extends JFrame{
 		return panel.getTxtPassword();
 	}
 
-	public void fillTable(String datas) {
+	public void fillTable(String datasTable) {
 		// TODO Auto-generated method stub
+		panel.fillTable(datasTable);
 		
+	}
+
+	public String getTxtNameRegister() {
+		return panel.getTxtNameRegister();
+	}
+
+	public String getTxtUserRegister() {
+		// TODO Auto-generated method stub
+		return panel.getTxtUserRegister();
+	}
+
+	public String getTxtPasswordRegister() {
+		// TODO Auto-generated method stub
+		return panel.getTxtUser();
 	}
 }

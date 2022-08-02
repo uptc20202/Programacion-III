@@ -23,19 +23,18 @@ import javax.swing.border.EmptyBorder;
 
 import model.CustomFont;
 
-public class Login extends JPanel{
+public class Register extends JPanel{
 	
 	private JPanel spaceLogin, spaceBanner, buttons;
 	private JLabel banner, icon, line, line2;
-	private JTextField txtUser;
+	private JTextField txtNameUser, txtUser;
 	private JPasswordField txtPassword; 
-	private JButton btnLogin, btnRegister;
-	private Font font, font2;
+	private JButton btnLogin;
+	private Font font;
 
-	public Login(ActionListener listener) {
+	public Register(ActionListener listener) {
 		CustomFont customFont = new CustomFont("source\\font\\HarmoniaSansProCyr-Bold.ttf");
 		font = customFont.customFontStream();
-		font2 = new Font(customFont.customFontStream().getFamily(),TextAttribute.UNDERLINE_ON,Font.BOLD);
 		initComponents(listener);
 		
 	}
@@ -78,6 +77,22 @@ public class Login extends JPanel{
 		icon.setBorder(new EmptyBorder(70,10,40,60));
 		spaceLogin.add(icon);
 
+		
+		txtNameUser = new JTextField("Nombres y Apellidos");
+		txtNameUser.setFont(font.deriveFont(Font.BOLD, 15));
+		txtNameUser.setMaximumSize(new Dimension(300,40));
+		txtNameUser.setBackground(new Color(20,85,52));
+		txtNameUser.setForeground(new Color(255,255,255));
+		txtNameUser.setCaretColor(new Color(255,255,255));
+		txtNameUser.setBorder(new EmptyBorder(10,60,10,0));
+		spaceLogin.add(txtNameUser);
+		
+		JLabel line1 = new JLabel();
+		line1.setIcon(new ImageIcon(new ImageIcon("source/line.png").getImage().getScaledInstance(390, 
+				10, Image.SCALE_DEFAULT)));
+		line1.setBorder(new EmptyBorder(0,0,40,0));
+		spaceLogin.add(line1);
+		
 		txtUser = new JTextField("Usuario");
 		txtUser.setFont(font.deriveFont(Font.BOLD, 15));
 		txtUser.setMaximumSize(new Dimension(300,40));
@@ -106,35 +121,32 @@ public class Login extends JPanel{
 		line2.setIcon(new ImageIcon(new ImageIcon("source/line.png").getImage().getScaledInstance(390, 
 				10, Image.SCALE_DEFAULT)));
 		spaceLogin.add(line2);
-		line2.setBorder(new EmptyBorder(0,0,140,0));
+		line2.setBorder(new EmptyBorder(0,0,85,0));
 		
 		buttons = new JPanel();
 		buttons.setBackground(new Color(20,85,52));
 		buttons.setMaximumSize(new Dimension(330,60));
 		buttons.setAlignmentX(LEFT_ALIGNMENT);
-		spaceLogin.add(buttons);
+		//spaceLogin.add(buttons);
 		
 		btnLogin = new JButton("INICIAR SESIÓN");
 		btnLogin.setFont(font.deriveFont(Font.BOLD, 17));
 		btnLogin.setForeground(new Color(20,85,52));
 		btnLogin.setBackground(new Color(255,255,255));
 		btnLogin.setAlignmentX(LEFT_ALIGNMENT);
-		btnLogin.setActionCommand("login");
+		btnLogin.setActionCommand("login2");
 		btnLogin.addActionListener(listener);
-		buttons.add(btnLogin);
+		spaceLogin.add(btnLogin);
 		
-		btnRegister = new JButton("REGISTRARSE");
-		btnRegister.setAlignmentX(LEFT_ALIGNMENT);
-		btnRegister.setFont(font2.deriveFont(Font.BOLD, 17));
-		btnRegister.setForeground(new Color(55,181,77));
-		btnRegister.setBackground(new Color(20,85,52));
-		btnRegister.setBorder(new EmptyBorder(0,20,0,0));
-		btnRegister.setActionCommand("register");
-		btnRegister.addActionListener(listener);
-		buttons.add(btnRegister);
-		
-		
-		
+	}
+
+	
+	public String getTxtNameUser() {
+		return txtNameUser.getText();
+	}
+
+	public void setTxtNameUser(JTextField txtNameUser) {
+		this.txtNameUser = txtNameUser;
 	}
 
 	public String getTxtUser() {

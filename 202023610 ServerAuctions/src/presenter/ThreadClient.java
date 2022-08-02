@@ -6,6 +6,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import model.Store;
+import model.User;
 import net.Connection;
 
 public class ThreadClient extends Thread implements Observer {
@@ -13,6 +14,7 @@ public class ThreadClient extends Thread implements Observer {
 	
 	private Connection connection;
 	private Store store;
+	private User user;
 	
 	public ThreadClient(Socket socket, Store store) throws UnknownHostException, IOException {
 		this.store = store;
@@ -70,6 +72,7 @@ public void run() {
 				login();
 				break;
 			case 2:
+				register();
 				break;
 			case 3:
 				break;
@@ -86,9 +89,28 @@ public void run() {
 		}while(option != 6);
 	}
 	
+	private void register() throws IOException {
+		String userName = connection.readUTF();
+		String nickname = connection.readUTF();
+		String password = connection.readUTF();
+		store.addUser(userName, nickname, password);
+	}
+
 	public void login() throws IOException {
 		String nickname = connection.readUTF();
 		String password = connection.readUTF();
-		connection.writeBoolean(store.login(nickname, password));
+		if(store.login(nickname, password)) {
+			connection.writeBoolean(true);
+			connection.writeUTF(store.getSalesToString());
+			user = store.searchUsers(nickname);
+			
+			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
+			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
+			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
+			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
+		}else {
+			connection.writeBoolean(false);
+		}
+		
 	}
 }

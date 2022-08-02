@@ -19,14 +19,14 @@ public class Presenter implements ActionListener{
 	public Presenter() throws UnknownHostException, IOException {
     	console = new ViewConsole();
     	connection = new Connection();
-    	Thread thread = new Thread() {
-			public void run() {
-				while(true) {
-					verify();
-				}
-			}
-		};
-		thread.start();
+//    	Thread thread = new Thread() {
+//			public void run() {
+//				while(true) {
+//					verify();
+//				}
+//			}
+//		};
+//		thread.start();
 		view = new CalculateView(this);
     }
 
@@ -52,14 +52,31 @@ public class Presenter implements ActionListener{
 		if(command.equals("exit")) {
 			view.showPanel("login");
 		}
-		
+		if (command.equals("register")) {
+			view.showPanel("register");
+		}
+		if(command.equals("login2")) {
+			try {
+				connection.writeInt(2);
+				connection.writeUTF(view.getTxtNameRegister());
+				connection.writeUTF(view.getTxtUserRegister());
+				connection.writeUTF(view.getTxtPasswordRegister());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			view.showPanel("login");
+			
+		}
 	}
 	
 	private void verify() {
+		
 		try {
 			if(connection.available()) {
+				console.writeString("1paso ");
 				int data = connection.readInt();
-				if(data != 99) {
+				if(data == 99) {
 					console.writeString("paso ");
 				}else {
 //					console.showMessage("memoria cambio " + connection.readInt());

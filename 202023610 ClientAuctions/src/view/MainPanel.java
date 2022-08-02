@@ -7,42 +7,39 @@ import javax.swing.JPanel;
 
 import home.Landing;
 import home.Login;
+import home.Register;
 
 public class MainPanel extends JPanel{
 	
 	private CardLayout cl;
 	private Login login;
+	private Register register;
 	private Landing landing;
+	private ActionListener listener;
 	
 	public MainPanel(ActionListener listener) {
 		initComponents(listener);
+		this.listener = listener;
 	}
 	
 	private void initComponents(ActionListener listener) {
 		login = new Login(listener);
-		landing = new Landing(listener);
+		register = new Register(listener);
 		this.setLayout(new CardLayout());
 		add(login, "login");
-		add(landing, "home");
-		
+		add(register,"register");
 		cl = (CardLayout)(this.getLayout());
 		cl.show(this, "login");
 		
 	}
 	
+	private void generateJframeLanding(ActionListener listener,String datasTable) {
+		landing = new Landing(listener,datasTable,login.getTxtUser());
+		add(landing, "home");
+	}
+	
 	public void showPanel(String option) {
-		switch(option){
-			case "login":
-				cl.show(this, "login");
-				break;
-			case "home":
-				cl.show(this, "home");
-				break;
-			case "register":
-				cl.show(this, "register");
-				break;	
-			
-		}
+		cl.show(this, option);
 	}
 	
 	public String getTxtUser() {
@@ -51,6 +48,21 @@ public class MainPanel extends JPanel{
 
 	public String getTxtPassword() {
 		return login.getTxtPassword();
+	}
+
+	public void fillTable(String datasTable) {
+		// TODO Auto-generated method stub
+		generateJframeLanding(listener,datasTable);
+	}
+
+	public String getTxtNameRegister() {
+		// TODO Auto-generated method stub
+		return register.getTxtNameUser();
+	}
+
+	public String getTxtUserRegister() {
+		// TODO Auto-generated method stub
+		return register.getTxtUser();
 	}
 	
 	

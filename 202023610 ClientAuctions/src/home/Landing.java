@@ -15,6 +15,7 @@ import java.awt.font.TextAttribute;
 import java.awt.print.PrinterException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -39,13 +40,18 @@ public class Landing extends JPanel implements MouseListener{
 	private JLabel icon;
 	private JLabel txtTitle;
 	private JComboBox<String> comboTable;
-	private JScrollPane scrollTable;
+	private JScrollPane scrollOverallTable,scrollUserTable;
 	private Font font,font2, font3;
 	private JButton button1,button2, button3,buttonExit, buttonUser, buttonNofication, buttonOptionUser;
-	private JTable table1;
+	private JTable overallTable,userTable;
 	private CardLayout cl, cl2;
+	private ArrayList<String[]> datasTables; 
+	private String user;
 	
-	public Landing(ActionListener listener) {
+	public Landing(ActionListener listener,String datasTable,String user) {
+		datasTables = new ArrayList<String[]>();
+		fillTable(datasTable);
+		this.user = user;
 		CustomFont customFont = new CustomFont("source\\font\\vremenagroteskbook.otf");
 		font = customFont.customFontStream();
 		CustomFont customFont2 = new CustomFont("source\\font\\vremenagroteskbold.otf");
@@ -53,6 +59,7 @@ public class Landing extends JPanel implements MouseListener{
 		CustomFont customFont3 = new CustomFont("source\\font\\HarmoniaSansProCyr-Light.ttf");
 		font3 = customFont3.customFontStream();
 		initComponents(listener);
+		
 		
 	}
 
@@ -162,6 +169,7 @@ public class Landing extends JPanel implements MouseListener{
 		head.add(buttonOptionUser);
 		optionsMain.add(head,BorderLayout.NORTH);
 		
+		
 		initScreens(listener); 
 		
 		
@@ -182,11 +190,11 @@ public class Landing extends JPanel implements MouseListener{
 		
 		headTable = new JPanel();
 		headTable.setBackground(new Color(255,255,255));
-		headTable.setBorder(new EmptyBorder(30,0,0,0));
+		headTable.setBorder(new EmptyBorder(10,0,10,60));
 		firstScreen.add(headTable);
 		
 		txtTitle = new JLabel("Subastas");
-		txtTitle.setFont(font2.deriveFont(Font.BOLD, 15));
+		txtTitle.setFont(font2.deriveFont(Font.PLAIN, 16));
 		txtTitle.setForeground(new Color(20,85,52));
 		txtTitle.setBorder(new EmptyBorder(0,0,0,450));
 		headTable.add(txtTitle);
@@ -201,19 +209,31 @@ public class Landing extends JPanel implements MouseListener{
 		
 		tablePanel = new JPanel();
 		tablePanel.setLayout(new CardLayout());
-		tablePanel.setBackground(new Color(255,255,255));
-		firstScreen.add(tablePanel);
+		
+		cl2 = (CardLayout)(tablePanel.getLayout());
+		cl2.show(tablePanel, "overallTable");
+		
 		String[] namesColumn = {"ID","TITULO","VALOR DE ENTRADA","  "};
-		Object [][] datas= new Object [1][];
-		table1 = generateTable(datas,namesColumn,listener);
-		scrollTable = new JScrollPane(table1);
-		scrollTable.setBorder(new EmptyBorder(0,60,0,60));
-		scrollTable.setBackground(new Color(255,255,255));
-		firstScreen.add(scrollTable);
+		
+		overallTable = generateTable(fillOverallTable(),namesColumn,listener);
+		scrollOverallTable = new JScrollPane(overallTable);
+		scrollOverallTable.setBorder(new EmptyBorder(30,60,20,60));
+		scrollOverallTable.setBackground(new Color(255,255,255));
+		tablePanel.add(scrollOverallTable,"overallTable");
+		
+		userTable = generateTable(fillUserTable(),namesColumn,listener);
+		scrollUserTable = new JScrollPane(userTable);
+		scrollUserTable.setBorder(new EmptyBorder(30,60,20,60));
+		scrollUserTable.setBackground(new Color(255,255,255));
+		tablePanel.add(scrollUserTable,"userTable");
+		
+		
+		firstScreen.add(tablePanel);
 		
 	}
 	
 	public JTable generateTable(Object [][] datas,String[] namesColumn,ActionListener listener) {
+		
 		DefaultTableModel modelo = new DefaultTableModel(datas,namesColumn){
 		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
 		};
@@ -236,11 +256,15 @@ public class Landing extends JPanel implements MouseListener{
 	public void showOptionsCard(String option) {
 		cl.show(optionsCard, option);
 	}
+	
+	public void showOptionsTables(String option) {
+		cl2.show(tablePanel, option);
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int row = table1.rowAtPoint(e.getPoint());
-		int column = table1.columnAtPoint(e.getPoint());
+		int row = overallTable.rowAtPoint(e.getPoint());
+		int column = overallTable.columnAtPoint(e.getPoint());
 		
 		if (column==3) {
 			validarSeleccionMouse(row);
@@ -276,6 +300,52 @@ public class Landing extends JPanel implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void fillTable(String datasTable) {
+		// TODO Auto-generated method stub
+		String[] newStr = datasTable.split(";");
+		
+		
+        for (String auctions:newStr) {
+        	String[] dataAuctions = auctions.split(",");
+        	datasTables.add(dataAuctions);
+        }
+		
+	}
+	
+	private Object [][] fillOverallTable() {
+		Object[][] datas = new Object [datasTables.size()][];
+		for( int i = 0; i < datasTables.size(); i++) {
+			String[] datas2 = datasTables.get(i);
+			String[] datas3 = new String[3];
+			for( int j = 0; j < datas3.length; j++) {
+				if(datas2.length!=0) {
+        			datas3[j] = datas2[j];
+				}else {
+					datas3[j] = "   ";
+				}	
+        	}
+			datas[i]=datas3;
+		}
+		
+		return datas;
+	}
+	
+	private Object [][] fillUserTable() {
+		Object[][] datas = new Object [datasTables.size()][];
+		for( int i = 0; i < datasTables.size(); i++) {
+			if(datasTables.get(i)[3].equalsIgnoreCase(user)) {
+			String[] datas2 = datasTables.get(i);
+			String[] datas3 = new String[3];
+			for( int j = 0; j < datas3.length; j++) {
+        			datas3[j] = datas2[j];
+        	}
+			datas[i]=datas3;
+			}
+		}	
+		
+		return datas;
+	} 
 	
 	
 	

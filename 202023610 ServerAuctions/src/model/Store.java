@@ -64,8 +64,8 @@ public class Store extends Subject{
 		return searchAuction(id).getStatus();
 	}
 	
-	public void postAuction(String tittle,String description,long minimumBid,int type) {
-		sales.insert(new Auction(tittle, idConsecutive, description, minimumBid, type));
+	public void postAuction(String tittle,String description,long minimumBid,User author) {
+		sales.insert(new Auction(tittle, idConsecutive, description,author.getNickname(), minimumBid));
 		idConsecutive++;
 	}
 	
@@ -91,7 +91,7 @@ public class Store extends Subject{
 	}
 	
 	public boolean login(String nickname,String password) {
-		User user1 = searchStudents(nickname); 
+		User user1 = searchUsers(nickname); 
 		if(user1!=null) {
 			return user1.getPassword().equalsIgnoreCase(password);
 		}
@@ -102,7 +102,7 @@ public class Store extends Subject{
 		return null;
 	}
 	
-	public User searchStudents(String nickname) {
+	public User searchUsers(String nickname) {
 		User user1 = users.search(new Comparator<User>() {
 
 			@Override
@@ -125,6 +125,19 @@ public class Store extends Subject{
 
 	public int getIdConsecutive() {
 		return idConsecutive;
+	}
+	
+	public String getSalesToString() {
+		 StringBuilder sbuilder = new StringBuilder();
+		 System.out.println(sales.showInorder().size() + " total subastas");
+		 for(Auction auction:sales.showInorder()) {
+			 sbuilder.append(auction.getId()+",");
+			 sbuilder.append(auction.getTitle()+",");
+			 sbuilder.append(auction.getMinimumBid()+",");
+			 sbuilder.append(auction.getAuthor()+",");
+			 sbuilder.append(auction.getDescription()+";");
+		 }
+		 return sbuilder.toString();
 	}
 
 	public void setSales(AVLTree<Auction> sales) {
