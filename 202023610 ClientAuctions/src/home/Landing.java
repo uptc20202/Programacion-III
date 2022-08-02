@@ -22,15 +22,18 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import model.CustomFont;
+import view.CalculateView;
 import view.DrawTable;
 
 public class Landing extends JPanel implements MouseListener{
@@ -38,7 +41,7 @@ public class Landing extends JPanel implements MouseListener{
 	private JPanel menu, optionsMain, head, optionsCard;
 	private JPanel firstScreen, headTable, tablePanel;
 	private JLabel icon;
-	private JLabel txtTitle;
+	private JLabel txtTitle, bidTitle, bidDescription,bidValue;
 	private JComboBox<String> comboTable;
 	private JScrollPane scrollOverallTable,scrollUserTable;
 	private Font font,font2, font3;
@@ -47,8 +50,13 @@ public class Landing extends JPanel implements MouseListener{
 	private CardLayout cl, cl2;
 	private ArrayList<String[]> datasTables; 
 	private String user;
+	private JDialog toBid, toAuction;
+	private ActionListener listener;
+	private JTextField bidNew;
+	private CalculateView parent;
 	
-	public Landing(ActionListener listener,String datasTable,String user) {
+	public Landing(ActionListener listener,String datasTable,String user,CalculateView parent) {
+		this.parent = parent;
 		datasTables = new ArrayList<String[]>();
 		fillTable(datasTable);
 		this.user = user;
@@ -58,6 +66,7 @@ public class Landing extends JPanel implements MouseListener{
 		font2 = customFont2.customFontStream();
 		CustomFont customFont3 = new CustomFont("source\\font\\HarmoniaSansProCyr-Light.ttf");
 		font3 = customFont3.customFontStream();
+		this.listener = listener;
 		initComponents(listener);
 		
 		
@@ -169,6 +178,8 @@ public class Landing extends JPanel implements MouseListener{
 		head.add(buttonOptionUser);
 		optionsMain.add(head,BorderLayout.NORTH);
 		
+		toAuction = new ToAuction(parent,true,listener);
+		toAuction.setVisible(false);
 		
 		initScreens(listener); 
 		
@@ -238,6 +249,7 @@ public class Landing extends JPanel implements MouseListener{
 		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
 		};
 		JTable table = new JTable (modelo);
+		table.addMouseListener(this);
 		table.setFont(font3.deriveFont(Font.BOLD, 14));
 		table.setForeground(new Color(14,58,35));
 		Object objeto = table.getColumnModel().getColumn(3);
@@ -263,18 +275,22 @@ public class Landing extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		System.out.println("EventoMouse");
 		int row = overallTable.rowAtPoint(e.getPoint());
 		int column = overallTable.columnAtPoint(e.getPoint());
 		
 		if (column==3) {
-			validarSeleccionMouse(row);
+			validarSelectionMouse(row);
 		}
 		
 	}
 
-	private void validarSeleccionMouse(int row) {
-		// TODO Auto-generated method stub
-		
+	private void validarSelectionMouse(int row) {
+		String title = datasTables.get(row)[1];
+		String Description= datasTables.get(row)[4];
+		String value= datasTables.get(row)[2];
+		ToBid toBid = new ToBid(parent,true,listener,title,Description,value);
+		toBid.setVisible(true);
 	}
 
 	@Override
@@ -315,24 +331,31 @@ public class Landing extends JPanel implements MouseListener{
 	
 	private Object [][] fillOverallTable() {
 		Object[][] datas = new Object [datasTables.size()][];
+		if(datasTables.size()!=0) {
 		for( int i = 0; i < datasTables.size(); i++) {
 			String[] datas2 = datasTables.get(i);
 			String[] datas3 = new String[3];
-			for( int j = 0; j < datas3.length; j++) {
-				if(datas2.length!=0) {
-        			datas3[j] = datas2[j];
-				}else {
-					datas3[j] = "   ";
-				}	
-        	}
+			
+			
+				for( int j = 0; j < datas3.length; j++) {
+				
+        			datas3[j] = 
+        					datas2[j];
+				
+        		}
+				
 			datas[i]=datas3;
 		}
-		
+		}
 		return datas;
 	}
 	
 	private Object [][] fillUserTable() {
+		
 		Object[][] datas = new Object [datasTables.size()][];
+		System.out.println(datasTables.get(0).length);
+		
+		if(datasTables.size()!=0&&datasTables.get(0).length==3) {
 		for( int i = 0; i < datasTables.size(); i++) {
 			if(datasTables.get(i)[3].equalsIgnoreCase(user)) {
 			String[] datas2 = datasTables.get(i);
@@ -343,7 +366,7 @@ public class Landing extends JPanel implements MouseListener{
 			datas[i]=datas3;
 			}
 		}	
-		
+		}
 		return datas;
 	} 
 	

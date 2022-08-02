@@ -129,7 +129,6 @@ public class Store extends Subject{
 	
 	public String getSalesToString() {
 		 StringBuilder sbuilder = new StringBuilder();
-		 System.out.println(sales.showInorder().size() + " total subastas");
 		 for(Auction auction:sales.showInorder()) {
 			 sbuilder.append(auction.getId()+",");
 			 sbuilder.append(auction.getTitle()+",");

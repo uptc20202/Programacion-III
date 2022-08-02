@@ -43,7 +43,7 @@ public class CalculateView extends JFrame{
 
 	public void fillTable(String datasTable) {
 		// TODO Auto-generated method stub
-		panel.fillTable(datasTable);
+		panel.fillTable(datasTable,this);
 		
 	}
 
@@ -58,6 +58,6 @@ public class CalculateView extends JFrame{
 
 	public String getTxtPasswordRegister() {
 		// TODO Auto-generated method stub
-		return panel.getTxtUser();
+		return panel.getTxtPasswordRegister();
 	}
 }

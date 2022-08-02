@@ -19,6 +19,7 @@ public class ThreadClient extends Thread implements Observer {
 	public ThreadClient(Socket socket, Store store) throws UnknownHostException, IOException {
 		this.store = store;
 		store.addUser("Administrador", "admin1", "admin1");
+		store.addUser("user", "Usuario", "Contraseña");
 		connection = new Connection(socket);
 
 	}
@@ -94,20 +95,23 @@ public void run() {
 		String nickname = connection.readUTF();
 		String password = connection.readUTF();
 		store.addUser(userName, nickname, password);
+		System.out.println( store.searchUsers(nickname));
 	}
 
 	public void login() throws IOException {
+		
 		String nickname = connection.readUTF();
 		String password = connection.readUTF();
 		if(store.login(nickname, password)) {
+			user = store.searchUsers(nickname);
+			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
+			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
+			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
+			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
+			
 			connection.writeBoolean(true);
 			connection.writeUTF(store.getSalesToString());
-			user = store.searchUsers(nickname);
 			
-			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
-			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
-			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
-			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
 		}else {
 			connection.writeBoolean(false);
 		}

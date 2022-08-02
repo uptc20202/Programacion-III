@@ -68,6 +68,9 @@ public class Presenter implements ActionListener{
 			view.showPanel("login");
 			
 		}
+		if(command.equals("postAuctionWindow")) {
+			
+		}
 	}
 	
 	private void verify() {
