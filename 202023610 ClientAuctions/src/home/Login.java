@@ -119,7 +119,10 @@ public class Login extends JPanel{
 		btnLogin.setForeground(new Color(20,85,52));
 		btnLogin.setBackground(new Color(255,255,255));
 		btnLogin.setAlignmentX(LEFT_ALIGNMENT);
+		btnLogin.setActionCommand("login");
+		btnLogin.addActionListener(listener);
 		buttons.add(btnLogin);
+		
 		btnRegister = new JButton("REGISTRARSE");
 		btnRegister.setAlignmentX(LEFT_ALIGNMENT);
 		btnRegister.setFont(font2.deriveFont(Font.BOLD, 17));
@@ -132,5 +135,15 @@ public class Login extends JPanel{
 		
 		
 	}
+
+	public String getTxtUser() {
+		return txtUser.getText();
+	}
+
+	public String getTxtPassword() {
+		return String.valueOf(txtPassword.getPassword());
+	}
+	
+	
 
 }

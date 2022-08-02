@@ -182,9 +182,9 @@ public class AVLTree<T> {
         if(comparator.compare(node.getData(), data)==0){
             return node.getData();
         }else{
-            if(comparator.compare(node.getData(),data) > 0){
+            if(comparator.compare(node.getData(),data) < 0){
                 return search(comparator,node.getLeft(),data);
-            }else if(comparator.compare(node.getData(),data) < 0){
+            }else if(comparator.compare(node.getData(),data) > 0){
                 return search(comparator,node.getRight(),data);
             }
         }

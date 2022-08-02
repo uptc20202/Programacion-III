@@ -2,32 +2,35 @@ package presenter;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.Date;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
-import model.Translator;
-import view.ViewConsole;
+import model.Store;
 
 public class Presenter {
+	
 	private final int PORT = 1234;
 	private ServerSocket serverSocket;
-	
-	public Presenter() throws IOException {
-		serverSocket = new ServerSocket(PORT); 
+	private Store store;
+
+
+	public Presenter() throws IOException{
+		serverSocket = new ServerSocket(PORT);
+		store = new Store();
 	}
-	
+
 	public void start() throws IOException {
 		while(true) {
 			Socket socket = serverSocket.accept();
-			new ThreadClient(socket).start();
-			
+			store.addUser("Administrador", "admin", "admin");
+			store.addUser("Administrador", "Usuario", "Contraseña");
+			ThreadClient thread = new ThreadClient(socket, store);
+			store.attach(thread);
+			thread.start();
 		}
 	}
-	
-	public static void main(String [] args) throws UnknownHostException, IOException, InterruptedException {
+
+	public static void main(String[] args) throws IOException {
 		new Presenter().start();
 	}
 
-	
 }

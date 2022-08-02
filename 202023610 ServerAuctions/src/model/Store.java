@@ -6,7 +6,7 @@ import java.util.Comparator;
 import resource.AVLTree;
 import resource.Queve;
 
-public class Store {
+public class Store extends Subject{
 	private AVLTree<Auction> sales;
 	private AVLTree<User> users;
 	private int idConsecutive;
@@ -30,13 +30,13 @@ public class Store {
 			@Override
 			public int compare(User o1, User o2) {
 				// TODO Auto-generated method stub
-				return o1.getNickname().equalsIgnoreCase(o2.getNickname())?1:0;
+				return o1.getNickname().equalsIgnoreCase(o2.getNickname())?0:1;
 			}
 			
 		});
 	}
 	
-	public Queve<Auction> sourceBidInAuction(String nickname) {
+	public Queve<Auction> searchBidInAuction(String nickname) {
 		Queve<Auction> acuctionByBid = new Queve<Auction>();
 		
 		ArrayList<Auction> sales1 = sales.showInorder();
@@ -53,15 +53,15 @@ public class Store {
 	}
 
 	public void stopAuction(int id){
-		sourceAuction(id).setStatus(false);
+		searchAuction(id).setStatus(false);
 	}
 	
 	public void bidUp(User user, int id, Long valueBid) {
-		sourceAuction(id).addBid(new Bid(valueBid,user));
+		searchAuction(id).addBid(new Bid(valueBid,user));
 	}
 	
-	public boolean sourceAuctionStatus(int id) {
-		return sourceAuction(id).getStatus();
+	public boolean searchAuctionStatus(int id) {
+		return searchAuction(id).getStatus();
 	}
 	
 	public void postAuction(String tittle,String description,long minimumBid,int type) {
@@ -69,11 +69,11 @@ public class Store {
 		idConsecutive++;
 	}
 	
-	public ArrayList<Auction> sourceAuctions(){
+	public ArrayList<Auction> searchAuctions(){
 		return sales.showInorder();
 	}
 	
-	public Auction sourceAuction(int id){
+	public Auction searchAuction(int id){
 		Auction auction = sales.search(new Comparator<Auction>() {
 
 			@Override
@@ -91,24 +91,53 @@ public class Store {
 	}
 	
 	public boolean login(String nickname,String password) {
-		User user1 = sourceStudents(nickname); 
-		return user1.getPassword().equalsIgnoreCase(password);
+		User user1 = searchStudents(nickname); 
+		if(user1!=null) {
+			return user1.getPassword().equalsIgnoreCase(password);
+		}
+		return false;
 	}
 	
 	public String generateAlert(String id) {
 		return null;
 	}
 	
-	public User sourceStudents(String nickname) {
+	public User searchStudents(String nickname) {
 		User user1 = users.search(new Comparator<User>() {
 
 			@Override
 			public int compare(User o1, User o2) {
 				// TODO Auto-generated method stub
-				return o1.getNickname().equalsIgnoreCase(o2.getNickname())?1:0;
+				return o1.getNickname().equalsIgnoreCase(o2.getNickname())?0:1;
 			}
 			
 		}, new User(nickname));
 		return user1;
 	}
+
+	public AVLTree<Auction> getSales() {
+		return sales;
+	}
+
+	public AVLTree<User> getUsers() {
+		return users;
+	}
+
+	public int getIdConsecutive() {
+		return idConsecutive;
+	}
+
+	public void setSales(AVLTree<Auction> sales) {
+		this.sales = sales;
+	}
+
+	public void setUsers(AVLTree<User> users) {
+		this.users = users;
+	}
+
+	public void setIdConsecutive(int idConsecutive) {
+		this.idConsecutive = idConsecutive;
+	}
+	
+	
 }

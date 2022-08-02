@@ -50,7 +50,7 @@ public void menu() throws IOException {
 		do {
 			String menu = "Seleccione una opcion";
 			connection.writeUTF(menu);
-			option = Integer.parseInt(connection.readUTF());
+			option = connection.readInt();
 			switch(option) {
 			case 1:
 				translateToEnglish();

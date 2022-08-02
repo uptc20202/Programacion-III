@@ -9,7 +9,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.font.TextAttribute;
+import java.awt.print.PrinterException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -17,23 +20,38 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import model.CustomFont;
+import view.DrawTable;
 
-public class Landing extends JPanel{
+public class Landing extends JPanel implements MouseListener{
 	
-	private JPanel menu, table, options, optionsMain, head, optionsCard;
+	private JPanel menu, optionsMain, head, optionsCard;
+	private JPanel firstScreen, headTable, tablePanel;
 	private JLabel icon;
-	private Font font;
+	private JLabel txtTitle;
+	private JComboBox<String> comboTable;
+	private JScrollPane scrollTable;
+	private Font font,font2, font3;
 	private JButton button1,button2, button3,buttonExit, buttonUser, buttonNofication, buttonOptionUser;
+	private JTable table1;
 	private CardLayout cl, cl2;
 	
 	public Landing(ActionListener listener) {
 		CustomFont customFont = new CustomFont("source\\font\\vremenagroteskbook.otf");
 		font = customFont.customFontStream();
+		CustomFont customFont2 = new CustomFont("source\\font\\vremenagroteskbold.otf");
+		font2 = customFont2.customFontStream();
+		CustomFont customFont3 = new CustomFont("source\\font\\HarmoniaSansProCyr-Light.ttf");
+		font3 = customFont3.customFontStream();
 		initComponents(listener);
 		
 	}
@@ -91,6 +109,8 @@ public class Landing extends JPanel{
 		buttonExit.setIcon(new ImageIcon(imgDue3.getImage().getScaledInstance(55, 
 				22, Image.SCALE_SMOOTH)));
 		buttonExit.setAlignmentY(BOTTOM_ALIGNMENT);
+		buttonExit.setActionCommand("exit");
+		buttonExit.addActionListener(listener);
 		menu.add(buttonExit);
 		
 		
@@ -100,12 +120,7 @@ public class Landing extends JPanel{
 		optionsMain.setLayout(new BorderLayout());
 		add(optionsMain, BorderLayout.CENTER);
 		
-		optionsCard = new JPanel();
-		optionsCard.setLayout(new CardLayout());
-		optionsMain.add(optionsCard, BorderLayout.CENTER);
 		
-		cl = (CardLayout)(this.getLayout());
-		cl.show(this, "homeOptions");
 		
 		head = new JPanel();
 		head.setBorder(new EmptyBorder(2,750,2,2));
@@ -145,29 +160,123 @@ public class Landing extends JPanel{
 		buttonOptionUser.setAlignmentX(RIGHT_ALIGNMENT);
 		buttonOptionUser.setAlignmentY(CENTER_ALIGNMENT);
 		head.add(buttonOptionUser);
-		
 		optionsMain.add(head,BorderLayout.NORTH);
 		
-		options = new JPanel();
-		options.setLayout(new CardLayout());
+		initScreens(listener); 
+		
+		
+	}
+	
+	public void initScreens(ActionListener listener) {
+		optionsCard = new JPanel();
+		optionsCard.setLayout(new CardLayout());
+		optionsMain.add(optionsCard, BorderLayout.CENTER);
+		
+		cl = (CardLayout)(optionsCard.getLayout());
+		cl.show(optionsCard, "homeOptions");
+		
+		firstScreen = new JPanel();
+		firstScreen.setBackground(new Color(255,255,255));
+		firstScreen.setLayout(new BoxLayout(firstScreen, BoxLayout.Y_AXIS));
+		optionsCard.add(firstScreen);
+		
+		headTable = new JPanel();
+		headTable.setBackground(new Color(255,255,255));
+		headTable.setBorder(new EmptyBorder(30,0,0,0));
+		firstScreen.add(headTable);
+		
+		txtTitle = new JLabel("Subastas");
+		txtTitle.setFont(font2.deriveFont(Font.BOLD, 15));
+		txtTitle.setForeground(new Color(20,85,52));
+		txtTitle.setBorder(new EmptyBorder(0,0,0,450));
+		headTable.add(txtTitle);
+		
+		comboTable = new JComboBox<String>();
+		comboTable.addItem("Todas las Subastas");
+		comboTable.addItem("Subastas donde Participo");
+		comboTable.setFont(font.deriveFont(Font.BOLD, 15));
+		comboTable.setForeground(new Color(255,255,255));
+		comboTable.setBackground(new Color(20,85,52));
+		headTable.add(comboTable);
+		
+		tablePanel = new JPanel();
+		tablePanel.setLayout(new CardLayout());
+		tablePanel.setBackground(new Color(255,255,255));
+		firstScreen.add(tablePanel);
+		String[] namesColumn = {"ID","TITULO","VALOR DE ENTRADA","  "};
+		Object [][] datas= new Object [1][];
+		table1 = generateTable(datas,namesColumn,listener);
+		scrollTable = new JScrollPane(table1);
+		scrollTable.setBorder(new EmptyBorder(0,60,0,60));
+		scrollTable.setBackground(new Color(255,255,255));
+		firstScreen.add(scrollTable);
+		
+	}
+	
+	public JTable generateTable(Object [][] datas,String[] namesColumn,ActionListener listener) {
+		DefaultTableModel modelo = new DefaultTableModel(datas,namesColumn){
+		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
+		};
+		JTable table = new JTable (modelo);
+		table.setFont(font3.deriveFont(Font.BOLD, 14));
+		table.setForeground(new Color(14,58,35));
+		Object objeto = table.getColumnModel().getColumn(3);
+		
+		table.setBackground(new Color(255,255,255));
+		table.setRowHeight(25);
+		table.getColumnModel().getColumn(0).setCellRenderer(new DrawTable("text"));
+		table.getColumnModel().getColumn(1).setCellRenderer(new DrawTable("text"));
+		table.getColumnModel().getColumn(2).setCellRenderer(new DrawTable("text"));
+		table.getColumnModel().getColumn(3).setCellRenderer(new DrawTable("icono"));
+		
+
+		return table;
+	}
+	
+	public void showOptionsCard(String option) {
+		cl.show(optionsCard, option);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		int row = table1.rowAtPoint(e.getPoint());
+		int column = table1.columnAtPoint(e.getPoint());
+		
+		if (column==3) {
+			validarSeleccionMouse(row);
+		}
+		
+	}
+
+	private void validarSeleccionMouse(int row) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 	
 	
-	
-	public void showPanel(String option) {
-		switch(option){
-			case "login":
-				cl.show(this, "login");
-				break;
-			case "home":
-				cl.show(this, "home");
-				break;
-			case "register":
-				cl.show(this, "register");
-				break;	
-			
-		}
-	}
 	
 }

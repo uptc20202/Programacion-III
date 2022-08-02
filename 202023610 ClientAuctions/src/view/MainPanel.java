@@ -26,7 +26,7 @@ public class MainPanel extends JPanel{
 		add(landing, "home");
 		
 		cl = (CardLayout)(this.getLayout());
-		cl.show(this, "home");
+		cl.show(this, "login");
 		
 	}
 	
@@ -43,6 +43,14 @@ public class MainPanel extends JPanel{
 				break;	
 			
 		}
+	}
+	
+	public String getTxtUser() {
+		return login.getTxtUser();
+	}
+
+	public String getTxtPassword() {
+		return login.getTxtPassword();
 	}
 	
 	

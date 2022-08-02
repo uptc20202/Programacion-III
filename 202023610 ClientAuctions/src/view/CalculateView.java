@@ -28,4 +28,21 @@ public class CalculateView extends JFrame{
 		this.setContentPane(panel);
 		
 	}
+	
+	public void showPanel(String option) {
+		panel.showPanel(option);
+	}
+	
+	public String getTxtUser() {
+		return panel.getTxtUser();
+	}
+
+	public String getTxtPassword() {
+		return panel.getTxtPassword();
+	}
+
+	public void fillTable(String datas) {
+		// TODO Auto-generated method stub
+		
+	}
 }

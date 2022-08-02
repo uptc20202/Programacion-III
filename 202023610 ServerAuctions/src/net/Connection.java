@@ -34,5 +34,9 @@ public class Connection {
 		salida.writeUTF(string);
 	}
 	
+	public void writeBoolean(Boolean boolean1) throws IOException {
+		salida.writeBoolean(boolean1);
+	}
+	
 	
 }

@@ -67,6 +67,15 @@ public class User {
 	public void setBuys(Queve<Auction> buys) {
 		this.buys = buys;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", nickname=" + nickname + ", password=" + password + "] \n";
+	}
+
+
 	
 	
 }
