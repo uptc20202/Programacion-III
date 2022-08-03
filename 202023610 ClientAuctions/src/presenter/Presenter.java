@@ -37,18 +37,9 @@ public class Presenter implements ActionListener{
 		if (command.equals("login")) {
 			try {
 				connection.writeInt(1);
-				System.out.println(connection.readInt());
-//				connection.writeUTF(view.getTxtUser());
-//				connection.writeUTF(view.getTxtPassword());
-//				if(connection.readBoolean()) {
-//					String a=connection.readUTF();
-//					String b=connection.readUTF();
-//					String c=connection.readUTF();
-//					view.fillTable(a,b,c);
-//					view.showPanel("home");
-//				}else {
-//					console.writeString("Error Login");
-//				}
+				connection.writeUTF(view.getTxtUser());
+				connection.writeUTF(view.getTxtPassword());
+
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -113,28 +104,16 @@ public class Presenter implements ActionListener{
 	private void verify() {
 		try {
 			if(connection.available()) {
-				int a =connection.readInt();
-				System.out.println(a);
-				switch(a) {
+				switch(connection.readInt()) {
 				case 1:
 					login();
 					break;
-//				case 2:
-//					register();
-//					break;
-//				case 3:
-//					postAuction();
-//					store.notifyObservers();
-//					break;
-//				case 4:
-//					bidUp();
-//					store.notifyObservers();
-//					break;	
-//				case 5:
-//					break;
+				
 				case 99:
-					console.writeString("2paso ");
+					System.out.println("Reseteo");
+					connection.readUTF();
 					view.restorefillTable(connection.readUTF(),connection.readUTF(),connection.readUTF());
+					
 					break;	
 				default:
 					break;
@@ -145,15 +124,15 @@ public class Presenter implements ActionListener{
 		}
 	}
 	
+	private void register() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void login() {
 		try {
 			if(connection.readBoolean()) {
-				connection.writeUTF(view.getTxtUser());
-				connection.writeUTF(view.getTxtPassword());
-				String a=connection.readUTF();
-				String b=connection.readUTF();
-				String c=connection.readUTF();
-				view.fillTable(a,b,c);
+				view.fillTable(connection.readUTF(),connection.readUTF(),connection.readUTF());
 				view.showPanel("home");
 			}else {
 				console.writeString("Error Login");

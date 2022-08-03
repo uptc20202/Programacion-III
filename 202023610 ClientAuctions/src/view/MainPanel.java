@@ -120,6 +120,7 @@ public class MainPanel extends JPanel{
 	public void restorefillTable(String data1, String data2, String nickname) {
 		// TODO Auto-generated method stub
 		landing.restorefillTable( data1,  data2,  nickname);
+		cl.show(this, "landing");
 	}
 
 	

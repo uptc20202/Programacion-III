@@ -407,6 +407,7 @@ public class Landing extends JPanel implements MouseListener{
 		bidTables = generateTable(validateTable2.fillOverallTable(),namesColumn,"bidUP+");
 		overallTable = generateTable(validateTable.fillOverallTable(),namesColumn,"button");
 		userTable =generateTable(validateTable.fillUserTable(),namesColumn,"cancel");
+		
 	} 
 	
 	

@@ -27,7 +27,7 @@ public class Connection {
 	}
 	
 	public void writeInt(int number) throws IOException {
-		salida.write(number);
+		salida.writeInt(number);
 	}
 	
 	public void writeUTF(String string) throws IOException {

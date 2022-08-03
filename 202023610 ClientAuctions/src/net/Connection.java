@@ -21,7 +21,6 @@ public class Connection {
 
 	public int readInt() throws IOException {
 		int i =input.readInt();
-		System.out.println("Variable original "+i);
 		return i;
 	}
 	

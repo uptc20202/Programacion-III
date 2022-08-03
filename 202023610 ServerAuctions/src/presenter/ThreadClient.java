@@ -36,12 +36,7 @@ public class ThreadClient extends Thread implements Observer {
 		}
 		
 		System.out.println("fin de la transmision");
-		try {
-			connection.writeUTF("datos recibidos exitosamente");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 	@Override
@@ -86,8 +81,6 @@ public class ThreadClient extends Thread implements Observer {
 				store.notifyObservers();
 				break;	
 			case 5:
-				break;
-			case 6:
 				break;	
 			default:
 				break;
