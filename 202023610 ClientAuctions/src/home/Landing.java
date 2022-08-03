@@ -33,6 +33,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import model.CustomFont;
+import model.ValidateTable;
 import view.CalculateView;
 import view.DrawTable;
 
@@ -40,26 +41,34 @@ public class Landing extends JPanel implements MouseListener{
 	
 	private JPanel menu, optionsMain, head, optionsCard;
 	private JPanel firstScreen, headTable, tablePanel;
+	private UserPage userPage;
 	private JLabel icon;
-	private JLabel txtTitle, bidTitle, bidDescription,bidValue;
+	private JLabel txtTitle;
 	private JComboBox<String> comboTable;
 	private JScrollPane scrollOverallTable,scrollUserTable;
 	private Font font,font2, font3;
 	private JButton button1,button2, button3,buttonExit, buttonUser, buttonNofication, buttonOptionUser;
-	private JTable overallTable,userTable;
+	private JTable overallTable,bidTables,userTable;
 	private CardLayout cl, cl2;
-	private ArrayList<String[]> datasTables; 
-	private String user;
-	private JDialog toBid, toAuction;
+	private ArrayList<String[]> datasTables, datasTables2; 
+	private String user,name;
+	private ToBid toBid;
+	private ToAuction toAuction;
 	private ActionListener listener;
 	private JTextField bidNew;
 	private CalculateView parent;
+	private ValidateTable validateTable,validateTable2;
 	
-	public Landing(ActionListener listener,String datasTable,String user,CalculateView parent) {
+	public Landing(ActionListener listener,String datasTable,String datasTable2,String user,String name, 
+			CalculateView parent) {
+		validateTable = new ValidateTable();
+		validateTable2 = new ValidateTable();
 		this.parent = parent;
-		datasTables = new ArrayList<String[]>();
-		fillTable(datasTable);
+		this.datasTables = validateTable.fillTable(datasTable, user);
+		this.datasTables2 = validateTable2.fillTable(datasTable2, user);
 		this.user = user;
+		this.name = name;
+		toBid = new ToBid();
 		CustomFont customFont = new CustomFont("source\\font\\vremenagroteskbook.otf");
 		font = customFont.customFontStream();
 		CustomFont customFont2 = new CustomFont("source\\font\\vremenagroteskbold.otf");
@@ -94,6 +103,8 @@ public class Landing extends JPanel implements MouseListener{
 		ImageIcon imgDue = new ImageIcon("source/menu/buttonBuy.png");
 		button1.setIcon(new ImageIcon(imgDue.getImage().getScaledInstance(90, 
 				22, Image.SCALE_SMOOTH)));
+		button1.setActionCommand("buyOption");
+		button1.addActionListener(listener);
 		menu.add(button1);
 		
 		button2 = new JButton();
@@ -115,6 +126,7 @@ public class Landing extends JPanel implements MouseListener{
 		ImageIcon imgDue2 = new ImageIcon("source/menu/buttonBuys.png");
 		button3.setIcon(new ImageIcon(imgDue2.getImage().getScaledInstance(90, 
 				22, Image.SCALE_SMOOTH)));
+		
 		menu.add(button3);
 		JLabel space = new JLabel("");
 		space.setBorder(new EmptyBorder(100,10,170,10));
@@ -166,6 +178,8 @@ public class Landing extends JPanel implements MouseListener{
 		buttonUser.setIcon(new ImageIcon(imgDue5.getImage().getScaledInstance(25, 
 				25, Image.SCALE_SMOOTH)));
 		buttonUser.setAlignmentX(RIGHT_ALIGNMENT);
+		buttonUser.setActionCommand("userData");
+		buttonUser.addActionListener(listener);
 		head.add(buttonUser);
 
 		buttonOptionUser = new JButton();
@@ -177,18 +191,21 @@ public class Landing extends JPanel implements MouseListener{
 				14, Image.SCALE_SMOOTH)));
 		buttonOptionUser.setAlignmentX(RIGHT_ALIGNMENT);
 		buttonOptionUser.setAlignmentY(CENTER_ALIGNMENT);
+		buttonOptionUser.setActionCommand("userData");
+		buttonOptionUser.addActionListener(listener);
 		head.add(buttonOptionUser);
 		optionsMain.add(head,BorderLayout.NORTH);
 		
 		toAuction = new ToAuction(parent,true,listener);
 		toAuction.setVisible(false);
 		
-		initScreens(listener); 
+		
+		initScreens(listener, name); 
 		
 		
 	}
 	
-	public void initScreens(ActionListener listener) {
+	public void initScreens(ActionListener listener,String name) {
 		optionsCard = new JPanel();
 		optionsCard.setLayout(new CardLayout());
 		optionsMain.add(optionsCard, BorderLayout.CENTER);
@@ -196,15 +213,18 @@ public class Landing extends JPanel implements MouseListener{
 		cl = (CardLayout)(optionsCard.getLayout());
 		cl.show(optionsCard, "homeOptions");
 		
+		
+		
 		firstScreen = new JPanel();
 		firstScreen.setBackground(new Color(255,255,255));
 		firstScreen.setLayout(new BoxLayout(firstScreen, BoxLayout.Y_AXIS));
-		optionsCard.add(firstScreen);
+		optionsCard.add(firstScreen, "homeOptions");
 		
 		headTable = new JPanel();
 		headTable.setBackground(new Color(255,255,255));
 		headTable.setBorder(new EmptyBorder(10,0,10,60));
 		firstScreen.add(headTable);
+		
 		
 		txtTitle = new JLabel("Subastas");
 		txtTitle.setFont(font2.deriveFont(Font.PLAIN, 16));
@@ -218,6 +238,8 @@ public class Landing extends JPanel implements MouseListener{
 		comboTable.setFont(font.deriveFont(Font.BOLD, 15));
 		comboTable.setForeground(new Color(255,255,255));
 		comboTable.setBackground(new Color(20,85,52));
+		comboTable.setActionCommand("changeTable");
+		comboTable.addActionListener(listener);
 		headTable.add(comboTable);
 		
 		tablePanel = new JPanel();
@@ -228,24 +250,26 @@ public class Landing extends JPanel implements MouseListener{
 		
 		String[] namesColumn = {"ID","TITULO","VALOR DE ENTRADA","  "};
 		
-		overallTable = generateTable(fillOverallTable(),namesColumn,listener);
+		overallTable = generateTable(validateTable.fillOverallTable(),namesColumn,"button");
 		scrollOverallTable = new JScrollPane(overallTable);
 		scrollOverallTable.setBorder(new EmptyBorder(30,60,20,60));
 		scrollOverallTable.setBackground(new Color(255,255,255));
 		tablePanel.add(scrollOverallTable,"overallTable");
 		
-		userTable = generateTable(fillUserTable(),namesColumn,listener);
-		scrollUserTable = new JScrollPane(userTable);
+		bidTables = generateTable(validateTable2.fillOverallTable(),namesColumn,"bidUP+");
+		scrollUserTable = new JScrollPane(bidTables);
 		scrollUserTable.setBorder(new EmptyBorder(30,60,20,60));
 		scrollUserTable.setBackground(new Color(255,255,255));
 		tablePanel.add(scrollUserTable,"userTable");
 		
-		
 		firstScreen.add(tablePanel);
 		
+		userTable =generateTable(validateTable.fillUserTable(),namesColumn,"cancel");
+		userPage = new UserPage(listener,userTable,name, user, parent);
+		optionsCard.add(userPage,"userPage");
 	}
 	
-	public JTable generateTable(Object [][] datas,String[] namesColumn,ActionListener listener) {
+	public JTable generateTable(Object [][] datas,String[] namesColumn,String type) {
 		
 		DefaultTableModel modelo = new DefaultTableModel(datas,namesColumn){
 		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
@@ -261,23 +285,34 @@ public class Landing extends JPanel implements MouseListener{
 		table.getColumnModel().getColumn(0).setCellRenderer(new DrawTable("text"));
 		table.getColumnModel().getColumn(1).setCellRenderer(new DrawTable("text"));
 		table.getColumnModel().getColumn(2).setCellRenderer(new DrawTable("text"));
-		table.getColumnModel().getColumn(3).setCellRenderer(new DrawTable("icono"));
+		table.getColumnModel().getColumn(3).setCellRenderer(new DrawTable(type));
 		
 
 		return table;
 	}
 	
+	
+	
 	public void showOptionsCard(String option) {
 		cl.show(optionsCard, option);
 	}
 	
-	public void showOptionsTables(String option) {
-		cl2.show(tablePanel, option);
+	public void showOptionsTables() {
+		switch(comboTable.getSelectedItem().toString()) {
+			case "Todas las Subastas":
+				cl2.show(tablePanel, "overallTable");
+				break;
+			case "Subastas donde Participo":
+				cl2.show(tablePanel, "userTable");
+				break;
+			default:
+				break;
+		}
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("EventoMouse");
 		int row = overallTable.rowAtPoint(e.getPoint());
 		int column = overallTable.columnAtPoint(e.getPoint());
 		
@@ -288,10 +323,11 @@ public class Landing extends JPanel implements MouseListener{
 	}
 
 	private void validarSelectionMouse(int row) {
+		String id = datasTables.get(row)[0];
 		String title = datasTables.get(row)[1];
 		String Description= datasTables.get(row)[4];
 		String value= datasTables.get(row)[2];
-		ToBid toBid = new ToBid(parent,true,listener,title,Description,value);
+		toBid = new ToBid(parent,true,listener,id,title,Description,value);
 		toBid.setVisible(true);
 	}
 
@@ -323,59 +359,54 @@ public class Landing extends JPanel implements MouseListener{
 	
 	public void setVisibleToAuction(Boolean result) {
 		toAuction.setVisible(result);
+		if(result) {
+			toAuction.dispose();
+		}	
+	}
+	
+	public String getNameNewAuction() {
+		// TODO Auto-generated method stub
+		return toAuction.getTxtTitle();
 	}
 
-	public void fillTable(String datasTable) {
+	public String getDescriptionNewAuction() {
 		// TODO Auto-generated method stub
-		String[] newStr = datasTable.split(";");
-		
-		
-        for (String auctions:newStr) {
-        	String[] dataAuctions = auctions.split(",");
-        	datasTables.add(dataAuctions);
-        }
-		
+		return toAuction.getTxtDescription();
 	}
-	
-	private Object [][] fillOverallTable() {
-		Object[][] datas = new Object [datasTables.size()][];
-		if(datasTables.size()!=0) {
-		for( int i = 0; i < datasTables.size(); i++) {
-			String[] datas2 = datasTables.get(i);
-			String[] datas3 = new String[3];
-			
-			
-				for( int j = 0; j < datas3.length; j++) {
-				
-        			datas3[j] = 
-        					datas2[j];
-				
-        		}
-				
-			datas[i]=datas3;
-		}
-		}
-		return datas;
+
+	public String getValueNewAuction() {
+		// TODO Auto-generated method stub
+		return toAuction.getTxtvalue();
 	}
-	
-	private Object [][] fillUserTable() {
-		
-		Object[][] datas = new Object [datasTables.size()][];
-		System.out.println(datasTables.get(0).length);
-		
-		if(datasTables.size()!=0&&datasTables.get(0).length==3) {
-		for( int i = 0; i < datasTables.size(); i++) {
-			if(datasTables.get(i)[3].equalsIgnoreCase(user)) {
-			String[] datas2 = datasTables.get(i);
-			String[] datas3 = new String[3];
-			for( int j = 0; j < datas3.length; j++) {
-        			datas3[j] = datas2[j];
-        	}
-			datas[i]=datas3;
-			}
+
+	public String getIdToBid() {
+		// TODO Auto-generated method stub
+		return toBid.getId();
+	}
+
+	public String getValueToBid() {
+		// TODO Auto-generated method stub
+		return toBid.getBidValue();
+	}
+
+	public void setVisibleToBid(boolean result) {
+		// TODO Auto-generated method stub
+		toBid.setVisible(result);
+		if(result) {
+			toBid.dispose();
 		}	
-		}
-		return datas;
+	}
+
+	public void restorefillTable(String data1, String data2, String nickname) {
+		// TODO Auto-generated method stub
+		String[] namesColumn = {"ID","TITULO","VALOR DE ENTRADA","  "};
+		
+		this.datasTables = validateTable.fillTable(data1, user);
+		this.datasTables2 = validateTable2.fillTable(data2, user);
+		
+		bidTables = generateTable(validateTable2.fillOverallTable(),namesColumn,"bidUP+");
+		overallTable = generateTable(validateTable.fillOverallTable(),namesColumn,"button");
+		userTable =generateTable(validateTable.fillUserTable(),namesColumn,"cancel");
 	} 
 	
 	

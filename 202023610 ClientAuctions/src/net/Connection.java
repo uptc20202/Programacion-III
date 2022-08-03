@@ -20,7 +20,9 @@ public class Connection {
 	}
 
 	public int readInt() throws IOException {
-		return input.readInt();
+		int i =input.readInt();
+		System.out.println("Variable original "+i);
+		return i;
 	}
 	
 	public void writeInt(int x) throws IOException {

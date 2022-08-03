@@ -3,6 +3,7 @@ package view;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -41,9 +42,9 @@ public class CalculateView extends JFrame{
 		return panel.getTxtPassword();
 	}
 
-	public void fillTable(String datasTable) {
+	public void fillTable(String data1, String data2, String name) {
 		// TODO Auto-generated method stub
-		panel.fillTable(datasTable,this);
+		panel.fillTable(data1,data2,name,this);
 		
 	}
 
@@ -66,4 +67,51 @@ public class CalculateView extends JFrame{
 		panel.setVisibleToAuction();
 		
 	}
+
+	public String getNameNewAuction() {
+		// TODO Auto-generated method stub
+		return panel.getNameNewAuction();
+	}
+
+	public String getDescriptionNewAuction() {
+		// TODO Auto-generated method stub
+		return panel.getDescriptionNewAuction() ;
+	}
+
+	public String getValueNewAuction() {
+		// TODO Auto-generated method stub
+		return panel.getValueNewAuction();
+	}
+
+	public String getIdToBid() {
+		// TODO Auto-generated method stub
+		return panel.getIdToBid();
+	}
+
+	public String getValueToBid() {
+		// TODO Auto-generated method stub
+		return panel.getValueToBid();
+	}
+
+	public void setVisibleToBid(boolean b) {
+		// TODO Auto-generated method stub
+		panel.setVisibleToBid(b);
+	}
+
+	public void showOptionsTables() {
+		// TODO Auto-generated method stub
+		panel.showOptionsTables();
+	}
+
+	public void showOptionsCard(String command) {
+		// TODO Auto-generated method stub
+		panel.showOptionsCard(command);
+	}
+
+	public void restorefillTable(String data1, String data2, String nickname) {
+		// TODO Auto-generated method stub
+		panel.restorefillTable(data1,  data2,  nickname);
+	}
+
+	
 }

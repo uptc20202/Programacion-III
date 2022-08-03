@@ -16,17 +16,21 @@ import javax.swing.JTextField;
 import model.CustomFont;
 import view.CalculateView;
 
-public class ToBid extends JDialog implements ActionListener{
+public class ToBid extends JDialog{
 
-	private JLabel txtTitle, bidTitle, bidDescription,bidValue;
+	private JLabel bidTitle, bidDescription,bidValue;
 	private JTextField bidNew;
 	private JPanel panel;
 	private Font font3;
 	private JButton bidUp;
+	private String id;
+	private ActionListener listener;
 	
-	public ToBid(CalculateView parent, boolean modal,ActionListener listener,String Title,
+	public ToBid(CalculateView parent, boolean modal,ActionListener listener,String id,String Title,
 			String description, String value) {
 		super(parent, modal);
+		this.listener = listener;
+		this.id = id;
 		CustomFont customFont3 = new CustomFont("source\\font\\HarmoniaSansProCyr-Light.ttf");
 		font3 = customFont3.customFontStream();
 		setLayout(null);
@@ -36,6 +40,10 @@ public class ToBid extends JDialog implements ActionListener{
 	    initComponents( Title,  description,  value);
 	}
 	
+	public ToBid() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void initComponents(String Title, String description, String value) {
 		
 		panel = new JPanel();
@@ -46,13 +54,13 @@ public class ToBid extends JDialog implements ActionListener{
 	    panel.setForeground(new Color(14,58,35));
 	    add(panel);
 	    
-		bidTitle = new JLabel(Title);
+		bidTitle = new JLabel("Titulo Subasta: "+Title);
 		bidTitle.setAlignmentX(CENTER_ALIGNMENT);
 		bidTitle.setFont(font3.deriveFont(Font.BOLD, 14));
 		bidTitle.setForeground(new Color(14,58,35));
 		panel.add(bidTitle);
 		
-		bidDescription = new JLabel(description);
+		bidDescription = new JLabel("Descripcion Subasta: "+description);
 		bidDescription.setAlignmentX(CENTER_ALIGNMENT);
 		bidDescription.setFont(font3.deriveFont(Font.BOLD, 14));
 		bidDescription.setForeground(new Color(14,58,35));
@@ -64,7 +72,7 @@ public class ToBid extends JDialog implements ActionListener{
 		bidValue.setForeground(new Color(14,58,35));
 		panel.add(bidValue);
 		
-		bidNew = new JTextField("$"+value);
+		bidNew = new JTextField("$ "+value);
 		bidNew.setAlignmentX(CENTER_ALIGNMENT);
 		bidNew.setMaximumSize(new Dimension(100,20));
 		bidNew.setFont(font3.deriveFont(Font.BOLD, 14));
@@ -76,12 +84,19 @@ public class ToBid extends JDialog implements ActionListener{
 		bidUp.setMaximumSize(new Dimension(200,20));
 		bidUp.setFont(font3.deriveFont(Font.BOLD, 14));
 		bidUp.setForeground(new Color(14,58,35));
+		bidUp.setActionCommand("toBid");
+		bidUp.addActionListener(listener);
 		panel.add(bidUp);
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		 
+
+	public String getId() {
+		return id;
 	}
+
+	public String getBidValue() {
+		return bidNew.getText().replaceAll("[^\\d.]", "");
+	}
+	
+	
 
 }

@@ -41,12 +41,15 @@ public class Store extends Subject{
 		
 		ArrayList<Auction> sales1 = sales.showInorder();
 		for(Auction auction : sales1) {
-			ArrayList<Bid> bids1 = auction.getBids().showInorder();
-			for(Bid bid: bids1) {
-				if(bid.getUser().getNickname().equalsIgnoreCase(nickname)) {
+			Queve<Bid> bids1 = auction.getBids();
+			Queve<Bid> aux = new Queve<Bid>();
+			while(!bids1.isEmply()) {
+				if(bids1.peek().getUser().getNickname().equalsIgnoreCase(nickname)) {
 					acuctionByBid.push(auction);
 				}
+				aux.push(bids1.poll());
 			}
+			bids1 = aux;
 		}
 		
 		return acuctionByBid;
@@ -57,7 +60,9 @@ public class Store extends Subject{
 	}
 	
 	public void bidUp(User user, int id, Long valueBid) {
-		searchAuction(id).addBid(new Bid(valueBid,user));
+		Auction auction1 = searchAuction(id);
+		auction1.addBid(new Bid(valueBid,user));
+		auction1.setMinimumBid(valueBid+1);
 	}
 	
 	public boolean searchAuctionStatus(int id) {
@@ -136,6 +141,21 @@ public class Store extends Subject{
 			 sbuilder.append(auction.getAuthor()+",");
 			 sbuilder.append(auction.getDescription()+";");
 		 }
+		 return sbuilder.toString();
+	}
+	
+	public String searchBidInAuctionToString(String nickname) {
+		StringBuilder sbuilder = new StringBuilder();
+		Queve<Auction> auctions = searchBidInAuction(nickname);
+		while(!auctions.isEmply()) {
+			Auction auction = auctions.poll();
+			sbuilder.append(auction.getId()+",");
+			sbuilder.append(auction.getTitle()+",");
+			sbuilder.append(auction.getMinimumBid()+",");
+			sbuilder.append(auction.getAuthor()+",");
+			sbuilder.append(auction.getDescription()+";");
+		}
+		 
 		 return sbuilder.toString();
 	}
 

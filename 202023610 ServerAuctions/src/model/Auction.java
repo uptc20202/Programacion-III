@@ -1,13 +1,16 @@
 package model;
 
+import java.util.Comparator;
+
 import resource.AVLTree;
+import resource.Queve;
 
 public class Auction {
 	private String title, description, author;
 	private Long minimumBid;
 	private int id;
 	private boolean status;
-	private AVLTree<Bid> bids;
+	private Queve<Bid> bids;
 	
 	public Auction(String title, int id, String description, String author, Long minimumBid) {
 		super();
@@ -17,6 +20,7 @@ public class Auction {
 		this.minimumBid = minimumBid;
 		this.id = id;
 		this.status = true;
+		this.bids = new Queve<Bid>(); 
 	}
 
 
@@ -80,7 +84,7 @@ public class Auction {
 	}
 	
 	public void addBid(Bid bid) {
-		bids.insert(bid);
+		bids.push(bid);
 	}
 
 
@@ -91,7 +95,7 @@ public class Auction {
 
 
 
-	public AVLTree<Bid> getBids() {
+	public Queve<Bid> getBids() {
 		return bids;
 	}
 
@@ -100,14 +104,6 @@ public class Auction {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
-
-
-	public void setBids(AVLTree<Bid> bids) {
-		this.bids = bids;
-	}
-	
-	
 	
 	
 }

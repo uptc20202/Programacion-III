@@ -6,20 +6,24 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import model.CustomFont;
 import view.CalculateView;
 
-public class ToAuction extends JDialog implements ActionListener{
+public class ToAuction extends JDialog {
 
 	private JLabel lbTitle, lbDescription,lbValue;
-	private JTextField txtTitle,txtDescription,txtvalue;
+	private JTextField txtTitle,txtvalue;
+	private JTextArea txtDescription;
 	private JPanel panel;
 	private Font font3;
 	private JButton btnAuction;
@@ -30,16 +34,16 @@ public class ToAuction extends JDialog implements ActionListener{
 		font3 = customFont3.customFontStream();
 		setLayout(null);
 		setLocationRelativeTo(null);
-	    setBounds(440,10,410,210);
+	    setBounds(200,50,410,310);
 	    
-	    initComponents( );
+	    initComponents(listener);
 	}
 	
-	public void initComponents() {
+	public void initComponents(ActionListener listener) {
 		
 		panel = new JPanel();
 	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-	    panel.setSize(new Dimension(410,210));
+	    panel.setSize(new Dimension(410,310));
 	    panel.setBackground(new Color(0,0,0,0));
 	    panel.setFont(font3.deriveFont(Font.BOLD, 14));
 	    panel.setForeground(new Color(14,58,35));
@@ -64,9 +68,11 @@ public class ToAuction extends JDialog implements ActionListener{
 		lbDescription.setForeground(new Color(14,58,35));
 		panel.add(lbDescription);
 		
-		txtDescription = new JTextField("");
+		txtDescription = new JTextArea("");
+		txtDescription.setLineWrap(true);
+		txtDescription.setBorder(BorderFactory.createLineBorder(Color.black));
 		txtDescription.setAlignmentX(CENTER_ALIGNMENT);
-		txtDescription.setMaximumSize(new Dimension(100,20));
+		txtDescription.setMaximumSize(new Dimension(200,100));
 		txtDescription.setFont(font3.deriveFont(Font.BOLD, 14));
 		txtDescription.setForeground(new Color(14,58,35));
 		panel.add(txtDescription);
@@ -89,13 +95,24 @@ public class ToAuction extends JDialog implements ActionListener{
 		btnAuction.setMaximumSize(new Dimension(100,20));
 		btnAuction.setFont(font3.deriveFont(Font.BOLD, 14));
 		btnAuction.setForeground(new Color(14,58,35));
+		btnAuction.setActionCommand("toAuction");
+		btnAuction.addActionListener(listener);
 		panel.add(btnAuction);
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		 
+
+	public String getTxtTitle() {
+		return txtTitle.getText();
 	}
+
+	public String getTxtDescription() {
+		return txtDescription.getText();
+	}
+
+	public String getTxtvalue() {
+		return txtvalue.getText();
+	}
+	
+	
 
 }
 		

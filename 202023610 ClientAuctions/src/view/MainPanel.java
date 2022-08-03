@@ -2,6 +2,7 @@ package view;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -33,8 +34,9 @@ public class MainPanel extends JPanel{
 		
 	}
 	
-	private void generateJframeLanding(ActionListener listener,String datasTable,CalculateView parent) {
-		landing = new Landing(listener,datasTable,login.getTxtUser(),parent);
+	private void generateJframeLanding(ActionListener listener,String datasTable,String datasTable2,
+			String name, CalculateView parent) {
+		landing = new Landing(listener,datasTable,datasTable2,login.getTxtUser(),name,parent);
 		add(landing, "home");
 	}
 	
@@ -50,9 +52,9 @@ public class MainPanel extends JPanel{
 		return login.getTxtPassword();
 	}
 
-	public void fillTable(String datasTable,CalculateView parent) {
+	public void fillTable(String data1,String data2, String name, CalculateView parent) {
 		// TODO Auto-generated method stub
-		generateJframeLanding(listener,datasTable,parent);
+		generateJframeLanding(listener,data1,data2,name,parent);
 	}
 
 	public String getTxtNameRegister() {
@@ -74,6 +76,53 @@ public class MainPanel extends JPanel{
 		// TODO Auto-generated method stub
 		landing.setVisibleToAuction(true);
 	}
+
+	public String getNameNewAuction() {
+		// TODO Auto-generated method stub
+		return landing.getNameNewAuction();
+	}
+
+	public String getDescriptionNewAuction() {
+		// TODO Auto-generated method stub
+		return landing.getDescriptionNewAuction() ;
+	}
+
+	public String getValueNewAuction() {
+		// TODO Auto-generated method stub
+		return landing.getValueNewAuction();
+	}
+
+	public String getIdToBid() {
+		// TODO Auto-generated method stub
+		return landing.getIdToBid();
+	}
+
+	public String getValueToBid() {
+		// TODO Auto-generated method stub
+		return landing.getValueToBid();
+	}
+
+	public void setVisibleToBid(boolean b) {
+		// TODO Auto-generated method stub
+		landing.setVisibleToBid(b);
+	}
+
+	public void showOptionsTables() {
+		// TODO Auto-generated method stub
+		landing.showOptionsTables();
+	}
+
+	public void showOptionsCard(String command) {
+		// TODO Auto-generated method stub
+		landing.showOptionsCard(command);
+	}
+
+	public void restorefillTable(String data1, String data2, String nickname) {
+		// TODO Auto-generated method stub
+		landing.restorefillTable( data1,  data2,  nickname);
+	}
+
+	
 	
 	
 }

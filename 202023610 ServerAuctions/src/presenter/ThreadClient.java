@@ -25,7 +25,7 @@ public class ThreadClient extends Thread implements Observer {
 	}
 
 	@Override
-public void run() {
+	public void run() {
 		System.out.println("cliente conectado");
 		System.out.println("datos recibidos");
 		try {
@@ -46,10 +46,11 @@ public void run() {
 
 	@Override
 	public void update() {
-		int memory = 8;
 		try {
 			connection.writeInt(99);
-			connection.writeInt(memory);
+			connection.writeUTF(store.getSalesToString());
+			connection.writeUTF(store.searchBidInAuctionToString(user.getNickname()));
+			connection.writeUTF(user.getName());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -70,47 +71,80 @@ public void run() {
 			
 			switch(option) {
 			case 1:
+				connection.writeInt(1);
 				login();
 				break;
 			case 2:
 				register();
 				break;
 			case 3:
+				postAuction();
+				store.notifyObservers();
 				break;
 			case 4:
+				bidUp();
+				store.notifyObservers();
 				break;	
 			case 5:
 				break;
 			case 6:
 				break;	
 			default:
-				connection.writeUTF("Seleccione una opción correcta");
 				break;
 			}
 		}while(option != 6);
 	}
 	
+	private void bidUp() {
+		// TODO Auto-generated method stub
+		int id =0;
+		long value=0;
+		try {
+			id= connection.readInt();
+			value = Long.parseLong(connection.readUTF());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		store.bidUp(user, id, value);
+		
+	}
+
+	private void postAuction() {
+		String tittle ="";
+		String description="";
+		long minimumBid=0;
+		User author=null;
+		try {
+			tittle = connection.readUTF();
+			description=connection.readUTF();
+			minimumBid= Long.parseLong(connection.readUTF());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		store.postAuction(tittle, description, minimumBid, user);
+	}
+
 	private void register() throws IOException {
 		String userName = connection.readUTF();
 		String nickname = connection.readUTF();
 		String password = connection.readUTF();
 		store.addUser(userName, nickname, password);
-		System.out.println( store.searchUsers(nickname));
 	}
 
 	public void login() throws IOException {
 		
 		String nickname = connection.readUTF();
 		String password = connection.readUTF();
+		
 		if(store.login(nickname, password)) {
 			user = store.searchUsers(nickname);
-			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
-			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
-			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
-			store.postAuction("Vaca Lechera", "Una vaca", 30000, user);
-			
 			connection.writeBoolean(true);
 			connection.writeUTF(store.getSalesToString());
+			connection.writeUTF(store.searchBidInAuctionToString(nickname));
+			connection.writeUTF(user.getName());
 			
 		}else {
 			connection.writeBoolean(false);
