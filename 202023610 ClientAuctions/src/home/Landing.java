@@ -48,7 +48,7 @@ public class Landing extends JPanel implements MouseListener{
 	private JScrollPane scrollOverallTable,scrollUserTable;
 	private Font font,font2, font3;
 	private JButton button1,button2, button3,buttonExit, buttonUser, buttonNofication, buttonOptionUser;
-	private JTable overallTable,bidTables,userTable;
+	private JTable overallTable,bidTables;
 	private CardLayout cl, cl2;
 	private ArrayList<String[]> datasTables, datasTables2; 
 	private String user,name;
@@ -60,7 +60,7 @@ public class Landing extends JPanel implements MouseListener{
 	private ValidateTable validateTable,validateTable2;
 	
 	public Landing(ActionListener listener,String datasTable,String datasTable2,String user,String name, 
-			CalculateView parent) {
+			String data3, CalculateView parent) {
 		validateTable = new ValidateTable();
 		validateTable2 = new ValidateTable();
 		this.parent = parent;
@@ -76,6 +76,7 @@ public class Landing extends JPanel implements MouseListener{
 		CustomFont customFont3 = new CustomFont("source\\font\\HarmoniaSansProCyr-Light.ttf");
 		font3 = customFont3.customFontStream();
 		this.listener = listener;
+		userPage = new UserPage(listener,data3,name, user, parent,datasTables);
 		initComponents(listener);
 		
 		
@@ -264,8 +265,6 @@ public class Landing extends JPanel implements MouseListener{
 		
 		firstScreen.add(tablePanel);
 		
-		userTable =generateTable(validateTable.fillUserTable(),namesColumn,"cancel");
-		userPage = new UserPage(listener,userTable,name, user, parent);
 		optionsCard.add(userPage,"userPage");
 	}
 	
@@ -315,18 +314,25 @@ public class Landing extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		int row = overallTable.rowAtPoint(e.getPoint());
 		int column = overallTable.columnAtPoint(e.getPoint());
-		
+		System.out.println(row);
+		int row2 = bidTables.rowAtPoint(e.getPoint());
+		int column2 = bidTables.columnAtPoint(e.getPoint());
+		System.out.println(row2);
 		if (column==3) {
-			validarSelectionMouse(row);
+			if(row>-1) {
+				validarSelectionMouse(row,datasTables);
+			}else if(row2>-1){
+				validarSelectionMouse(row2,datasTables2);
+			}	
 		}
 		
 	}
 
-	private void validarSelectionMouse(int row) {
-		String id = datasTables.get(row)[0];
-		String title = datasTables.get(row)[1];
-		String Description= datasTables.get(row)[4];
-		String value= datasTables.get(row)[2];
+	private void validarSelectionMouse(int row,ArrayList<String[]> table) {
+		String id = table.get(row)[0];
+		String title = table.get(row)[1];
+		String Description= table.get(row)[4];
+		String value= table.get(row)[2];
 		toBid = new ToBid(parent,true,listener,id,title,Description,value);
 		toBid.setVisible(true);
 	}
@@ -395,21 +401,6 @@ public class Landing extends JPanel implements MouseListener{
 		if(result) {
 			toBid.dispose();
 		}	
-	}
-
-	public void restorefillTable(String data1, String data2, String nickname) {
-		// TODO Auto-generated method stub
-		String[] namesColumn = {"ID","TITULO","VALOR DE ENTRADA","  "};
-		
-		this.datasTables = validateTable.fillTable(data1, user);
-		this.datasTables2 = validateTable2.fillTable(data2, user);
-		
-		bidTables = generateTable(validateTable2.fillOverallTable(),namesColumn,"bidUP+");
-		overallTable = generateTable(validateTable.fillOverallTable(),namesColumn,"button");
-		userTable =generateTable(validateTable.fillUserTable(),namesColumn,"cancel");
-		
 	} 
-	
-	
 	
 }

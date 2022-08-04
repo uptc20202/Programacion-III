@@ -18,8 +18,6 @@ public class ThreadClient extends Thread implements Observer {
 	
 	public ThreadClient(Socket socket, Store store) throws UnknownHostException, IOException {
 		this.store = store;
-		store.addUser("Administrador", "admin1", "admin1");
-		store.addUser("user", "Usuario", "Contraseña");
 		connection = new Connection(socket);
 
 	}
@@ -46,6 +44,7 @@ public class ThreadClient extends Thread implements Observer {
 			connection.writeUTF(store.getSalesToString());
 			connection.writeUTF(store.searchBidInAuctionToString(user.getNickname()));
 			connection.writeUTF(user.getName());
+			connection.writeUTF(store.getMySales(user.getNickname()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -99,6 +98,7 @@ public class ThreadClient extends Thread implements Observer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("Bid "+user.getNickname());
 		store.bidUp(user, id, value);
 		
 	}
@@ -138,7 +138,7 @@ public class ThreadClient extends Thread implements Observer {
 			connection.writeUTF(store.getSalesToString());
 			connection.writeUTF(store.searchBidInAuctionToString(nickname));
 			connection.writeUTF(user.getName());
-			
+			connection.writeUTF(store.getMySales(nickname));
 		}else {
 			connection.writeBoolean(false);
 		}

@@ -35,8 +35,8 @@ public class MainPanel extends JPanel{
 	}
 	
 	private void generateJframeLanding(ActionListener listener,String datasTable,String datasTable2,
-			String name, CalculateView parent) {
-		landing = new Landing(listener,datasTable,datasTable2,login.getTxtUser(),name,parent);
+			String name, String data3, CalculateView parent) {
+		landing = new Landing(listener,datasTable,datasTable2,login.getTxtUser(),name,data3,parent);
 		add(landing, "home");
 	}
 	
@@ -52,9 +52,9 @@ public class MainPanel extends JPanel{
 		return login.getTxtPassword();
 	}
 
-	public void fillTable(String data1,String data2, String name, CalculateView parent) {
+	public void fillTable(String data1,String data2, String name, String data3, CalculateView parent) {
 		// TODO Auto-generated method stub
-		generateJframeLanding(listener,data1,data2,name,parent);
+		generateJframeLanding(listener,data1,data2,name,data3,parent);
 	}
 
 	public String getTxtNameRegister() {
@@ -117,10 +117,10 @@ public class MainPanel extends JPanel{
 		landing.showOptionsCard(command);
 	}
 
-	public void restorefillTable(String data1, String data2, String nickname) {
+	public void restorefillTable(String postionPanelCommand, String positionCardComman) {
 		// TODO Auto-generated method stub
-		landing.restorefillTable( data1,  data2,  nickname);
-		cl.show(this, "landing");
+		cl.show(this, postionPanelCommand);
+		landing.showOptionsCard(positionCardComman);
 	}
 
 	

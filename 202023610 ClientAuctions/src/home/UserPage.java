@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -16,27 +17,41 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import model.CustomFont;
+import model.ValidateTable;
 import view.CalculateView;
+import view.DrawTable;
 
 public class UserPage extends JScrollPane implements MouseListener{
 	
 	private JPanel generalPanel,panelDataUser,panelTable;
 	private JLabel alert, iconUser, lbname, nickName,txtTitle;
 	private JTable table;
+	private ArrayList<String[]> datasTables;
+	private ValidateTable validateTable;
 	private String name,user;
 	private Font font2;
-
-	public UserPage(ActionListener listener,JTable datasTable,String name,String user, 
-			CalculateView parent) {
-		table = datasTable;
+	private CalculateView parent;
+	private ActionListener listener;
+	private ToBid toBid;
+	
+	public UserPage(ActionListener listener,String datasTable,String name,String user, 
+			CalculateView parent, ArrayList<String[]> datasTables) {
 		this.name = name;
 		this.user = user;
+		
+		toBid = new ToBid();
 		CustomFont customFont2 = new CustomFont("source\\font\\vremenagroteskbold.otf");
 		font2 = customFont2.customFontStream();
+		validateTable = new ValidateTable();
+		this.datasTables = validateTable.fillTable(datasTable, user);
+		this.table = generateTable(validateTable.fillOverallTable(),"cancel");
 		initComponents(listener);
 	}
+	
+	
 	
 	private void initComponents(ActionListener listener) {
 		// TODO Auto-generated method stub
@@ -99,8 +114,10 @@ public class UserPage extends JScrollPane implements MouseListener{
 		txtTitle.setForeground(new Color(20,85,52));
 		txtTitle.setBorder(new EmptyBorder(0,0,0,450));
 		panelTable.add(txtTitle);
-		
-		panelTable.add(table);
+		JPanel panelTable2 = new JPanel();
+		panelTable2.add(table);
+		panelTable2.setBorder(new EmptyBorder(30,10,20,10));
+		panelTable.add(panelTable2);
 		generalPanel.add(panelTable);
 	}
 	
@@ -110,8 +127,44 @@ public class UserPage extends JScrollPane implements MouseListener{
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		int row = table.rowAtPoint(e.getPoint());
+		int column = table.columnAtPoint(e.getPoint());
 		
+		if (column==3) {
+			validarSelectionMouse(row);
+		}
+		
+	}
+	
+	public JTable generateTable(Object [][] datas,String type) {
+		String[] namesColumn = {"ID","TITULO","VALOR DE ENTRADA","  "};
+		DefaultTableModel modelo = new DefaultTableModel(datas,namesColumn){
+		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
+		};
+		JTable table = new JTable (modelo);
+		table.addMouseListener(this);
+		table.setFont(font2.deriveFont(Font.BOLD, 14));
+		table.setForeground(new Color(14,58,35));
+		Object objeto = table.getColumnModel().getColumn(3);
+		
+		table.setBackground(new Color(255,255,255));
+		table.setRowHeight(25);
+		table.getColumnModel().getColumn(0).setCellRenderer(new DrawTable("text"));
+		table.getColumnModel().getColumn(1).setCellRenderer(new DrawTable("text"));
+		table.getColumnModel().getColumn(2).setCellRenderer(new DrawTable("text"));
+		table.getColumnModel().getColumn(3).setCellRenderer(new DrawTable(type));
+		
+
+		return table;
+	}
+	
+	private void validarSelectionMouse(int row) {
+		String id = datasTables.get(row)[0];
+		String title = datasTables.get(row)[1];
+		String Description= datasTables.get(row)[4];
+		String value= datasTables.get(row)[2];
+		ToBid toBid = new ToBid(parent,true,listener,id,title,Description,value);
+		toBid.setVisible(true);
 	}
 
 	@Override

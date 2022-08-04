@@ -7,6 +7,7 @@ public class ValidateTable {
 	private ArrayList<String[]> datasTables;
 	private String user;
 	
+	
 	public ValidateTable() {
 		super();
 		datasTables = new ArrayList<String[]>();

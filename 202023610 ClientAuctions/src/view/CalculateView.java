@@ -42,9 +42,9 @@ public class CalculateView extends JFrame{
 		return panel.getTxtPassword();
 	}
 
-	public void fillTable(String data1, String data2, String name) {
+	public void fillTable(String data1, String data2, String name, String data3) {
 		// TODO Auto-generated method stub
-		panel.fillTable(data1,data2,name,this);
+		panel.fillTable(data1,data2,name,data3,this);
 		
 	}
 
@@ -108,9 +108,9 @@ public class CalculateView extends JFrame{
 		panel.showOptionsCard(command);
 	}
 
-	public void restorefillTable(String data1, String data2, String nickname) {
+	public void restorefillTable(String postionPanelCommand, String positionCardComman) {
 		// TODO Auto-generated method stub
-		panel.restorefillTable(data1,  data2,  nickname);
+		panel.restorefillTable(postionPanelCommand,positionCardComman);
 	}
 
 	

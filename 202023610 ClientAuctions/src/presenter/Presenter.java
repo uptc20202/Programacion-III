@@ -16,10 +16,13 @@ public class Presenter implements ActionListener{
 	private CalculateView view;
 	private ViewConsole console;
 	private Connection connection;
+	private String postionPanelCommand,positionCardComman;
 	
 	public Presenter() throws UnknownHostException, IOException {
     	console = new ViewConsole();
     	connection = new Connection();
+    	postionPanelCommand = "";
+    	positionCardComman = "";
     	Thread thread = new Thread() {
 			public void run() {
 				while(true) {
@@ -39,7 +42,7 @@ public class Presenter implements ActionListener{
 				connection.writeInt(1);
 				connection.writeUTF(view.getTxtUser());
 				connection.writeUTF(view.getTxtPassword());
-
+				postionPanelCommand = "home";
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -47,9 +50,11 @@ public class Presenter implements ActionListener{
 		}
 		if(command.equals("exit")) {
 			view.showPanel("login");
+			postionPanelCommand="login";
 		}
 		if (command.equals("register")) {
 			view.showPanel("register");
+			postionPanelCommand="register";
 		}
 		if(command.equals("login2")) {
 			try {
@@ -62,18 +67,18 @@ public class Presenter implements ActionListener{
 				e1.printStackTrace();
 			}
 			view.showPanel("login");
-			
+			postionPanelCommand="login";
 		}
 		if(command.equals("postAuctionWindow")) {
 			view.setVisibleToAuction(true);
 		}
 		if(command.equals("toAuction")) {
 			try {
+				view.setVisibleToAuction(false);
 				connection.writeInt(3);
 				connection.writeUTF(view.getNameNewAuction());
 				connection.writeUTF(view.getDescriptionNewAuction());
 				connection.writeUTF(view.getValueNewAuction());
-				view.setVisibleToAuction(false);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -81,10 +86,10 @@ public class Presenter implements ActionListener{
 		}
 		if(command.equals("toBid")) {
 			try {
+				view.setVisibleToBid(false);
 				connection.writeInt(4);
 				connection.writeInt(Integer.parseInt(view.getIdToBid()));
 				connection.writeUTF(view.getValueToBid());
-				view.setVisibleToBid(false);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -95,9 +100,11 @@ public class Presenter implements ActionListener{
 		}
 		if(command.equals("userData")) {
 			view.showOptionsCard("userPage");
+			positionCardComman="userPage";
 		}
 		if(command.equals("buyOption")) {
 			view.showOptionsCard("homeOptions");
+			positionCardComman = "homeOptions";
 		}
 	}
 	
@@ -110,10 +117,9 @@ public class Presenter implements ActionListener{
 					break;
 				
 				case 99:
-					System.out.println("Reseteo");
-					connection.readUTF();
-					view.restorefillTable(connection.readUTF(),connection.readUTF(),connection.readUTF());
-					
+					view.fillTable(connection.readUTF(),connection.readUTF(),connection.readUTF(),
+							connection.readUTF());
+					view.restorefillTable(postionPanelCommand,positionCardComman);
 					break;	
 				default:
 					break;
@@ -132,7 +138,8 @@ public class Presenter implements ActionListener{
 	public void login() {
 		try {
 			if(connection.readBoolean()) {
-				view.fillTable(connection.readUTF(),connection.readUTF(),connection.readUTF());
+				view.fillTable(connection.readUTF(),connection.readUTF(),connection.readUTF()
+						,connection.readUTF());
 				view.showPanel("home");
 			}else {
 				console.writeString("Error Login");

@@ -21,8 +21,6 @@ public class Presenter {
 	public void start() throws IOException {
 		while(true) {
 			Socket socket = serverSocket.accept();
-			store.addUser("Administrador", "admin", "admin");
-			store.addUser("Administrador", "Usuario", "Contraseña");
 			ThreadClient thread = new ThreadClient(socket, store);
 			store.attach(thread);
 			thread.start();

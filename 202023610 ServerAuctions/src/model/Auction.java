@@ -4,13 +4,14 @@ import java.util.Comparator;
 
 import resource.AVLTree;
 import resource.Queve;
+import resource.Stack;
 
 public class Auction {
 	private String title, description, author;
 	private Long minimumBid;
 	private int id;
 	private boolean status;
-	private Queve<Bid> bids;
+	private Stack<Bid> bids;
 	
 	public Auction(String title, int id, String description, String author, Long minimumBid) {
 		super();
@@ -20,7 +21,7 @@ public class Auction {
 		this.minimumBid = minimumBid;
 		this.id = id;
 		this.status = true;
-		this.bids = new Queve<Bid>(); 
+		this.bids = new Stack<Bid>(); 
 	}
 
 
@@ -95,7 +96,7 @@ public class Auction {
 
 
 
-	public Queve<Bid> getBids() {
+	public Stack<Bid> getBids() {
 		return bids;
 	}
 
@@ -103,6 +104,14 @@ public class Auction {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Auction [title=" + title + ", description=" + description + ", author=" + author + ", minimumBid="
+				+ minimumBid + ", id=" + id + ", status=" + status + "]";
 	}
 	
 	

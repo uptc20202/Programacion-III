@@ -28,6 +28,7 @@ public class Connection {
 	
 	public void writeInt(int number) throws IOException {
 		salida.writeInt(number);
+		System.out.println(" Dato Perdido");
 	}
 	
 	public void writeUTF(String string) throws IOException {
