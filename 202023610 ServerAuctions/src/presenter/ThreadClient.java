@@ -98,7 +98,6 @@ public class ThreadClient extends Thread implements Observer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Bid "+user.getNickname());
 		store.bidUp(user, id, value);
 		
 	}

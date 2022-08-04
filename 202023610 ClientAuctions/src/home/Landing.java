@@ -51,7 +51,7 @@ public class Landing extends JPanel implements MouseListener{
 	private JTable overallTable,bidTables;
 	private CardLayout cl, cl2;
 	private ArrayList<String[]> datasTables, datasTables2; 
-	private String user,name;
+	private String user,name,position;
 	private ToBid toBid;
 	private ToAuction toAuction;
 	private ActionListener listener;
@@ -61,8 +61,10 @@ public class Landing extends JPanel implements MouseListener{
 	
 	public Landing(ActionListener listener,String datasTable,String datasTable2,String user,String name, 
 			String data3, CalculateView parent) {
+		System.out.println(datasTable2);
 		validateTable = new ValidateTable();
 		validateTable2 = new ValidateTable();
+		this.position = "overallTable";
 		this.parent = parent;
 		this.datasTables = validateTable.fillTable(datasTable, user);
 		this.datasTables2 = validateTable2.fillTable(datasTable2, user);
@@ -300,9 +302,11 @@ public class Landing extends JPanel implements MouseListener{
 		switch(comboTable.getSelectedItem().toString()) {
 			case "Todas las Subastas":
 				cl2.show(tablePanel, "overallTable");
+				position = "overallTable";
 				break;
 			case "Subastas donde Participo":
 				cl2.show(tablePanel, "userTable");
+				position = "userTable";
 				break;
 			default:
 				break;
@@ -314,14 +318,14 @@ public class Landing extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		int row = overallTable.rowAtPoint(e.getPoint());
 		int column = overallTable.columnAtPoint(e.getPoint());
-		System.out.println(row);
+		System.out.println(row+" tabla1");
 		int row2 = bidTables.rowAtPoint(e.getPoint());
 		int column2 = bidTables.columnAtPoint(e.getPoint());
-		System.out.println(row2);
+		System.out.println(row2 +" tabla2");
 		if (column==3) {
-			if(row>-1) {
+			if(position.equalsIgnoreCase("overallTable")) {
 				validarSelectionMouse(row,datasTables);
-			}else if(row2>-1){
+			}else if(position.equalsIgnoreCase("userTable")){
 				validarSelectionMouse(row2,datasTables2);
 			}	
 		}

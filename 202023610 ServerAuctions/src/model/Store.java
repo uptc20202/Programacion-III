@@ -38,15 +38,18 @@ public class Store extends Subject{
 	}
 	
 	public Stack<Auction> searchBidInAuction(String nickname) {
-		Stack<Auction> acuctionByBid = new Stack<Auction>();
+		Stack<Auction> auctionByBid = new Stack<Auction>();
 		
 		ArrayList<Auction> sales1 = sales.inOrder();
 		for(Auction auction : sales1) {
 			Stack<Bid> bids1 = auction.getBids();
 			Stack<Bid> aux = new Stack<Bid>();
+			int i =0;
 			while(!bids1.isEmpty()) {
-				if(bids1.peek().getUser().getNickname().equalsIgnoreCase(nickname)) {
-					acuctionByBid.push(auction);
+				
+				if(i==0&&bids1.peek().getUser().getNickname().equalsIgnoreCase(nickname)) {
+					auctionByBid.push(auction);
+					i++;
 				}
 				aux.push(bids1.pop());
 				
@@ -57,7 +60,7 @@ public class Store extends Subject{
 			}
 		}
 		
-		return acuctionByBid;
+		return auctionByBid;
 	}
 
 	public void stopAuction(int id){
@@ -105,7 +108,12 @@ public class Store extends Subject{
 	}
 	
 	public User searchUsers(String nickname) {
-		User user1 = users.searchNode( new User(nickname)).getData();
+		User user1;
+		try {
+			 user1 = users.searchNode( new User(nickname)).getData();
+		}catch(NullPointerException e) {
+			user1 = null;
+		}
 		return user1;
 	}
 
