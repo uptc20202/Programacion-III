@@ -101,15 +101,22 @@ public class ToAuction extends JDialog {
 	}
 
 	public String getTxtTitle() {
+		if(txtTitle.getText().equalsIgnoreCase("")) {
+			return "Emply";
+		}
 		return txtTitle.getText();
 	}
 
 	public String getTxtDescription() {
+		if(txtDescription.getText().equalsIgnoreCase("")) {
+			return "Emply";
+		}
 		return txtDescription.getText();
 	}
 
 	public String getTxtvalue() {
-		return txtvalue.getText();
+		String txtvalue2 = txtvalue.getText().replaceAll("\\p{Punct}", "");
+		return txtvalue2.replaceAll("[^\\d.]", "");
 	}
 	
 	

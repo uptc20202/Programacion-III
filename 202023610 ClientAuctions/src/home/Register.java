@@ -129,7 +129,7 @@ public class Register extends JPanel{
 		buttons.setAlignmentX(LEFT_ALIGNMENT);
 		//spaceLogin.add(buttons);
 		
-		btnLogin = new JButton("INICIAR SESIÓN");
+		btnLogin = new JButton("REGISTRARSE");
 		btnLogin.setFont(font.deriveFont(Font.BOLD, 17));
 		btnLogin.setForeground(new Color(20,85,52));
 		btnLogin.setBackground(new Color(255,255,255));

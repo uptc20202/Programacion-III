@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import model.Store;
 import model.User;
 import net.Connection;
+import means.Stack;
 
 public class ThreadClient extends Thread implements Observer {
 
@@ -24,8 +26,8 @@ public class ThreadClient extends Thread implements Observer {
 
 	@Override
 	public void run() {
-		System.out.println("cliente conectado");
-		System.out.println("datos recibidos");
+		System.out.println("cliente conectado: "+getName());
+		System.out.println("datos recibidos"+getName());
 		try {
 			menu();
 		} catch (IOException e) {
@@ -33,7 +35,7 @@ public class ThreadClient extends Thread implements Observer {
 			e.printStackTrace();
 		}
 		
-		System.out.println("fin de la transmision");
+		System.out.println("\n fin de la transmision: "+getName());
 		
 	}
 
@@ -45,8 +47,32 @@ public class ThreadClient extends Thread implements Observer {
 			connection.writeUTF(store.searchBidInAuctionToString(user.getNickname()));
 			connection.writeUTF(user.getName());
 			connection.writeUTF(store.getMySales(user.getNickname()));
+			connection.writeUTF(store.getMyBuysToString(user.getNickname()));
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Actualización perdida "+getName());
+		}
+		
+	}
+	
+	@Override
+	public void notification() {
+		try {
+			ArrayList<User> users1 =store.getUsersForNotification();
+			
+			if(users1.get(0).equals(user)) {
+				connection.writeInt(97);
+				connection.writeUTF(users1.get(0).getBuys().peek().getTitle());
+			}else {
+				for(int i =1;i < users1.size(); i++ ) {
+					if(user.equals(users1.get(i))) {
+						connection.writeInt(98);
+						connection.writeUTF(users1.get(0).getNickname());
+						connection.writeUTF(users1.get(0).getBuys().peek().getTitle());
+					}
+				}
+			}		
+		} catch (IOException e) {
+			System.out.println("Actualización perdida "+getName());
 		}
 		
 	}
@@ -80,25 +106,70 @@ public class ThreadClient extends Thread implements Observer {
 				store.notifyObservers();
 				break;	
 			case 5:
+				toSell();
+				store.notifyObservers();
+				store.notifyObserversSell();
+				break;
+			case 6:
+				toDeteleAuction();
+				store.notifyObservers();
 				break;	
 			default:
 				break;
 			}
-		}while(option != 6);
+		}while(option != 8);
 	}
 	
+	private void toDeteleAuction() {
+		// TODO Auto-generated method stub
+		int id =0;
+		try {
+			id= connection.readInt();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		store.deleteAuction(id);
+	}
+
+	private void toSell() {
+		int id =0;
+		try {
+			id= connection.readInt();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			store.stopAuction(id);
+		}catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			System.out.print("Error: Memoria en uso "+getName());
+		}	
+	}
+
 	private void bidUp() {
 		// TODO Auto-generated method stub
 		int id =0;
 		long value=0;
 		try {
 			id= connection.readInt();
-			value = Long.parseLong(connection.readUTF());
+			try {
+				value = Long.parseLong(connection.readUTF());
+			}catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				value = 0;
+			}	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		store.bidUp(user, id, value);
+		try {
+			store.bidUp(user, id, value);
+		}catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			System.out.print("Error: Memoria en uso "+getName());
+		}	
 		
 	}
 
@@ -110,7 +181,12 @@ public class ThreadClient extends Thread implements Observer {
 		try {
 			tittle = connection.readUTF();
 			description=connection.readUTF();
-			minimumBid= Long.parseLong(connection.readUTF());
+			try {
+				minimumBid= Long.parseLong(connection.readUTF());
+			}catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				minimumBid = 0;
+			}	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,7 +199,12 @@ public class ThreadClient extends Thread implements Observer {
 		String userName = connection.readUTF();
 		String nickname = connection.readUTF();
 		String password = connection.readUTF();
-		store.addUser(userName, nickname, password);
+		try {
+			store.addUser(userName, nickname, password);
+		}catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			System.out.print("\n Intento de Registro con nickname en uso "+getName());
+		}	
 	}
 
 	public void login() throws IOException {
@@ -138,6 +219,7 @@ public class ThreadClient extends Thread implements Observer {
 			connection.writeUTF(store.searchBidInAuctionToString(nickname));
 			connection.writeUTF(user.getName());
 			connection.writeUTF(store.getMySales(nickname));
+			connection.writeUTF(store.getMyBuysToString(nickname));
 		}else {
 			connection.writeBoolean(false);
 		}

@@ -3,46 +3,42 @@ package home;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.CustomFont;
 import view.CalculateView;
 
-public class ToBid extends JDialog{
+public class ToCancel extends JDialog{
 
 	private JLabel bidTitle, bidDescription,bidValue;
-	private JTextField bidNew;
 	private JPanel panel;
 	private Font font3;
-	private JButton bidUp;
-	private String id,valueOriginal;
+	private JButton btnCancel,btnSell;
+	private String id;
 	private ActionListener listener;
 	
-	public ToBid(CalculateView parent, boolean modal,ActionListener listener,String id,String Title,
+	public ToCancel(CalculateView parent, boolean modal,ActionListener listener,String id,String Title,
 			String description, String value) {
 		super(parent, modal);
 		this.listener = listener;
 		this.id = id;
-		this.valueOriginal = value;
 		CustomFont customFont3 = new CustomFont("source\\font\\HarmoniaSansProCyr-Light.ttf");
 		font3 = customFont3.customFontStream();
 		setLayout(null);
 		setLocationRelativeTo(null);
 	    setBounds(440,10,410,210);
 	    
-	    initComponents( Title,  description,  valueOriginal);
+	    initComponents( Title,  description,  value);
 	}
 	
-	public ToBid() {
+	public ToCancel() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -68,47 +64,40 @@ public class ToBid extends JDialog{
 		bidDescription.setForeground(new Color(14,58,35));
 		panel.add(bidDescription);
 		
-		bidValue = new JLabel("Valor minimo de entrada "+"$"+value);
+		bidValue = new JLabel("Valor para venta "+"$"+value);
 		bidValue.setAlignmentX(CENTER_ALIGNMENT);
 		bidValue.setFont(font3.deriveFont(Font.BOLD, 14));
 		bidValue.setForeground(new Color(14,58,35));
 		panel.add(bidValue);
 		
-		bidNew = new JTextField("$ "+value);
-		bidNew.setAlignmentX(CENTER_ALIGNMENT);
-		bidNew.setMaximumSize(new Dimension(100,20));
-		bidNew.setFont(font3.deriveFont(Font.BOLD, 14));
-		bidNew.setForeground(new Color(14,58,35));
-		panel.add(bidNew);
+		JPanel btnOptions = new JPanel();
+		btnSell = new JButton("VENDER");
+		btnSell.setAlignmentX(CENTER_ALIGNMENT);
+		btnSell.setMaximumSize(new Dimension(200,20));
+		btnSell.setFont(font3.deriveFont(Font.BOLD, 14));
+		btnSell.setForeground(new Color(14,58,35));
+		btnSell.setActionCommand("toSell");
+		btnSell.addActionListener(listener);
+		btnOptions.add(btnSell);
 		
-		bidUp = new JButton("ENTRAR EN SUBASTA");
-		bidUp.setAlignmentX(CENTER_ALIGNMENT);
-		bidUp.setMaximumSize(new Dimension(200,20));
-		bidUp.setFont(font3.deriveFont(Font.BOLD, 14));
-		bidUp.setForeground(new Color(14,58,35));
-		bidUp.setActionCommand("toBid");
-		bidUp.addActionListener(listener);
-		panel.add(bidUp);
+		btnCancel = new JButton("ELIMINAR SUBASTA");
+		btnCancel.setAlignmentX(CENTER_ALIGNMENT);
+		btnCancel.setMaximumSize(new Dimension(200,20));
+		btnCancel.setFont(font3.deriveFont(Font.BOLD, 14));
+		btnCancel.setForeground(new Color(14,58,35));
+		btnCancel.setActionCommand("toCancel");
+		btnCancel.addActionListener(listener);
+		btnOptions.add(btnCancel);
+		
+		panel.add(btnOptions);
 	}
-	
-	public Boolean validateInput() {
-		return (Long.parseLong(getBidValue())
-				>Long.parseLong(getBigValueOriginal()));
-	}
-	
-	public String getBigValueOriginal() {
-		return valueOriginal;
-	}
-	
+
 	public int getId() throws NullPointerException{
-		return id!=null?Integer.parseInt(id):0;
-	}
-
-	public String getBidValue() throws NullPointerException{
-		String txtvalue2 = bidNew.getText().replaceAll("\\p{Punct}", "");
-		return txtvalue2.replaceAll("[^\\d.]", "");
+		if(id==null) {
+			return 0;
+		}
+		return Integer.parseInt(id);
 	}
 	
 	
-
 }

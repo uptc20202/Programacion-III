@@ -24,7 +24,7 @@ import model.ValidateTable;
 import view.CalculateView;
 import view.DrawTable;
 
-public class UserPage extends JScrollPane implements MouseListener{
+public class UserPage extends CreateTable implements MouseListener{
 	
 	private JPanel generalPanel,panelDataUser,panelTable;
 	private JLabel alert, iconUser, lbname, nickName,txtTitle;
@@ -35,19 +35,20 @@ public class UserPage extends JScrollPane implements MouseListener{
 	private Font font2;
 	private CalculateView parent;
 	private ActionListener listener;
-	private ToBid toBid;
+	private ToCancel toCancel;
 	
 	public UserPage(ActionListener listener,String datasTable,String name,String user, 
-			CalculateView parent, ArrayList<String[]> datasTables) {
+			CalculateView parent) {
 		this.name = name;
 		this.user = user;
-		
-		toBid = new ToBid();
+		this.listener = listener;
+		toCancel = new ToCancel();
 		CustomFont customFont2 = new CustomFont("source\\font\\vremenagroteskbold.otf");
 		font2 = customFont2.customFontStream();
 		validateTable = new ValidateTable();
-		this.datasTables = validateTable.fillTable(datasTable, user);
-		this.table = generateTable(validateTable.fillOverallTable(),"cancel");
+		this.datasTables = validateTable.fillTable(datasTable);
+		this.table = generateTable(validateTable.fillOverallTable(datasTables),"cancel");
+		table.addMouseListener(this);
 		initComponents(listener);
 	}
 	
@@ -58,7 +59,6 @@ public class UserPage extends JScrollPane implements MouseListener{
 		generalPanel = new JPanel();
 		generalPanel.setLayout(new BoxLayout(generalPanel, BoxLayout.Y_AXIS));
 		add(generalPanel);
-		setViewportView(generalPanel);
 		GridBagConstraints gbc = new GridBagConstraints();
 		GridBagLayout gbl = new GridBagLayout();
 		panelDataUser = new JPanel();
@@ -112,12 +112,13 @@ public class UserPage extends JScrollPane implements MouseListener{
 		txtTitle = new JLabel("Mis Subastas");
 		txtTitle.setFont(font2.deriveFont(Font.PLAIN, 16));
 		txtTitle.setForeground(new Color(20,85,52));
-		txtTitle.setBorder(new EmptyBorder(0,0,0,450));
+		txtTitle.setBorder(new EmptyBorder(0,0,0,350));
 		panelTable.add(txtTitle);
-		JPanel panelTable2 = new JPanel();
-		panelTable2.add(table);
+		
+		JScrollPane panelTable2 = new JScrollPane(table);
 		panelTable2.setBorder(new EmptyBorder(30,10,20,10));
 		panelTable.add(panelTable2);
+		panelTable.setBorder(new EmptyBorder(10,100,20,100));
 		generalPanel.add(panelTable);
 	}
 	
@@ -136,35 +137,13 @@ public class UserPage extends JScrollPane implements MouseListener{
 		
 	}
 	
-	public JTable generateTable(Object [][] datas,String type) {
-		String[] namesColumn = {"ID","TITULO","VALOR DE ENTRADA","  "};
-		DefaultTableModel modelo = new DefaultTableModel(datas,namesColumn){
-		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
-		};
-		JTable table = new JTable (modelo);
-		table.addMouseListener(this);
-		table.setFont(font2.deriveFont(Font.BOLD, 14));
-		table.setForeground(new Color(14,58,35));
-		Object objeto = table.getColumnModel().getColumn(3);
-		
-		table.setBackground(new Color(255,255,255));
-		table.setRowHeight(25);
-		table.getColumnModel().getColumn(0).setCellRenderer(new DrawTable("text"));
-		table.getColumnModel().getColumn(1).setCellRenderer(new DrawTable("text"));
-		table.getColumnModel().getColumn(2).setCellRenderer(new DrawTable("text"));
-		table.getColumnModel().getColumn(3).setCellRenderer(new DrawTable(type));
-		
-
-		return table;
-	}
-	
 	private void validarSelectionMouse(int row) {
 		String id = datasTables.get(row)[0];
 		String title = datasTables.get(row)[1];
 		String Description= datasTables.get(row)[4];
 		String value= datasTables.get(row)[2];
-		ToBid toBid = new ToBid(parent,true,listener,id,title,Description,value);
-		toBid.setVisible(true);
+		toCancel = new ToCancel(parent,true,listener,id,title,Description,value);
+		toCancel.setVisible(true);
 	}
 
 	@Override
@@ -189,6 +168,23 @@ public class UserPage extends JScrollPane implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+	public int getIdToSell() {
+		// TODO Auto-generated method stub
+		return toCancel.getId();
+	}
+
+
+
+	public void setVisibleToCancel(boolean result) {
+		// TODO Auto-generated method stub
+		toCancel.setVisible(result);
+		if(result) {
+			toCancel.dispose();
+		}	
 	}
 
 }

@@ -2,15 +2,15 @@ package model;
 
 import java.util.Comparator;
 
-import resource.AVLTree;
-import resource.Queve;
+import means.AVLTree;
+import means.Stack;
 
 public class User {
 	private String name;
 	private String nickname;
 	private String password;
 	private AVLTree<Auction> sales;
-	private Queve<Auction> buys;
+	private Stack<Auction> buys;
 	
 	
 	
@@ -25,7 +25,7 @@ public class User {
                 return t1.getTitle().compareToIgnoreCase(t2.getTitle());
             }
         });
-		this.buys = new Queve<Auction>();
+		this.buys = new Stack<Auction>();
 	}
 	
 	
@@ -49,7 +49,7 @@ public class User {
 	public AVLTree<Auction> getSales() {
 		return sales;
 	}
-	public Queve<Auction> getBuys() {
+	public Stack<Auction> getBuys() {
 		return buys;
 	}
 	public void setName(String name) {
@@ -64,8 +64,8 @@ public class User {
 	public void setSales(AVLTree<Auction> sales) {
 		this.sales = sales;
 	}
-	public void setBuys(Queve<Auction> buys) {
-		this.buys = buys;
+	public void addBuys(Auction buy) {
+		this.buys.push(buy);
 	}
 
 

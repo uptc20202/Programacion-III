@@ -1,24 +1,21 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ValidateTable {
 	
-	private ArrayList<String[]> datasTables;
-	private String user;
-	
-	
 	public ValidateTable() {
 		super();
-		datasTables = new ArrayList<String[]>();
+		
 		// TODO Auto-generated constructor stub
 	}
 	
 	
-	public ArrayList<String[]> fillTable(String datasTable, String user) {
+	public ArrayList<String[]> fillTable(String datasTable) {
 		// TODO Auto-generated method stub
+		ArrayList<String[]> datasTables = datasTables = new ArrayList<String[]>();
 		if(!datasTable.equalsIgnoreCase("")) {
-			this.user = user;
 			String[] newStr = datasTable.split(";");
 			
 			
@@ -30,12 +27,12 @@ public class ValidateTable {
 		return datasTables;
 	}
 	
-	public Object [][] fillOverallTable() {
+	public Object [][] fillOverallTable(ArrayList<String[]> datasTables) {
 		Object[][] datas = new Object [datasTables.size()][];
 		
 		for( int i = 0; i < datasTables.size(); i++) {
 			String[] datas2 = datasTables.get(i);
-			String[] datas3 = new String[3];
+			String[] datas3 = new String[4];
 			
 			
 				for( int j = 0; j < datas3.length; j++) {
@@ -51,29 +48,15 @@ public class ValidateTable {
 		return datas;
 	}
 	
-	public Object [][] fillUserTable() {
-		int length =0;
+	public ArrayList<String[]> fillTableSort(String datasTable) {
+		ArrayList<String[]> datasTables = fillTable(datasTable);
+		datasTables.sort(new Comparator<String[]>() {
+		    @Override
+		    public int compare(String[] o1, String[] o2) {
+		        return Integer.parseInt(o1[2])- Integer.parseInt(o2[2]);
+		    }
+		});
 		
-		
-		for( int i = 0; i < datasTables.size(); i++) {
-			if(datasTables.get(i)[3].equalsIgnoreCase(user)) {
-				length++;
-			}
-		}
-		
-		Object[][] datas = new Object [length][];
-		
-		for( int i = 0; i < datasTables.size(); i++) {
-			if(datasTables.get(i)[3].equalsIgnoreCase(user)) {
-			String[] datas2 = datasTables.get(i);
-			String[] datas3 = new String[3];
-			for( int j = 0; j < datas3.length; j++) {
-        			datas3[j] = datas2[j];
-        	}
-			datas[i]=datas3;
-			}
-		}	
-		
-		return datas;
+		return datasTables;
 	}
 }

@@ -24,7 +24,7 @@ public class BinarySearchTree<T> {
         } else if (comparator.compare(data, node.getData()) > 0) {
             node.setRight(addRecursive(data, node.getRight()));
         } else {
-            throw new IllegalArgumentException("AVL Tree already contains a node with key " + data);
+        	throw new IllegalArgumentException("AVL Tree already contains a node with key " + data);
         }
         return node;
     }

@@ -2,15 +2,13 @@ package model;
 
 import java.util.Comparator;
 
-import resource.AVLTree;
-import resource.Queve;
-import resource.Stack;
+import means.AVLTree;
+import means.Stack;
 
 public class Auction {
 	private String title, description, author;
 	private Long minimumBid;
 	private int id;
-	private boolean status;
 	private Stack<Bid> bids;
 	
 	public Auction(String title, int id, String description, String author, Long minimumBid) {
@@ -20,7 +18,6 @@ public class Auction {
 		this.author = author;
 		this.minimumBid = minimumBid;
 		this.id = id;
-		this.status = true;
 		this.bids = new Stack<Bid>(); 
 	}
 
@@ -72,17 +69,6 @@ public class Auction {
 		this.minimumBid = minimumBid;
 	}
 
-
-
-	public boolean getStatus() {
-		return status;
-	}
-
-
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
 	
 	public void addBid(Bid bid) {
 		bids.push(bid);
@@ -111,7 +97,7 @@ public class Auction {
 	@Override
 	public String toString() {
 		return "Auction [title=" + title + ", description=" + description + ", author=" + author + ", minimumBid="
-				+ minimumBid + ", id=" + id + ", status=" + status + "]";
+				+ minimumBid + ", id=" + id +" ]";
 	}
 	
 	

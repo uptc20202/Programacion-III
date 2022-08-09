@@ -42,9 +42,9 @@ public class CalculateView extends JFrame{
 		return panel.getTxtPassword();
 	}
 
-	public void fillTable(String data1, String data2, String name, String data3) {
+	public void fillTable(String data1, String data2, String name, String data3, String data4) {
 		// TODO Auto-generated method stub
-		panel.fillTable(data1,data2,name,data3,this);
+		panel.fillTable(data1,data2,name,data3,data4,this);
 		
 	}
 
@@ -83,12 +83,12 @@ public class CalculateView extends JFrame{
 		return panel.getValueNewAuction();
 	}
 
-	public String getIdToBid() {
+	public int getIdToBid() {
 		// TODO Auto-generated method stub
 		return panel.getIdToBid();
 	}
 
-	public String getValueToBid() {
+	public String getValueToBid() throws NullPointerException{
 		// TODO Auto-generated method stub
 		return panel.getValueToBid();
 	}
@@ -111,6 +111,41 @@ public class CalculateView extends JFrame{
 	public void restorefillTable(String postionPanelCommand, String positionCardComman) {
 		// TODO Auto-generated method stub
 		panel.restorefillTable(postionPanelCommand,positionCardComman);
+	}
+
+	public int getIdToSell() {
+		// TODO Auto-generated method stub
+		return panel.getIdToSell() ;
+	}
+
+	public void setVisibleToCancel(boolean result) {
+		// TODO Auto-generated method stub
+		panel.setVisibleToCancel(result);
+	}
+
+	public void toAlertLogin() {
+		// TODO Auto-generated method stub
+		panel.toAlertLogin();
+	}
+
+	public void watchNotification() {
+		// TODO Auto-generated method stub
+		panel.watchNotification();
+	}
+
+	public void setButtonNofication() {
+		// TODO Auto-generated method stub
+		panel.setButtonNofication();
+	}
+
+	public void setNotification(String nickname, String tittle) {
+		// TODO Auto-generated method stub
+		panel.setNotification( nickname,  tittle);
+	}
+
+	public void setNotification(String tittle) {
+		// TODO Auto-generated method stub
+		panel.setNotification(tittle);
 	}
 
 	

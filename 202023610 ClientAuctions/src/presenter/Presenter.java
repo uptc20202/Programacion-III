@@ -9,17 +9,14 @@ import java.net.UnknownHostException;
 import model.ValidateTable;
 import net.Connection;
 import view.CalculateView;
-import view.ViewConsole;
 
 public class Presenter implements ActionListener{
 	
 	private CalculateView view;
-	private ViewConsole console;
 	private Connection connection;
 	private String postionPanelCommand,positionCardComman;
 	
 	public Presenter() throws UnknownHostException, IOException {
-    	console = new ViewConsole();
     	connection = new Connection();
     	postionPanelCommand = "";
     	positionCardComman = "";
@@ -88,8 +85,18 @@ public class Presenter implements ActionListener{
 			try {
 				view.setVisibleToBid(false);
 				connection.writeInt(4);
-				connection.writeInt(Integer.parseInt(view.getIdToBid()));
-				connection.writeUTF(view.getValueToBid());
+				try {
+					connection.writeInt((view.getIdToBid()));
+				}catch(NullPointerException e4){
+					connection.writeInt(0);
+					System.out.println("\n Espacio de memoria en uso");
+				}	
+				try {
+					connection.writeUTF(view.getValueToBid());
+				}catch(NullPointerException e4){
+					connection.writeUTF("Emply");
+					System.out.println("\n Espacio de memoria en uso");
+				}	
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -106,6 +113,43 @@ public class Presenter implements ActionListener{
 			view.showOptionsCard("homeOptions");
 			positionCardComman = "homeOptions";
 		}
+		if(command.equals("toSell")) {
+			try {
+				connection.writeInt(5);
+				try {
+					connection.writeInt(view.getIdToSell());
+				}catch(NullPointerException e4){
+					connection.writeInt(0);
+					System.out.println("Espacio de memoria en uso");
+				}	
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			view.setVisibleToCancel(false);
+		}
+		if(command.equals("toCancel")) {
+			try {
+				connection.writeInt(6);
+				try {
+					connection.writeInt(view.getIdToSell());
+				}catch(NullPointerException e4){
+					connection.writeInt(0);
+					System.out.println("\n Espacio de memoria en uso");
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			view.setVisibleToCancel(false);
+		}
+		if(command.equals("myBuys")) {
+			view.showOptionsCard("buysOptions");
+			positionCardComman = "buysOptions";
+		}
+		if(command.equals("watchNotification")) {
+			view.watchNotification();
+		}
 	}
 	
 	private void verify() {
@@ -115,10 +159,15 @@ public class Presenter implements ActionListener{
 				case 1:
 					login();
 					break;
-				
+				case 97:
+					notificationWin();
+					break;
+				case 98:
+					notification();
+					break;
 				case 99:
 					view.fillTable(connection.readUTF(),connection.readUTF(),connection.readUTF(),
-							connection.readUTF());
+							connection.readUTF(),connection.readUTF());
 					view.restorefillTable(postionPanelCommand,positionCardComman);
 					break;	
 				default:
@@ -130,19 +179,36 @@ public class Presenter implements ActionListener{
 		}
 	}
 	
-	private void register() {
+	private void notificationWin() {
 		// TODO Auto-generated method stub
-		
+		view.setButtonNofication();
+		try {
+			view.setNotification(connection.readUTF());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void notification() {
+		// TODO Auto-generated method stub
+		view.setButtonNofication();
+		try {
+			view.setNotification(connection.readUTF(),connection.readUTF());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void login() {
 		try {
 			if(connection.readBoolean()) {
 				view.fillTable(connection.readUTF(),connection.readUTF(),connection.readUTF()
-						,connection.readUTF());
+						,connection.readUTF(),connection.readUTF());
 				view.showPanel("home");
 			}else {
-				console.writeString("Error Login");
+				view.toAlertLogin();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

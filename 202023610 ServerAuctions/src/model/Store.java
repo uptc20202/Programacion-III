@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import means.AVLTree;
-import resource.Stack;
+import means.Stack;
 
 public class Store extends Subject{
 	private AVLTree<Auction> sales;
 	private AVLTree<User> users;
 	private int idConsecutive;
-	
-	
+	ArrayList<User> usersForNotification;
 	
 	public Store() {
 		super();
+		usersForNotification = new ArrayList<User>();
 		idConsecutive = 1;
 		this.sales = new AVLTree<Auction>(new Comparator<Auction>() {
 
@@ -64,17 +64,25 @@ public class Store extends Subject{
 	}
 
 	public void stopAuction(int id){
-		searchAuction(id).setStatus(false);
+		Auction auction =searchAuction(id);
+		if(!auction.getBids().isEmpty()) {
+			auction.getBids().peek().getUser().addBuys(auction);
+		}
+		userForNotification(auction);
+		sales.remove(auction);
+	}
+	
+	public void deleteAuction(int id) {
+		Auction auction =searchAuction(id);
+		sales.remove(auction);
 	}
 	
 	public void bidUp(User user, int id, Long valueBid) {
 		Auction auction1 = searchAuction(id);
-		auction1.addBid(new Bid(valueBid,user));
-		auction1.setMinimumBid(valueBid+1);
-	}
-	
-	public boolean searchAuctionStatus(int id) {
-		return searchAuction(id).getStatus();
+		if(auction1.getMinimumBid()<valueBid) {
+			auction1.addBid(new Bid(valueBid,user));
+			auction1.setMinimumBid(valueBid+1);
+		}
 	}
 	
 	public void postAuction(String tittle,String description,long minimumBid,User author) {
@@ -170,19 +178,56 @@ public class Store extends Subject{
 		 
 		 return sbuilder.toString();
 	}
+	
+	public String getMyBuysToString(String nickname) {
+		StringBuilder sbuilder = new StringBuilder();
+		Stack<Auction> auctions = searchMyBuys(nickname);
+		Stack<Auction> aux = new Stack<Auction>();
+		while(!auctions.isEmpty()) {
+			Auction auction = auctions.peek();
+			sbuilder.append(auction.getId()+",");
+			sbuilder.append(auction.getTitle()+",");
+			sbuilder.append(auction.getMinimumBid()+",");
+			sbuilder.append(auction.getAuthor()+",");
+			sbuilder.append(auction.getDescription()+";");
+			aux.push(auctions.pop());
+		}
+		while(!aux.isEmpty()) {
+			auctions.push(aux.pop());
+		}
+		 
+		 return sbuilder.toString();
+	}
 
 	public Stack<Auction> searchMySales(String nickname) {
-		Stack<Auction> acuctionByBid = new Stack<Auction>();
+		Stack<Auction> auctionByBid = new Stack<Auction>();
 		
 		ArrayList<Auction> sales1 = sales.inOrder();
 		for(Auction auction : sales1) {
 				if(auction.getAuthor().equalsIgnoreCase(nickname)) {
-					acuctionByBid.push(auction);
+					auctionByBid.push(auction);
 				}
 		}
-		return acuctionByBid;
+		return auctionByBid;
 	}
 	
+	public void userForNotification(Auction auction) {
+		usersForNotification = new ArrayList<User>();
+		while(!auction.getBids().isEmpty()) {
+			usersForNotification.add(auction.getBids().pop().getUser());
+		};
+	}
+	
+	public Stack<Auction> searchMyBuys(String nickname) {
+		return users.searchNode(new User(nickname)).getData().getBuys();
+	}
+	
+	
+	
+	public ArrayList<User> getUsersForNotification() {
+		return usersForNotification;
+	}
+
 	public void setSales(AVLTree<Auction> sales) {
 		this.sales = sales;
 	}
@@ -194,6 +239,7 @@ public class Store extends Subject{
 	public void setIdConsecutive(int idConsecutive) {
 		this.idConsecutive = idConsecutive;
 	}
+	
 	
 	
 }

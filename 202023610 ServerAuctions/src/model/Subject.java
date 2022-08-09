@@ -25,4 +25,10 @@ public abstract class Subject {
 			observer.update();
 		}
 	}
+	
+	public void notifyObserversSell() {
+		for (Observer observer : observerList) {
+			observer.notification();
+		}
+	}
 }

@@ -15,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -135,6 +136,10 @@ public class Login extends JPanel{
 		
 		
 		
+	}
+	
+	public void toAlert() {
+		JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos");
 	}
 
 	public String getTxtUser() {

@@ -73,14 +73,18 @@ public class DrawTable extends DefaultTableCellRenderer{
         if( type.equals("button"))
         {
             
-            label.setHorizontalAlignment( JLabel.LEFT );
+            label.setHorizontalAlignment( JLabel.CENTER );
+            label.setForeground(new Color(255,255,255));
             label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+            label.setBackground(new Color(20,85,52));
             return label;
         }
         if( type.equals("bidUP+"))
         {
         	label = new JButton("AUMETAR OFERTA");
-            label.setHorizontalAlignment( JLabel.LEFT );
+            label.setHorizontalAlignment( JLabel.CENTER );
+            label.setForeground(new Color(255,255,255));
+            label.setBackground(new Color(20,85,52));
             label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
             return label;
         }
@@ -88,10 +92,12 @@ public class DrawTable extends DefaultTableCellRenderer{
         {
             label = new JButton("CERRAR");
             label.setBackground(new Color(185,50,36));
-            label.setHorizontalAlignment( JLabel.LEFT );
+            label.setForeground(new Color(255,255,255));
+            label.setHorizontalAlignment( JLabel.CENTER );
             label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
             return label;
         }
+        
       
 		return this;
 		
