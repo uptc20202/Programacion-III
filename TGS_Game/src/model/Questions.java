@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Arrays;
-
 public class Questions {
 	
 	private String name;
@@ -10,8 +8,6 @@ public class Questions {
 	private String[] answersTrue;
 	private String[] answersFalse;
 
-	
-	
 	public Questions(String name, int allowedError, String[] answersTrue, String[] answersFalse) {
 		super();
 		this.name = name;

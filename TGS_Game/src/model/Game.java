@@ -28,6 +28,14 @@ public class Game {
 	public void setStreak(int streak) {
 		this.streak = streak;
 	}
+
+	public Date getLastConnection() {
+		return lastConnection;
+	}
+
+	public void setLastConnection(Date lastConnection) {
+		this.lastConnection = lastConnection;
+	}
 	
 	
 	
