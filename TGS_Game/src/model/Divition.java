@@ -4,7 +4,7 @@ public class Divition {
 	
 	public DivitionName calculateDivition(int points) {
 		if(points >= 120) {
-			return DivitionName.Diseñador;
+			return DivitionName.Disenador;
 		}else if(points >= 80) {
 			return DivitionName.Gobernante;
 		}else if(points > 40) {

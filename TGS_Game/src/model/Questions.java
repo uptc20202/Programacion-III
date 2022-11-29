@@ -12,9 +12,9 @@ public class Questions {
 		super();
 		this.name = name;
 		this.points = 0;
-		this.allowedError = allowedError;
-		this.answersTrue = answersTrue;
-		this.answersFalse = answersFalse;
+		this.allowedError = allowedError;//maxima cantidad de errores permitidos para pasar una pregunta 
+		this.answersTrue = answersTrue;//Lista de respuestas correctas
+		this.answersFalse = answersFalse;//Lista de respuestas falsas que se presentaran al usuario mezcladas con correctas
 	}
 
 	public boolean valitaPointsAnswer(String[] answers) {
