@@ -16,7 +16,8 @@ public class Questions {
 		this.answersTrue = answersTrue;//Lista de respuestas correctas
 		this.answersFalse = answersFalse;//Lista de respuestas falsas que se presentaran al usuario mezcladas con correctas
 	}
-
+	
+	
 	public boolean valitaPointsAnswer(String[] answers) {
 		int error = 0;
 		if(answers.length == answersTrue.length ) {

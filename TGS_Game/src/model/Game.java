@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 
 public class Game {
@@ -9,6 +10,19 @@ public class Game {
 	private Divition divition;
 	private Date lastConnection;
 	private int streak;
+	private Level[] level;
+	
+	public Game() {
+		super();
+	}
+
+	public Game(int points, Divition divition, Date lastConnection, int streak) {
+		super();
+		this.points = points;
+		this.divition = divition;
+		this.lastConnection = lastConnection;
+		this.streak = streak;
+	}
 
 	public DivitionName getDivition() {
 		return divition.calculateDivition(points);
@@ -49,13 +63,25 @@ public class Game {
 		Long timeNow = nowDate.getTime();
 
 		if (timeLastConnection-timeNow == today) {
-			System.out.println("La Ultima conexión fue hoy");
+			System.out.println("La Ultima conexiï¿½n fue hoy");
 		} else if ((timeLastConnection - timeNow) == restOfOneDay && (timeLastConnection - timeNow) > restOfTwoDays) {
-			System.out.println("La Ultima conexión fue hace un dia");
+			System.out.println("La Ultima conexiï¿½n fue hace un dia");
 			setStreak(streak+1);
 			System.out.println("Streak" + streak);
 		} else if ((timeLastConnection - timeNow) <= restOfTwoDays) {
-			System.out.println("La Ultima conexión fue hace dos dias o más");
+			System.out.println("La Ultima conexiï¿½n fue hace dos dias o mï¿½s");
 		}
 	}
+
+	public void setDivition(Divition divition) {
+		this.divition = divition;
+	}
+
+	@Override
+	public String toString() {
+		return "Game [points=" + points + ", divition=" + divition + ", lastConnection=" + lastConnection + ", streak="
+				+ streak + ", level=" + Arrays.toString(level) + "]";
+	}
+	
+	
 }
