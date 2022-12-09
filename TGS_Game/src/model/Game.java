@@ -34,7 +34,7 @@ public class Game {
 	}
 	
 	
-
+	
 	public DivitionName getDivition() {
 		return divition.calculateDivition(points);
 	}
@@ -74,13 +74,12 @@ public class Game {
 		Long timeNow = nowDate.getTime();
 
 		if (timeLastConnection-timeNow == today) {
-			System.out.println("La Ultima conexi�n fue hoy");
 		} else if ((timeLastConnection - timeNow) == restOfOneDay && (timeLastConnection - timeNow) > restOfTwoDays) {
-			System.out.println("La Ultima conexi�n fue hace un dia");
+			
 			setStreak(streak+1);
-			System.out.println("Streak" + streak);
+			
 		} else if ((timeLastConnection - timeNow) <= restOfTwoDays) {
-			System.out.println("La Ultima conexi�n fue hace dos dias o m�s");
+			//("La Ultima conexi�n fue hace dos dias o m�s");
 		}
 	}
 

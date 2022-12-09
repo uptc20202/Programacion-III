@@ -14,6 +14,15 @@ public class Lesson {
 		this.state = state;
 		this.questions = questions;
 	}
+	
+	public int calculatePoins() {
+		int points = 0; 
+		for(QuestionsModel poinsQuestions: questions) {
+			points = points +poinsQuestions.getPoints();
+		}
+		return points;
+	}
+	
 	public String getName() {
 		return name;
 	}

@@ -28,17 +28,14 @@ public class QuestionsModel {
 			for(String partAnswer :temporalAnswer) {
 				
 				if(allowedError < error) {
+					points = 0;
 					return false;
 				}
 				
-				if(partAnswer.equalsIgnoreCase(answersTrue[index])) {
-					points = points+2;
-				}else {
+				if(!partAnswer.equalsIgnoreCase(answersTrue[index])) {
 					
 					for(String partAnswer2 :answersTrue) {
-						if(partAnswer2.equalsIgnoreCase(partAnswer)) {
-							points++;
-						}else {
+						if(!partAnswer2.equalsIgnoreCase(partAnswer)) {
 							error++;
 						}
 					}
@@ -46,8 +43,10 @@ public class QuestionsModel {
 				index++;
 			}
 		}else {
+			points = 0;
 			return false;
 		}
+		points = 20;
 		return true;
 	}
 	

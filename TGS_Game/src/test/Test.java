@@ -29,6 +29,6 @@ public class Test {
 		
 		Level[] level1 = new Level[] {level};
 		
-		ReaderData.RefreshLeve(level1,"data/levels.json");
+//		ReaderData.RefreshLeve(level1,"data/levels.json");
 	}
 }

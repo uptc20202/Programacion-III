@@ -6,20 +6,25 @@
 package view;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
+
+import model.Level;
 
 /**
  *
  * @author luism
  */
 public class Home extends javax.swing.JFrame {
-
+	
+	private ArrayList<Level> levels;
     /**
      * Creates new form Home
      */
-    public Home(ActionListener listener) {
+    public Home(ActionListener listener, ArrayList<Level> level) {
     	super("Home");
+    	this.levels = level;
         initComponents2(listener);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
@@ -49,7 +54,6 @@ public class Home extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
         jButton4.setToolTipText("");
@@ -149,28 +153,24 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(25, Short.MAX_VALUE)))
         );
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
+        
+        fillButtons();
         jButton1.setToolTipText("");
         jButton1.setActionCommand("nivel1");
         jButton1.addActionListener(listener);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
+        
         jButton2.setToolTipText("");
         jButton2.setActionCommand("nivel2");
         jButton2.addActionListener(listener);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
+        
         jButton3.setToolTipText("");
         jButton3.setActionCommand("nivel3");
         jButton3.addActionListener(listener);
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
+        
         jButton5.setToolTipText("");
         jButton5.setActionCommand("nivel4");
         jButton5.addActionListener(listener);
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
+        
         jButton6.setToolTipText("");
         jButton6.setActionCommand("nivel5");
         jButton6.addActionListener(listener);
@@ -201,10 +201,7 @@ public class Home extends javax.swing.JFrame {
                         .addGap(443, 443, 443)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton5)
-                            .addComponent(jButton2)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(522, 522, 522)
-                        .addComponent(jButton7)))
+                            .addComponent(jButton2))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -225,9 +222,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         jScrollPane2.setViewportView(jPanel1);
@@ -245,8 +240,8 @@ public class Home extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         pack();
@@ -283,10 +278,6 @@ public class Home extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,7 +321,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -341,4 +331,75 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+	public void setLevels(ArrayList<Level> levels) {
+		this.levels = levels;
+	}
+	
+	public void fillButtons() {
+		if(levels.get(0).getLessons()[0].calculatePoins()==60) {
+        	jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/JuegoTerminado.png"))); // NOI18N
+      
+        }else {
+        	jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/JuegoPendiente.png"))); // NOI18N
+            
+        }
+        
+        if(levels.get(0).getLessons()[1].calculatePoins()==60) {
+        	jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/JuegoTerminado.png"))); // NOI18N
+      
+        }else {
+        	if(levels.get(0).getLessons()[0].calculatePoins()==60) {
+        		jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/JuegoPendiente.png"))); // NOI18N
+                
+        	}else {
+        		jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
+                
+        	}
+        	
+        }
+        
+        if(levels.get(0).getLessons()[2].calculatePoins()==60) {
+        	jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/JuegoTerminado.png"))); // NOI18N
+      
+        }else {
+        	if(levels.get(0).getLessons()[1].calculatePoins()==60) {
+        		jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/JuegoPendiente.png"))); // NOI18N
+                
+        	}else {
+        		jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
+                
+        	}
+        	
+        }
+        
+        if(levels.get(0).getLessons()[3].calculatePoins()==60) {
+        	jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/JuegoTerminado.png"))); // NOI18N
+      
+        }else {
+        	if(levels.get(0).getLessons()[2].calculatePoins()==60) {
+        		jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/JuegoPendiente.png"))); // NOI18N
+                
+        	}else {
+        		jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
+                
+        	}
+        	
+        }
+        
+        if(levels.get(0).getLessons()[4].calculatePoins()==60) {
+        	jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/JuegoTerminado.png"))); // NOI18N
+      
+        }else {
+        	if(levels.get(0).getLessons()[3].calculatePoins()==60) {
+        		jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/JuegoPendiente.png"))); // NOI18N
+                
+        	}else {
+        		jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
+                
+        	}
+        	
+        }
+	}
+    
+    
 }

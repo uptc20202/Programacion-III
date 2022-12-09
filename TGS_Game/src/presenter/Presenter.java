@@ -20,50 +20,59 @@ public class Presenter implements ActionListener{
 	private ArrayList<String> temporalAnswer;
 	
 	public Presenter() {
-    	view = new Home(this);
-    	run();
+		run();
+    	view = new Home(this,mainGame.getLevels());
+    	
     }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		ReaderData.RefreshData(mainGame,"data/game.json");
+		ReaderData.RefreshLeve(mainGame.getLevels(), "data/LessonsV1.json");
 		String command = e.getActionCommand();
 		if (command.equals("nivel1")) {
 			questions = new Question(this);
 			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[0].getQuestions());
 			questions.setQuestionsFill();
 			temporalAnswer.clear();
+			questions.setLevelNumber(0);
  		}
-		System.out.println(mainGame.getLevels().get(0).getLessons().length);
 		if (command.equals("nivel2")) {
-			questions = new Question(this);
-			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[1].getQuestions());
-			questions.setQuestionsFill();
-			temporalAnswer.clear();
+			if(mainGame.getLevels().get(0).getLessons()[0].calculatePoins()==60) {
+				questions = new Question(this);
+				questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[1].getQuestions());
+				questions.setQuestionsFill();
+				temporalAnswer.clear();
+				questions.setLevelNumber(1);
+			}
  		}
 		if (command.equals("nivel3")) {
-			questions = new Question(this);
-			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[2].getQuestions());
-			questions.setQuestionsFill();
-			temporalAnswer.clear();
+			if(mainGame.getLevels().get(0).getLessons()[1].calculatePoins()==60) {
+				questions = new Question(this);
+				questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[2].getQuestions());
+				questions.setQuestionsFill();
+				temporalAnswer.clear();
+				questions.setLevelNumber(2);
+			}	
  		}
 		if (command.equals("nivel4")) {
-			questions = new Question(this);
-			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[3].getQuestions());
-			questions.setQuestionsFill();
-			temporalAnswer.clear();
+			if(mainGame.getLevels().get(0).getLessons()[2].calculatePoins()==60) {
+				questions = new Question(this);
+				questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[3].getQuestions());
+				questions.setQuestionsFill();
+				temporalAnswer.clear();
+				questions.setLevelNumber(3);
+			}	
  		}
 		if (command.equals("nivel5")) {
-			questions = new Question(this);
-			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[4].getQuestions());
-			questions.setQuestionsFill();
-			temporalAnswer.clear();
- 		}
-		if (command.equals("nivel6")) {
-			questions = new Question(this);
-			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[5].getQuestions());
-			questions.setQuestionsFill();
-			temporalAnswer.clear();
+			if(mainGame.getLevels().get(0).getLessons()[3].calculatePoins()==60) {
+				questions = new Question(this);
+				questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[4].getQuestions());
+				questions.setQuestionsFill();
+				temporalAnswer.clear();
+				questions.setLevelNumber(4);
+			}	
  		}
 		if (command.equals("answer1")) {
 			if(!temporalAnswer.contains(questions.getjButton3Txt())) {
@@ -165,6 +174,7 @@ public class Presenter implements ActionListener{
 				questions.PaintJPanel1(new Color(255,223,224));
 			}
 			
+			view.fillButtons();
 			questions.setjButton1("continue","/resource/img/btnContinuar.png");
  		}
 		if (command.equals("continue")) {
@@ -191,6 +201,8 @@ public class Presenter implements ActionListener{
 	public static void main(String[] args) {
 		new Presenter();	
 	}
+	
+	
 
     
 }

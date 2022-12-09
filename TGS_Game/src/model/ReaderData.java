@@ -25,7 +25,7 @@ public class ReaderData {
 		
 	}
 	
-	public static void RefreshLeve(Level[] game, String nameField) {
+	public static void RefreshLeve(ArrayList<Level> game, String nameField) {
 		String json = new Gson().toJson(game);
 		
 		PrintWriter print;
