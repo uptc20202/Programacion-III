@@ -32,12 +32,12 @@ public class Question extends javax.swing.JFrame {
 	
     public Question(ActionListener listener) {
     	super("Questions");
+    	CustomFont customFont = new CustomFont("font\\\\Frygia-Bold.ttf");
+		font = customFont.customFontStream();
         initComponents2(listener);
         this.positionQuestions = 0;
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
-		CustomFont customFont = new CustomFont("font\\\\Frygia-Bold.ttf");
-		font = customFont.customFontStream();
     }
 
     /**
@@ -51,13 +51,14 @@ public class Question extends javax.swing.JFrame {
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents2(ActionListener listener) {
-
+    	
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -87,12 +88,17 @@ public class Question extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/btnComprobar.png"))); // NOI18N
 
+        jLabel3.setFont(font.deriveFont(Font.BOLD, 23));
+        jLabel3.setText("");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(863, Short.MAX_VALUE)
+                .addGap(99, 99, 99)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 727, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(52, 52, 52))
         );
@@ -100,7 +106,9 @@ public class Question extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton1))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -135,7 +143,7 @@ public class Question extends javax.swing.JFrame {
         jButton4.setText("jButton2");
 
         jButton9.setText("jButton2");
-        
+
         jButton1.setActionCommand("checkAnswer");
         jButton1.addActionListener(listener);
         
@@ -162,7 +170,7 @@ public class Question extends javax.swing.JFrame {
         
         jButton7.setActionCommand("answer8");
         jButton7.addActionListener(listener);
-
+        
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -239,7 +247,7 @@ public class Question extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
+            .addGap(0, 1218, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +260,7 @@ public class Question extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
+            .addGap(0, 1218, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,6 +321,7 @@ public class Question extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -502,6 +511,8 @@ public class Question extends javax.swing.JFrame {
 		jButton7.setBackground(color);
 	}
 	
+	
+	
 	public void getjButton8Paint(Color color) {
 		// TODO Auto-generated method stub
 		jButton8.setBackground(color);
@@ -516,4 +527,20 @@ public class Question extends javax.swing.JFrame {
 		// TODO Auto-generated method stub
 		jPanel1.setBackground(color);
 	}
+
+	public javax.swing.JLabel getjLabel3() {
+		return jLabel3;
+	}
+
+	public void setjLabel3Txt(String txt) {
+		jLabel3.setText(txt);
+	}
+
+	public void setjButton1(String command1,String url) {
+		this.jButton1.setActionCommand(command1);
+		jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(url))); // NOI18N
+
+	}
+	
+	
 }

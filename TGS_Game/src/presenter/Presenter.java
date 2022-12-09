@@ -117,8 +117,21 @@ public class Presenter implements ActionListener{
 			
  		}
 		if (command.equals("checkAnswer")) {
-			mainGame.getLevels().get(0).getLessons()[questions.getLevelNumber()].getQuestions()[questions.getPositionQuestions()].valitaPointsAnswer(temporalAnswer);
-			questions.PaintJPanel1(new Color(215,255,184));
+			if(mainGame.getLevels().get(0).getLessons()[questions.getLevelNumber()].getQuestions()
+					[questions.getPositionQuestions()].valitaPointsAnswer(temporalAnswer)) {
+				questions.PaintJPanel1(new Color(215,255,184));
+				questions.setjLabel3Txt("¡Bien hecho!");
+			}else {
+				String allAnswers ="";
+				for(String answer:mainGame.getLevels().get(0).getLessons()
+						[questions.getLevelNumber()].getQuestions()[questions.getPositionQuestions()]
+								.getAnswersTrue()) {
+					allAnswers=allAnswers+" "+answer;
+				}
+				questions.setjLabel3Txt("Solución correcta: \n"+allAnswers);
+			}
+			
+			questions.setjButton1("continue","/resource/img/btnContinuar.png");
  		}
 		
 	}
