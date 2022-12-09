@@ -385,7 +385,6 @@ public class Question extends javax.swing.JFrame {
                 
                 jButton2.setBackground(Color.white);        
 	    jButton2.setText(answers[numero]);
-	    System.out.println(answers[numero]);
                 numeros.add(numero);
                 
                 numero = (int)(Math.random()*8+0);
