@@ -36,7 +36,7 @@ public class Presenter implements ActionListener{
 		if (command.equals("answer1")) {
 			if(!temporalAnswer.contains(questions.getjButton3Txt())) {
 				temporalAnswer.add(questions.getjButton3Txt());
-				questions.getjButton3Paint(Color.green);
+				questions.getjButton3Paint(new Color(88,204,2));
 			}else {
 				temporalAnswer.remove(questions.getjButton3Txt());
 				questions.getjButton3Paint(Color.white);
@@ -47,7 +47,7 @@ public class Presenter implements ActionListener{
 		if (command.equals("answer2")) {
 			if(!temporalAnswer.contains(questions.getjButton2Txt())) {
 				temporalAnswer.add(questions.getjButton2Txt());
-				questions.getjButton2Paint(Color.green);
+				questions.getjButton2Paint(new Color(88,204,2));
 			}else {
 				temporalAnswer.remove(questions.getjButton2Txt());
 				questions.getjButton2Paint(Color.white);
@@ -57,7 +57,7 @@ public class Presenter implements ActionListener{
  		}if (command.equals("answer3")) {
 			if(!temporalAnswer.contains(questions.getjButton5Txt())) {
 				temporalAnswer.add(questions.getjButton5Txt());
-				questions.getjButton5Paint(Color.green);
+				questions.getjButton5Paint(new Color(88,204,2));
 			}else {
 				temporalAnswer.remove(questions.getjButton5Txt());
 				questions.getjButton5Paint(Color.white);
@@ -67,7 +67,7 @@ public class Presenter implements ActionListener{
  		}if (command.equals("answer4")) {
 			if(!temporalAnswer.contains(questions.getjButton6Txt())) {
 				temporalAnswer.add(questions.getjButton6Txt());
-				questions.getjButton6Paint(Color.green);
+				questions.getjButton6Paint(new Color(88,204,2));
 			}else {
 				temporalAnswer.remove(questions.getjButton6Txt());
 				questions.getjButton6Paint(Color.white);
@@ -77,7 +77,7 @@ public class Presenter implements ActionListener{
  		}if (command.equals("answer5")) {
 			if(!temporalAnswer.contains(questions.getjButton9Txt())) {
 				temporalAnswer.add(questions.getjButton9Txt());
-				questions.getjButton9Paint(Color.green);
+				questions.getjButton9Paint(new Color(88,204,2));
 			}else {
 				temporalAnswer.remove(questions.getjButton9Txt());
 				questions.getjButton9Paint(Color.white);
@@ -87,7 +87,7 @@ public class Presenter implements ActionListener{
  		}if (command.equals("answer6")) {
 			if(!temporalAnswer.contains(questions.getjButton4Txt())) {
 				temporalAnswer.add(questions.getjButton4Txt());
-				questions.getjButton4Paint(Color.green);
+				questions.getjButton4Paint(new Color(88,204,2));
 			}else {
 				temporalAnswer.remove(questions.getjButton4Txt());
 				questions.getjButton4Paint(Color.white);
@@ -97,7 +97,7 @@ public class Presenter implements ActionListener{
  		}if (command.equals("answer7")) {
 			if(!temporalAnswer.contains(questions.getjButton8Txt())) {
 				temporalAnswer.add(questions.getjButton8Txt());
-				questions.getjButton8Paint(Color.green);
+				questions.getjButton8Paint(new Color(88,204,2));
 			}else {
 				temporalAnswer.remove(questions.getjButton8Txt());
 				questions.getjButton8Paint(Color.white);
@@ -108,7 +108,7 @@ public class Presenter implements ActionListener{
  		if (command.equals("answer8")) {
 			if(!temporalAnswer.contains(questions.getjButton7Txt())) {
 				temporalAnswer.add(questions.getjButton7Txt());
-				questions.getjButton7Paint(Color.green);
+				questions.getjButton7Paint(new Color(88,204,2));
 			}else {
 				temporalAnswer.remove(questions.getjButton7Txt());
 				questions.getjButton7Paint(Color.white);
@@ -118,6 +118,7 @@ public class Presenter implements ActionListener{
  		}
 		if (command.equals("checkAnswer")) {
 			mainGame.getLevels().get(0).getLessons()[questions.getLevelNumber()].getQuestions()[questions.getPositionQuestions()].valitaPointsAnswer(temporalAnswer);
+			questions.PaintJPanel1(new Color(215,255,184));
  		}
 		
 	}
