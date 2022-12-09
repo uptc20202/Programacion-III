@@ -30,7 +30,8 @@ public class Presenter implements ActionListener{
 		String command = e.getActionCommand();
 		if (command.equals("nivel1")) {
 			questions = new Question(this);
-			questions.setQuestionsFill(mainGame.getLevels().get(0).getLessons()[0].getQuestions());
+			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[0].getQuestions());
+			questions.setQuestionsFill();
 			temporalAnswer.clear();
  		}
 		if (command.equals("answer1")) {
@@ -135,6 +136,12 @@ public class Presenter implements ActionListener{
 			
 			questions.setjButton1("continue","/resource/img/btnContinuar.png");
  		}
+		if (command.equals("continue")) {
+			questions.increasePositionQuestions();
+			questions.setQuestionsFill();
+			questions.clearJPanel1();
+			temporalAnswer.clear();
+		}
 		
 	}
 	

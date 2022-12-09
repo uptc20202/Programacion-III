@@ -357,9 +357,13 @@ public class Question extends javax.swing.JFrame {
 		
 	}
 
-	public void setQuestionsFill(QuestionsModel[] questionsModel) {
-		// TODO Auto-generated method stub
+	
+	public void setQuestionsModel(QuestionsModel[] questionsModel) {
 		this.questionsModel = questionsModel;
+	}
+
+	public void setQuestionsFill() {
+		// TODO Auto-generated method stub
 		this.setJTextPane1(questionsModel[positionQuestions].getName());
 		fillButtons();
 	}
@@ -379,15 +383,17 @@ public class Question extends javax.swing.JFrame {
                 int numero = (int)(Math.random()*8+0); 
                 ArrayList numeros = new ArrayList();
                 
-                
+                jButton2.setBackground(Color.white);        
 	    jButton2.setText(answers[numero]);
+	    System.out.println(answers[numero]);
                 numeros.add(numero);
                 
                 numero = (int)(Math.random()*8+0);
-                System.out.println(numero);
                 while(numeros.contains(numero)){
                 	numero = (int)(Math.random()*8+0);
                 }
+                
+                jButton3.setBackground(Color.white);
 	    jButton3.setText(answers[numero]);
                 numeros.add(numero);
                 
@@ -395,6 +401,8 @@ public class Question extends javax.swing.JFrame {
                 while(numeros.contains(numero)){
                 	numero = (int)(Math.random()*8+0);
                 }
+                
+                jButton4.setBackground(Color.white);
 	    jButton4.setText(answers[numero]);
                 numeros.add(numero);
                 
@@ -402,6 +410,8 @@ public class Question extends javax.swing.JFrame {
                 while(numeros.contains(numero)){
                 	numero = (int)(Math.random()*8+0);
                 }
+                
+                jButton5.setBackground(Color.white);
 	    jButton5.setText(answers[numero]);
                 numeros.add(numero);
                 
@@ -409,6 +419,8 @@ public class Question extends javax.swing.JFrame {
                 while(numeros.contains(numero)){
                 	numero = (int)(Math.random()*8+0);
                 }
+                
+                jButton6.setBackground(Color.white);
 	    jButton6.setText(answers[numero]);
                 numeros.add(numero);
                 
@@ -416,6 +428,8 @@ public class Question extends javax.swing.JFrame {
                 while(numeros.contains(numero)){
                 	numero = (int)(Math.random()*8+0);
                 }
+                
+                jButton7.setBackground(Color.white);
 	    jButton7.setText(answers[numero]);
                 numeros.add(numero);
                 
@@ -423,6 +437,8 @@ public class Question extends javax.swing.JFrame {
                 while(numeros.contains(numero)){
                 	numero = (int)(Math.random()*8+0);
                 }
+                
+                jButton8.setBackground(Color.white);
 	    jButton8.setText(answers[numero]);
                 numeros.add(numero);
                 
@@ -430,6 +446,8 @@ public class Question extends javax.swing.JFrame {
                 while(numeros.contains(numero)){
                 	numero = (int)(Math.random()*8+0);
                 }
+                
+                jButton9.setBackground(Color.white);
 	    jButton9.setText(answers[numero]);
                 
 	}
@@ -558,6 +576,24 @@ public class Question extends javax.swing.JFrame {
 
 	public void setjLabel4(String txt) {
 		jLabel4.setText(txt);
+	}
+
+	public void increasePositionQuestions() {
+		// TODO Auto-generated method stub
+		if(positionQuestions<questionsModel.length-1) {
+			positionQuestions++;
+		}else {
+			this.dispose ();
+		}
+	}
+
+	public void clearJPanel1() {
+		// TODO Auto-generated method stub
+		setjButton1("checkAnswer","/resource/img/btnComprobar.png");
+		setjLabel3Txt("");
+		setjLabel4("");
+		PaintJPanel1(new Color(255,255,255));
+		jTextArea2.setText("");
 	}
 	
 	

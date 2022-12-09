@@ -1,94 +1,300 @@
-[{"name":"Autores",
-  "Description":"Identifica principales autores en la TGS",
-  "lessons":[{"name":"Nivel 1:",
-    "state":false,
-    "questions":[{"name":"Creador de la teoría general de sistemas",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Ludwig","Von","Bertalanffy"],
-      "answersFalse":["CheckLand","Albert","Einsten","Peter","Senge"]
-    },{"name":"Afirmó: “El todo es más que la suma de sus partes”",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Aristóteles"],
-      "answersFalse":["CheckLand","Peter", "Senge", "Sttaford","Beer", "Ludwig", "Von", "Bertalanffy"]
-    },{"name":"Planteó las 11 leyes del pensamiento sistémico",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Peter","Senge"],
-      "answersFalse":["CheckLand", "Sttaford","Beer", "Ludwig", "Von", "Bertalanffy"]
-    }]
-  },{"name":"Nivel 2:",
-    "state":false,
-    "questions":[{"name":"¿Que creó Ludwig Von Bertalanffy?",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["La","teoria", "general", "de", "sistemas"],
-      "answersFalse":["Metodología", "de", "los", "suaves"]
-    },{"name":"Aristóteles afirmó:",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["El", "todo", "es", "más", "que", "la", "suma","de", "sus","partes"],
-      "answersFalse":["La", "teoria", "sistemas"]
-    },{"name":"Peter Senge planteó:",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Las", "11", "leyes", "del", "pensamiento", "sistémico"],
-      "answersFalse":["8", "formas"]
-    }]
-  },{"name":"Nivel 3:",
-    "state":false,
-    "questions":[{"name":"Propone encontrar la correspondencia o isomorfismos entre sistemas de todo tipo, un modelo de Sistema General, que sea compatible con otros modelos de distintas disciplinas.",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Ludwig","Von","Bertalanffy"],
-      "answersFalse":["CheckLand", "Peter", "Senge", "Albert", "Einstein"]
-    },{"name":"Filósofo que afirmó la definición del problema básico de un sistema, el cual al día de hoy es válido.",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Aristóteles"],
-      "answersFalse":["CheckLand", "Stafford", "Beer", "Albert", "Einstein", "Platón", "Descártes"]
-    },{"name":"Autor de leyes o verdades para tomar en cuenta al desarrollar, corregir o diseñar un sistema.",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Peter","Senge"],
-      "answersFalse":["Aristóteles", "Bertalanffy","Ludmig", "Von", "CheckLand", "Descártes"]
-    }]
-  },{"name":"Nivel 4:",
-    "state":false,
-    "questions":[{"name":"Propuso una metodología sistémica fundamentada en el concepto de perspectiva.",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Peter","Checkland"],
-      "answersFalse":["Aristoteles","Senge","Stafford", "Beer", "Niklas", "Luhmann"]
-    },{"name":"Planteó la metodología que está conformada por siete estadios cuyo orden puede variar de acuerdo a las características del estudio.",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Peter","Checkland"],
-      "answersFalse":["Aristoteles","Senge","Ainstein", "Beer", "Niklas", "Luhmann"]
-    },{"name":"Autor que define como sistema viable, aquel que es variable y se acopla con su entorno cambiante.",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Stafford", "Beer"],
-      "answersFalse":["Aristoteles","Senge","CheckLand","Peter", "Niklas", "Luhmann"]
-    }]
-  },{"name":"Nivel 5:",
-    "state":false,
-    "questions":[{"name":"¿Qué metodología propuso Peter Checkland?",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Propone", "una", "metodología", "para", "los", "sistemas", "blandos."],
-      "answersFalse":["teoría", "complejos"]
-    },{"name":"¿Qué modelo propuso Peter Checkland?",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["C","A","T","W","O","E"],
-      "answersFalse":["D","R"]
-    },{"name":"“Ser capaz de autoorganizarse, mantenerse constante y cambiar de acuerdo a las exigencias”. Es una característica de la taxonomía de:",
-      "points":0,
-      "allowedError":0,
-      "answersTrue":["Stafford", "Beer "],
-      "answersFalse":["Aristoteles","Senge","CheckLand","Peter", "Jay", "Forrester"]
-    }]
-  }]
-}]
+[
+  {
+    "name": "Autores",
+    "Description": "Identifica principales autores en la TGS",
+    "lessons": [
+      {
+        "name": "Nivel 1:",
+        "state": false,
+        "questions": [
+          {
+            "name": "Creador de la teoría general de sistemas",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Ludwig",
+              "Von",
+              "Bertalanffy"
+            ],
+            "answersFalse": [
+              "CheckLand",
+              "Albert",
+              "Einsten",
+              "Peter",
+              "Senge"
+            ]
+          },
+          {
+            "name": "Afirmó: “El todo es más que la suma de sus partes”",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Aristóteles"
+            ],
+            "answersFalse": [
+              "CheckLand",
+              "Peter",
+              "Senge",
+              "Sttaford",
+              "Ludwig",
+              "Von",
+              "Bertalanffy"
+            ]
+          },
+          {
+            "name": "Planteó las 11 leyes del pensamiento sistémico",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Peter",
+              "Senge"
+            ],
+            "answersFalse": [
+              "CheckLand",
+              "Sttaford",
+              "Beer",
+              "Ludwig",
+              "Von",
+              "Bertalanffy"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Nivel 2:",
+        "state": false,
+        "questions": [
+          {
+            "name": "¿Que creó Ludwig Von Bertalanffy?",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "La",
+              "teoria",
+              "general",
+              "de",
+              "sistemas"
+            ],
+            "answersFalse": [
+              "Metodología",
+              "de",
+              "los",
+              "suaves"
+            ]
+          },
+          {
+            "name": "Aristóteles afirmó:",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "El",
+              "todo",
+              "es",
+              "más",
+              "que",
+              "la",
+              "suma",
+              "de",
+              "sus",
+              "partes"
+            ],
+            "answersFalse": [
+              "La",
+              "teoria",
+              "sistemas"
+            ]
+          },
+          {
+            "name": "Peter Senge planteó:",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Las",
+              "11",
+              "leyes",
+              "del",
+              "pensamiento",
+              "sistémico"
+            ],
+            "answersFalse": [
+              "8",
+              "formas"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Nivel 3:",
+        "state": false,
+        "questions": [
+          {
+            "name": "Propone encontrar la correspondencia o isomorfismos entre sistemas de todo tipo, un modelo de Sistema General, que sea compatible con otros modelos de distintas disciplinas.",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Ludwig",
+              "Von",
+              "Bertalanffy"
+            ],
+            "answersFalse": [
+              "CheckLand",
+              "Peter",
+              "Senge",
+              "Albert",
+              "Einstein"
+            ]
+          },
+          {
+            "name": "Filósofo que afirmó la definición del problema básico de un sistema, el cual al día de hoy es válido.",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Aristóteles"
+            ],
+            "answersFalse": [
+              "CheckLand",
+              "Stafford",
+              "Beer",
+              "Albert",
+              "Einstein",
+              "Platón",
+              "Descártes"
+            ]
+          },
+          {
+            "name": "Autor de leyes o verdades para tomar en cuenta al desarrollar, corregir o diseñar un sistema.",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Peter",
+              "Senge"
+            ],
+            "answersFalse": [
+              "Aristóteles",
+              "Bertalanffy",
+              "Ludmig",
+              "Von",
+              "CheckLand",
+              "Descártes"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Nivel 4:",
+        "state": false,
+        "questions": [
+          {
+            "name": "Propuso una metodología sistémica fundamentada en el concepto de perspectiva.",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Peter",
+              "Checkland"
+            ],
+            "answersFalse": [
+              "Aristoteles",
+              "Senge",
+              "Stafford",
+              "Beer",
+              "Niklas",
+              "Luhmann"
+            ]
+          },
+          {
+            "name": "Planteó la metodología que está conformada por siete estadios cuyo orden puede variar de acuerdo a las características del estudio.",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Peter",
+              "Checkland"
+            ],
+            "answersFalse": [
+              "Aristoteles",
+              "Senge",
+              "Ainstein",
+              "Beer",
+              "Niklas",
+              "Luhmann"
+            ]
+          },
+          {
+            "name": "Autor que define como sistema viable, aquel que es variable y se acopla con su entorno cambiante.",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Stafford",
+              "Beer"
+            ],
+            "answersFalse": [
+              "Aristoteles",
+              "Senge",
+              "CheckLand",
+              "Peter",
+              "Niklas",
+              "Luhmann"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Nivel 5:",
+        "state": false,
+        "questions": [
+          {
+            "name": "¿Qué metodología propuso Peter Checkland?",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Propone",
+              "una",
+              "metodología",
+              "para",
+              "los",
+              "sistemas",
+              "blandos."
+            ],
+            "answersFalse": [
+              "teoría",
+              "complejos"
+            ]
+          },
+          {
+            "name": "¿Qué modelo propuso Peter Checkland?",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "C",
+              "A",
+              "T",
+              "W",
+              "O",
+              "E"
+            ],
+            "answersFalse": [
+              "D",
+              "R"
+            ]
+          },
+          {
+            "name": "“Ser capaz de autoorganizarse, mantenerse constante y cambiar de acuerdo a las exigencias”. Es una característica de la taxonomía de:",
+            "points": 0,
+            "allowedError": 0,
+            "answersTrue": [
+              "Stafford",
+              "Beer "
+            ],
+            "answersFalse": [
+              "Aristoteles",
+              "Senge",
+              "CheckLand",
+              "Peter",
+              "Jay",
+              "Forrester"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
