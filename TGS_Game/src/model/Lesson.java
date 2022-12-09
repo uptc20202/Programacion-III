@@ -1,12 +1,14 @@
 package model;
 
+import java.util.Arrays;
+
 public class Lesson {
 	
 	private String name;
 	private boolean state;
-	private Questions[] questions;
+	private QuestionsModel[] questions;
 	
-	public Lesson(String name, boolean state, Questions[] questions) {
+	public Lesson(String name, boolean state, QuestionsModel[] questions) {
 		super();
 		this.name = name;
 		this.state = state;
@@ -24,10 +26,16 @@ public class Lesson {
 	public void setState(boolean state) {
 		this.state = state;
 	}
-	public Questions[] getQuestions() {
+	public QuestionsModel[] getQuestions() {
 		return questions;
 	}
-	public void setQuestions(Questions[] questions) {
+	public void setQuestions(QuestionsModel[] questions) {
 		this.questions = questions;
 	}
+	@Override
+	public String toString() {
+		return "Lesson [name=" + name + ", state=" + state + ", questions=" + Arrays.toString(questions) + "]";
+	}
+	
+	
 }

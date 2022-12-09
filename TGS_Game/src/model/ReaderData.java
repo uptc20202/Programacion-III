@@ -58,6 +58,10 @@ public class ReaderData {
 			levels.add(level1);
 		}
 		
+		
+		for(Level level1: levels) {
+			System.out.println(level1+" TEst lectura");
+		}
 		return levels;
 	}
 	

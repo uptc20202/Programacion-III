@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+
 public class Level {
 	private String name;
 	private String Descrition;
@@ -34,4 +36,11 @@ public class Level {
 	public void setLessons(Lesson[] lessons) {
 		this.lessons = lessons;
 	}
+
+	@Override
+	public String toString() {
+		return "Level [name=" + name + ", Descrition=" + Descrition + ", lessons=" + Arrays.toString(lessons) + "]";
+	}
+	
+	
 }

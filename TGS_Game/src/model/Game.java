@@ -1,7 +1,9 @@
 package model;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -10,7 +12,7 @@ public class Game {
 	private Divition divition;
 	private Date lastConnection;
 	private int streak;
-	private Level[] level;
+	private ArrayList<Level> levels;
 	
 	public Game() {
 		super();
@@ -22,7 +24,16 @@ public class Game {
 		this.divition = divition;
 		this.lastConnection = lastConnection;
 		this.streak = streak;
+		try {
+			this.levels = ReaderData.readerLevel("data/LessonsV1.json");
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	
 
 	public DivitionName getDivition() {
 		return divition.calculateDivition(points);
@@ -80,7 +91,15 @@ public class Game {
 	@Override
 	public String toString() {
 		return "Game [points=" + points + ", divition=" + divition + ", lastConnection=" + lastConnection + ", streak="
-				+ streak + ", level=" + Arrays.toString(level) + "]";
+				+ streak + ", level=" + "]";
+	}
+
+	public ArrayList<Level> getLevels() {
+		return levels;
+	}
+
+	public void setLevels(ArrayList<Level> arrayList) {
+		this.levels = arrayList;
 	}
 	
 	

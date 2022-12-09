@@ -20,7 +20,7 @@ public class Home extends javax.swing.JFrame {
      */
     public Home(ActionListener listener) {
     	super("Home");
-        initComponents(listener);
+        initComponents2(listener);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
     }
@@ -32,7 +32,7 @@ public class Home extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(ActionListener listener) {
+    private void initComponents2(ActionListener listener) {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
@@ -99,7 +99,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Ultima", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(205, 121, 0));
-        jLabel2.setText("Usa frases básicas, habla de la comida");
+        jLabel2.setText("Identifica concetos iniciales de TGS");
 
         jLabel3.setFont(new java.awt.Font("Ultima 2", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(205, 121, 0));
@@ -140,12 +140,9 @@ public class Home extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/Captura de pantalla 2022-12-07 145901.png"))); // NOI18N
         jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
+        jButton1.setActionCommand("nivel1");
+        jButton1.addActionListener(listener);
+		
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(

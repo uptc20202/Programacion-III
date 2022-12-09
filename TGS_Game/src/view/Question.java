@@ -4,6 +4,14 @@
  */
 package view;
 
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+import model.QuestionsModel;
+
 /**
  *
  * @author luism
@@ -13,8 +21,12 @@ public class Question extends javax.swing.JFrame {
     /**
      * Creates new form Question
      */
-    public Question() {
-        initComponents();
+    public Question(ActionListener listener) {
+    	super("Questions");
+        initComponents(listener);
+        this.positionQuestions = 0;
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setVisible(true);
     }
 
     /**
@@ -24,7 +36,7 @@ public class Question extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(ActionListener listener) {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -36,6 +48,14 @@ public class Question extends javax.swing.JFrame {
         jTextPane1 = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
 
@@ -52,7 +72,9 @@ public class Question extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/btnComprobar.png"))); // NOI18N
-
+        jButton1.setActionCommand("checkAnswer");
+        jButton1.addActionListener(listener);
+        
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -82,8 +104,27 @@ public class Question extends javax.swing.JFrame {
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jTextArea2.setRows(5);
         jScrollPane3.setViewportView(jTextArea2);
+
+        jButton2.setText("jButton2");
+
+        jButton3.setText("jButton2");
+        jButton1.setActionCommand("answer1");
+        jButton1.addActionListener(listener);
+
+        jButton5.setText("jButton2");
+
+        jButton6.setText("jButton2");
+
+        jButton7.setText("jButton2");
+
+        jButton8.setText("jButton2");
+
+        jButton4.setText("jButton2");
+
+        jButton9.setText("jButton2");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -105,6 +146,26 @@ public class Question extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(199, 199, 199))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,7 +179,19 @@ public class Question extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                .addGap(54, 54, 54)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -159,40 +232,48 @@ public class Question extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Question().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Question.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Question().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -204,5 +285,143 @@ public class Question extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextPane jTextPane1;
+    private QuestionsModel[] questionsModel; 
+    private int positionQuestions;
     // End of variables declaration//GEN-END:variables
+	public void setJTextPane1(String string) {
+		// TODO Auto-generated method stub
+		jTextPane1.setText(string);
+		
+	}
+
+	public void fill(QuestionsModel[] questions) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setQuestionsFill(QuestionsModel[] questionsModel) {
+		// TODO Auto-generated method stub
+		this.questionsModel = questionsModel;
+		this.setJTextPane1(questionsModel[positionQuestions].getName());
+		fillButtons();
+	}
+	
+	public void fillButtons() {
+		String[] answers = new String[8];
+		for(int i = 0; i < questionsModel[positionQuestions].getAnswersFalse().length;i++ ) {
+			answers[i]= questionsModel[positionQuestions].getAnswersFalse()[i];
+		}
+		int count = 0;
+		for(int i = questionsModel[positionQuestions].getAnswersFalse().length; i < 8;i++ ) {
+			answers[i]= 
+					questionsModel[positionQuestions].getAnswersTrue()[count];
+			count++;
+		}
+		
+                int numero = (int)(Math.random()*8+0); 
+                ArrayList numeros = new ArrayList();
+                
+                
+	    jButton2.setText(answers[numero]);
+                numeros.add(numero);
+                
+                numero = (int)(Math.random()*8+0);
+                System.out.println(numero);
+                while(numeros.contains(numero)){
+                	numero = (int)(Math.random()*8+0);
+                }
+	    jButton3.setText(answers[numero]);
+                numeros.add(numero);
+                
+                numero = (int)(Math.random()*8+0);
+                while(numeros.contains(numero)){
+                	numero = (int)(Math.random()*8+0);
+                }
+	    jButton4.setText(answers[numero]);
+                numeros.add(numero);
+                
+                numero = (int)(Math.random()*8+0);
+                while(numeros.contains(numero)){
+                	numero = (int)(Math.random()*8+0);
+                }
+	    jButton5.setText(answers[numero]);
+                numeros.add(numero);
+                
+                numero = (int)(Math.random()*8+0);
+                while(numeros.contains(numero)){
+                	numero = (int)(Math.random()*8+0);
+                }
+	    jButton6.setText(answers[numero]);
+                numeros.add(numero);
+                
+                numero = (int)(Math.random()*8+0);
+                while(numeros.contains(numero)){
+                	numero = (int)(Math.random()*8+0);
+                }
+	    jButton7.setText(answers[numero]);
+                numeros.add(numero);
+                
+                numero = (int)(Math.random()*8+0);
+                while(numeros.contains(numero)){
+                	numero = (int)(Math.random()*8+0);
+                }
+	    jButton8.setText(answers[numero]);
+                numeros.add(numero);
+                
+                numero = (int)(Math.random()*8+0);
+                while(numeros.contains(numero)){
+                	numero = (int)(Math.random()*8+0);
+                }
+	    jButton9.setText(answers[numero]);
+                
+	}
+	
+	public String getjButton2Txt() {
+		// TODO Auto-generated method stub
+		return jButton2.getText();
+	}
+	
+	public String getjButton3Txt() {
+		// TODO Auto-generated method stub
+		return jButton3.getText();
+	}
+	
+	public String getjButton4Txt() {
+		// TODO Auto-generated method stub
+		return jButton4.getText();
+	}
+	
+	public String getjButton5Txt() {
+		// TODO Auto-generated method stub
+		return jButton5.getText();
+	}
+	
+	public String getjButton6Txt() {
+		// TODO Auto-generated method stub
+		return jButton6.getText();
+	}
+	
+	public String getjButton7Txt() {
+		// TODO Auto-generated method stub
+		return jButton7.getText();
+	}
+	
+	public String getjButton8Txt() {
+		// TODO Auto-generated method stub
+		return jButton8.getText();
+	}
+	
+	public String getjButton9Txt() {
+		// TODO Auto-generated method stub
+		return jButton9.getText();
+	}
+
+	public void setJTextPane1(ArrayList<String> temporalAnswer) {
+		// TODO Auto-generated method stub
+		String answerBuilt = "";
+		for(String answerBuilt1: temporalAnswer) {
+			answerBuilt = answerBuilt+" "+answerBuilt1;
+		}
+		jTextPane1.setText(answerBuilt);
+	}
 }

@@ -6,7 +6,7 @@ import java.io.IOException;
 import model.Game;
 import model.Lesson;
 import model.Level;
-import model.Questions;
+import model.QuestionsModel;
 import model.ReaderData;
 
 public class Test {
@@ -21,8 +21,8 @@ public class Test {
 				+"Hola "+ game.getStreak());
 		
 		Level level = new Level("Autores","Identifica principales autores en la TGS",
-				new Lesson[] {new Lesson("Nivel 1",false,new Questions[] {
-						new Questions("Creador de la teoría general de sistemas:",0,
+				new Lesson[] {new Lesson("Nivel 1",false,new QuestionsModel[] {
+						new QuestionsModel("Creador de la teoría general de sistemas:",0,
 								new String[]{"Ludwig"},new String[]{"Ludwig"})}
 						)}
 				);

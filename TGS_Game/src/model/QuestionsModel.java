@@ -1,6 +1,8 @@
 package model;
 
-public class Questions {
+import java.util.Arrays;
+
+public class QuestionsModel {
 	
 	private String name;
 	private int points;
@@ -8,7 +10,7 @@ public class Questions {
 	private String[] answersTrue;
 	private String[] answersFalse;
 
-	public Questions(String name, int allowedError, String[] answersTrue, String[] answersFalse) {
+	public QuestionsModel(String name, int allowedError, String[] answersTrue, String[] answersFalse) {
 		super();
 		this.name = name;
 		this.points = 0;
@@ -67,6 +69,14 @@ public class Questions {
 
 	public String[] getAnswersFalse() {
 		return answersFalse;
+	}
+
+
+	@Override
+	public String toString() {
+		return "QuestionsModel [name=" + name + ", points=" + points + ", allowedError=" + allowedError
+				+ ", answersTrue=" + Arrays.toString(answersTrue) + ", answersFalse=" + Arrays.toString(answersFalse)
+				+ "]";
 	}
 	
 	
