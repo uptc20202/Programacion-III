@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class QuestionsModel {
@@ -20,11 +21,11 @@ public class QuestionsModel {
 	}
 	
 	
-	public boolean valitaPointsAnswer(String[] answers) {
+	public boolean valitaPointsAnswer(ArrayList<String> temporalAnswer) {
 		int error = 0;
-		if(answers.length == answersTrue.length ) {
+		if(temporalAnswer.size() == answersTrue.length ) {
 			int index = 0;
-			for(String partAnswer :answers) {
+			for(String partAnswer :temporalAnswer) {
 				
 				if(allowedError < error) {
 					return false;

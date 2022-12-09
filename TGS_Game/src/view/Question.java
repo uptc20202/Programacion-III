@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class Question extends javax.swing.JFrame {
      */
     public Question(ActionListener listener) {
     	super("Questions");
-        initComponents(listener);
+        initComponents2(listener);
         this.positionQuestions = 0;
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
@@ -36,7 +37,7 @@ public class Question extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(ActionListener listener) {
+    private void initComponents2(ActionListener listener) {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -72,9 +73,7 @@ public class Question extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/btnComprobar.png"))); // NOI18N
-        jButton1.setActionCommand("checkAnswer");
-        jButton1.addActionListener(listener);
-        
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -104,15 +103,13 @@ public class Question extends javax.swing.JFrame {
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jTextArea2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextArea2.setRows(5);
         jScrollPane3.setViewportView(jTextArea2);
 
         jButton2.setText("jButton2");
 
         jButton3.setText("jButton2");
-        jButton1.setActionCommand("answer1");
-        jButton1.addActionListener(listener);
 
         jButton5.setText("jButton2");
 
@@ -125,6 +122,33 @@ public class Question extends javax.swing.JFrame {
         jButton4.setText("jButton2");
 
         jButton9.setText("jButton2");
+        
+        jButton1.setActionCommand("checkAnswer");
+        jButton1.addActionListener(listener);
+        
+        jButton3.setActionCommand("answer1");
+        jButton3.addActionListener(listener);
+        
+        jButton2.setActionCommand("answer2");
+        jButton2.addActionListener(listener);
+        
+        jButton5.setActionCommand("answer3");
+        jButton5.addActionListener(listener);
+        
+        jButton6.setActionCommand("answer4");
+        jButton6.addActionListener(listener);
+        
+        jButton9.setActionCommand("answer5");
+        jButton9.addActionListener(listener);
+        
+        jButton4.setActionCommand("answer6");
+        jButton4.addActionListener(listener);
+        
+        jButton8.setActionCommand("answer7");
+        jButton8.addActionListener(listener);
+        
+        jButton7.setActionCommand("answer8");
+        jButton7.addActionListener(listener);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -265,7 +289,7 @@ public class Question extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton jButton1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -285,8 +309,9 @@ public class Question extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextPane jTextPane1;
-    private QuestionsModel[] questionsModel; 
     private int positionQuestions;
+    private QuestionsModel[] questionsModel;
+    private int levelNumber;
     // End of variables declaration//GEN-END:variables
 	public void setJTextPane1(String string) {
 		// TODO Auto-generated method stub
@@ -416,12 +441,64 @@ public class Question extends javax.swing.JFrame {
 		return jButton9.getText();
 	}
 
-	public void setJTextPane1(ArrayList<String> temporalAnswer) {
+	public void setJTextArea2(ArrayList<String> temporalAnswer) {
 		// TODO Auto-generated method stub
 		String answerBuilt = "";
 		for(String answerBuilt1: temporalAnswer) {
 			answerBuilt = answerBuilt+" "+answerBuilt1;
 		}
-		jTextPane1.setText(answerBuilt);
+		jTextArea2.setText(answerBuilt);
+	}
+
+	public int getLevelNumber() {
+		return levelNumber;
+	}
+
+	public void setLevelNumber(int levelNumber) {
+		this.levelNumber = levelNumber;
+	}
+
+	public int getPositionQuestions() {
+		return positionQuestions;
+	}
+
+	public void getjButton2Paint(Color color) {
+		// TODO Auto-generated method stub
+		jButton2.setBackground(color);
+	}
+	
+	public void getjButton3Paint(Color color) {
+		// TODO Auto-generated method stub
+		jButton3.setBackground(color);
+	}
+	
+	public void getjButton4Paint(Color color) {
+		// TODO Auto-generated method stub
+		jButton4.setBackground(color);
+	}
+	
+	public void getjButton5Paint(Color color) {
+		// TODO Auto-generated method stub
+		jButton5.setBackground(color);
+	}
+	
+	public void getjButton6Paint(Color color) {
+		// TODO Auto-generated method stub
+		jButton6.setBackground(color);
+	}
+	
+	public void getjButton7Paint(Color color) {
+		// TODO Auto-generated method stub
+		jButton7.setBackground(color);
+	}
+	
+	public void getjButton8Paint(Color color) {
+		// TODO Auto-generated method stub
+		jButton8.setBackground(color);
+	}
+	
+	public void getjButton9Paint(Color color) {
+		// TODO Auto-generated method stub
+		jButton9.setBackground(color);
 	}
 }
