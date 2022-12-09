@@ -34,6 +34,37 @@ public class Presenter implements ActionListener{
 			questions.setQuestionsFill();
 			temporalAnswer.clear();
  		}
+		System.out.println(mainGame.getLevels().get(0).getLessons().length);
+		if (command.equals("nivel2")) {
+			questions = new Question(this);
+			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[1].getQuestions());
+			questions.setQuestionsFill();
+			temporalAnswer.clear();
+ 		}
+		if (command.equals("nivel3")) {
+			questions = new Question(this);
+			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[2].getQuestions());
+			questions.setQuestionsFill();
+			temporalAnswer.clear();
+ 		}
+		if (command.equals("nivel4")) {
+			questions = new Question(this);
+			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[3].getQuestions());
+			questions.setQuestionsFill();
+			temporalAnswer.clear();
+ 		}
+		if (command.equals("nivel5")) {
+			questions = new Question(this);
+			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[4].getQuestions());
+			questions.setQuestionsFill();
+			temporalAnswer.clear();
+ 		}
+		if (command.equals("nivel6")) {
+			questions = new Question(this);
+			questions.setQuestionsModel(mainGame.getLevels().get(0).getLessons()[5].getQuestions());
+			questions.setQuestionsFill();
+			temporalAnswer.clear();
+ 		}
 		if (command.equals("answer1")) {
 			if(!temporalAnswer.contains(questions.getjButton3Txt())) {
 				temporalAnswer.add(questions.getjButton3Txt());
