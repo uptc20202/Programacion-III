@@ -45,8 +45,10 @@ public class QuestionsModel {
 				}
 				index++;
 			}
+		}else {
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	public boolean validatePosition(String answer, int position) {

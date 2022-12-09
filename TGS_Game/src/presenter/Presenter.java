@@ -128,7 +128,9 @@ public class Presenter implements ActionListener{
 								.getAnswersTrue()) {
 					allAnswers=allAnswers+" "+answer;
 				}
-				questions.setjLabel3Txt("Solución correcta: \n"+allAnswers);
+				questions.setjLabel3Txt("Solución correcta: \n");
+				questions.setjLabel4(allAnswers);
+				questions.PaintJPanel1(new Color(255,223,224));
 			}
 			
 			questions.setjButton1("continue","/resource/img/btnContinuar.png");
